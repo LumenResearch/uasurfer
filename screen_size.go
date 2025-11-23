@@ -1,6 +1,11 @@
 package uasurfer
 
-var iPadScreenSizes = []Dimensions{
+type ScreenSize struct {
+	Width  int
+	Height int
+}
+
+var iPadScreenSizes = []ScreenSize{
 	{1024, 768},
 	{1112, 834},
 	{1366, 1024},

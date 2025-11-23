@@ -178,13 +178,8 @@ type OS struct {
 	Version  Version
 }
 
-type Dimensions struct {
-	Width  int
-	Height int
-}
-
 type Hints struct {
-	ScreenSize *Dimensions
+	ScreenSize *ScreenSize
 }
 
 // Reset resets the UserAgent to it's zero value
