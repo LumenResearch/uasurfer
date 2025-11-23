@@ -2,15 +2,14 @@ package uasurfer
 
 import (
 	"regexp"
-	"strconv"
 	"strings"
 )
 
 var (
-	amazonFireFingerprint = regexp.MustCompile("\\s(k[a-z]{3,5}|sd\\d{4}ur)\\s") //tablet or phone
+	amazonFireFingerprint = regexp.MustCompile(`\s(k[a-z]{3,5}|sd\d{4}ur)\s`) //tablet or phone
 )
 
-func (u *UserAgent) evalOS(ua string) bool {
+func (u *UserAgent) evalOS(ua string, hints *Hints) bool {
 	s := strings.IndexRune(ua, '(')
 	e := strings.IndexRune(ua, ')')
 	if s > e {
@@ -46,7 +45,7 @@ func (u *UserAgent) evalOS(ua string) bool {
 		u.evaliOS(specs, agentPlatform)
 
 	case specs == "macintosh":
-		u.evalMacintosh(ua)
+		u.evalMacintosh(ua, hints)
 
 	default:
 		switch {
@@ -93,7 +92,7 @@ func (u *UserAgent) evalOS(ua string) bool {
 
 		// Apple CFNetwork
 		case strings.Contains(ua, "cfnetwork") && strings.Contains(ua, "darwin"):
-			u.evalMacintosh(ua)
+			u.evalMacintosh(ua, hints)
 
 		default:
 			u.OS.Platform = PlatformUnknown
@@ -170,7 +169,7 @@ func (u *UserAgent) evaliOS(uaPlatform string, agentPlatform string) {
 	// iPad
 	case strings.HasPrefix(uaPlatform, "ipad"):
 		u.OS.Platform = PlatformiPad
-		u.OS.Name = OSiOS
+		u.OS.Name = OSiPadOS
 		u.OS.getiOSVersion(agentPlatform)
 
 	// iPod
@@ -231,11 +230,21 @@ func (u *UserAgent) evalWindows(ua string) {
 	}
 }
 
-func (u *UserAgent) evalMacintosh(uaPlatformGroup string) {
+func (u *UserAgent) evalMacintosh(uaPlatformGroup string, hints *Hints) {
 	u.OS.Platform = PlatformMac
 	if i := strings.Index(uaPlatformGroup, "os x "); i != -1 {
 		u.OS.Name = OSMacOSX
 		u.OS.Version.parse(uaPlatformGroup[i+5:])
+
+		if hints.ScreenSize != nil {
+			for _, screenSize := range iPadScreenSizes {
+				if screenSize.Width == hints.ScreenSize.Width && screenSize.Height == hints.ScreenSize.Height {
+					u.OS.Name = OSiPadOS
+					u.OS.Platform = PlatformiPad
+					return
+				}
+			}
+		}
 
 		return
 	}
@@ -263,13 +272,6 @@ func (o *OS) getiOSVersion(uaPlatformGroup string) {
 	}
 
 	o.Version.parse(uaPlatformGroup)
-}
-
-// strToInt simply accepts a string and returns a `int`,
-// with '0' being default.
-func strToInt(str string) int {
-	i, _ := strconv.Atoi(str)
-	return i
 }
 
 // strToVer accepts a string and returns a Version,

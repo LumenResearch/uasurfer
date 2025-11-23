@@ -89,6 +89,7 @@ const (
 	OSWindows
 	OSMacOSX
 	OSiOS
+	OSiPadOS
 	OSAndroid
 	OSBlackberry
 	OSChromeOS
@@ -177,6 +178,15 @@ type OS struct {
 	Version  Version
 }
 
+type Dimensions struct {
+	Width  int
+	Height int
+}
+
+type Hints struct {
+	ScreenSize *Dimensions
+}
+
 // Reset resets the UserAgent to it's zero value
 func (ua *UserAgent) Reset() {
 	ua.Browser = Browser{}
@@ -201,7 +211,14 @@ func (ua *UserAgent) IsBot() bool {
 // Parse accepts a raw user agent (string) and returns the UserAgent.
 func Parse(ua string) *UserAgent {
 	dest := new(UserAgent)
-	parse(ua, dest)
+	parse(ua, nil, dest)
+	return dest
+}
+
+// ParseWithHints is the same as Parse, but accepts a Hints struct.
+func ParseWithHints(ua string, hints *Hints) *UserAgent {
+	dest := new(UserAgent)
+	parse(ua, hints, dest)
 	return dest
 }
 
@@ -209,10 +226,15 @@ func Parse(ua string) *UserAgent {
 // It is the caller's responsibility to call Reset() on the UserAgent before
 // passing it to this function.
 func ParseUserAgent(ua string, dest *UserAgent) {
-	parse(ua, dest)
+	parse(ua, nil, dest)
 }
 
-func parse(ua string, dest *UserAgent) {
+// ParseUserAgentWithHints is the same as ParseUserAgent, but accepts a Hints struct.
+func ParseUserAgentWithHints(ua string, hints *Hints, dest *UserAgent) {
+	parse(ua, hints, dest)
+}
+
+func parse(ua string, hints *Hints, dest *UserAgent) {
 	ua = normalise(ua)
 	switch {
 	case len(ua) == 0:
@@ -222,7 +244,7 @@ func parse(ua string, dest *UserAgent) {
 		dest.DeviceType = DeviceUnknown
 
 	// stop on on first case returning true
-	case dest.evalOS(ua):
+	case dest.evalOS(ua, hints):
 	case dest.evalBrowserName(ua):
 	default:
 		dest.evalBrowserVersion(ua)

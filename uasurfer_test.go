@@ -1186,7 +1186,7 @@ func BenchmarkEvalSystem(b *testing.B) {
 	v := UserAgent{}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		v.evalOS(testUAVars[i%num].UA)
+		v.evalOS(testUAVars[i%num].UA, nil)
 	}
 }
 
