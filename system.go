@@ -236,7 +236,7 @@ func (u *UserAgent) evalMacintosh(uaPlatformGroup string, hints *Hints) {
 		u.OS.Name = OSMacOSX
 		u.OS.Version.parse(uaPlatformGroup[i+5:])
 
-		if hints.ScreenSize != nil {
+		if hints != nil && hints.ScreenSize != nil {
 			for _, screenSize := range iPadScreenSizes {
 				if screenSize.Width == hints.ScreenSize.Width && screenSize.Height == hints.ScreenSize.Height {
 					u.OS.Name = OSiPadOS
