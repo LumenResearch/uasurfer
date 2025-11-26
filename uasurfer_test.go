@@ -1114,6 +1114,21 @@ var testUAVars = []struct {
 			Browser{BrowserChrome, Version{136, 0, 7103}}, OS{PlatformLinux, OSAndroid, Version{12, 0, 0}}, DeviceTV}},
 }
 
+var testUAVarsWithHints = []struct {
+	UA    string
+	Hints Hints
+	UserAgent
+}{
+	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+		Hints{ScreenSize: &ScreenSize{Width: 1920, Height: 1080}},
+		UserAgent{
+			Browser{BrowserChrome, Version{124, 0, 0}}, OS{PlatformMac, OSMacOSX, Version{14, 4, 1}}, DeviceComputer}},
+	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36", // macOS Big Sur
+		Hints{ScreenSize: &ScreenSize{Width: 1024, Height: 768}},
+		UserAgent{
+			Browser{BrowserChrome, Version{87, 0, 4280}}, OS{PlatformiPad, OSiPadOS, Version{11, 1, 0}}, DeviceTablet}},
+}
+
 func TestAgentSurfer(t *testing.T) {
 	for _, determined := range testUAVars {
 		t.Run("", func(t *testing.T) {
@@ -1131,6 +1146,52 @@ func TestAgentSurfer(t *testing.T) {
 
 				if ua.Browser.Name != determined.Browser.Name {
 					t.Errorf("browserName: got %v, wanted %v", ua.Browser.Name, determined.Browser.Name)
+					t.Logf("agent: %s", determined.UA)
+				}
+
+				if ua.Browser.Version != determined.Browser.Version {
+					t.Errorf("browser version: got %d, wanted %d", ua.Browser.Version, determined.Browser.Version)
+					t.Logf("agent: %s", determined.UA)
+				}
+
+				if ua.OS.Platform != determined.OS.Platform {
+					t.Errorf("platform: got %v, wanted %v", ua.OS.Platform, determined.OS.Platform)
+					t.Logf("agent: %s", determined.UA)
+				}
+
+				if ua.OS.Name != determined.OS.Name {
+					t.Errorf("os: got %s, wanted %s", ua.OS.Name, determined.OS.Name)
+					t.Logf("agent: %s", determined.UA)
+				}
+
+				if ua.OS.Version != determined.OS.Version {
+					t.Errorf("os version: got %d, wanted %d", ua.OS.Version, determined.OS.Version)
+					t.Logf("agent: %s", determined.UA)
+				}
+
+				if ua.DeviceType != determined.DeviceType {
+					t.Errorf("device type: got %v, wanted %v", ua.DeviceType, determined.DeviceType)
+					t.Logf("agent: %s", determined.UA)
+				}
+			}
+		})
+	}
+
+	for _, determined := range testUAVarsWithHints {
+		t.Run("", func(t *testing.T) {
+			testFuncs := []func(string, *Hints) *UserAgent{
+				ParseWithHints,
+				func(ua string, hints *Hints) *UserAgent {
+					u := new(UserAgent)
+					ParseUserAgentWithHints(ua, hints, u)
+					return u
+				},
+			}
+			for _, f := range testFuncs {
+				ua := f(determined.UA, &determined.Hints)
+
+				if ua.Browser.Name != determined.UserAgent.Browser.Name {
+					t.Errorf("browserName: got %v, wanted %v", ua.Browser.Name, determined.UserAgent.Browser.Name)
 					t.Logf("agent: %s", determined.UA)
 				}
 
