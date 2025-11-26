@@ -38,11 +38,11 @@ var testUAVars = []struct {
 	// iPad
 	{"Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10",
 		UserAgent{
-			Browser{BrowserSafari, Version{4, 0, 4}}, OS{PlatformiPad, OSiOS, Version{3, 2, 0}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{4, 0, 4}}, OS{PlatformiPad, OSiPadOS, Version{3, 2, 0}}, DeviceTablet}},
 
 	{"Mozilla/5.0 (iPad; CPU OS 9_0 like Mac OS X) AppleWebKit/601.1.17 (KHTML, like Gecko) Version/8.0 Mobile/13A175 Safari/600.1.4",
 		UserAgent{
-			Browser{BrowserSafari, Version{8, 0, 0}}, OS{PlatformiPad, OSiOS, Version{9, 0, 0}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{8, 0, 0}}, OS{PlatformiPad, OSiPadOS, Version{9, 0, 0}}, DeviceTablet}},
 
 	{"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.32 (KHTML, like Gecko) Version/10.0 Mobile/14A5261v Safari/602.1",
 		UserAgent{
@@ -157,7 +157,7 @@ var testUAVars = []struct {
 
 	{"Mozilla/5.0 (iPad; CPU OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 EdgiOS/44.3.2 Mobile/15E148 Safari/605.1.15",
 		UserAgent{
-			Browser{BrowserIE, Version{12, 0, 0}}, OS{PlatformiPad, OSiOS, Version{12, 3, 1}}, DeviceTablet}},
+			Browser{BrowserIE, Version{12, 0, 0}}, OS{PlatformiPad, OSiPadOS, Version{12, 3, 1}}, DeviceTablet}},
 
 	{"Mozilla/5.0 (Linux; Android 9; motorola one) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.90 Mobile Safari/537.36 EdgA/42.0.2.3728",
 		UserAgent{
@@ -371,7 +371,7 @@ var testUAVars = []struct {
 	// Google search app (GSA) for iOS -- it's Safari in disguise as of v6
 	{"Mozilla/5.0 (iPad; CPU OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) GSA/6.0.51363 Mobile/12F69 Safari/600.1.4",
 		UserAgent{
-			Browser{BrowserSafari, Version{8, 3, 0}}, OS{PlatformiPad, OSiOS, Version{8, 3, 0}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{8, 3, 0}}, OS{PlatformiPad, OSiPadOS, Version{8, 3, 0}}, DeviceTablet}},
 
 	// Spotify (applicable for advertising applications)
 	{"Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Spotify/1.0.9.133 Safari/537.36",
@@ -694,7 +694,7 @@ var testUAVars = []struct {
 
 	{"Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10",
 		UserAgent{
-			Browser{BrowserSafari, Version{4, 0, 4}}, OS{PlatformiPad, OSiOS, Version{3, 2, 0}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{4, 0, 4}}, OS{PlatformiPad, OSiPadOS, Version{3, 2, 0}}, DeviceTablet}},
 
 	{"Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7",
 		UserAgent{
@@ -706,11 +706,11 @@ var testUAVars = []struct {
 
 	{"Mozilla/5.0 (iPad; CPU OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3",
 		UserAgent{
-			Browser{BrowserSafari, Version{5, 1, 0}}, OS{PlatformiPad, OSiOS, Version{5, 0, 0}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{5, 1, 0}}, OS{PlatformiPad, OSiPadOS, Version{5, 0, 0}}, DeviceTablet}},
 
 	{"Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25",
 		UserAgent{
-			Browser{BrowserSafari, Version{6, 0, 0}}, OS{PlatformiPad, OSiOS, Version{6, 0, 0}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{6, 0, 0}}, OS{PlatformiPad, OSiPadOS, Version{6, 0, 0}}, DeviceTablet}},
 
 	{"Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/546.10 (KHTML, like Gecko) Version/6.0 Mobile/7E18WD Safari/8536.25",
 		UserAgent{
@@ -718,11 +718,11 @@ var testUAVars = []struct {
 
 	{"Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53",
 		UserAgent{
-			Browser{BrowserSafari, Version{7, 0, 0}}, OS{PlatformiPad, OSiOS, Version{7, 0, 0}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{7, 0, 0}}, OS{PlatformiPad, OSiPadOS, Version{7, 0, 0}}, DeviceTablet}},
 
 	{"Mozilla/5.0 (iPad; CPU OS 7_0_2 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A501 Safari/9537.53",
 		UserAgent{
-			Browser{BrowserSafari, Version{7, 0, 0}}, OS{PlatformiPad, OSiOS, Version{7, 0, 2}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{7, 0, 0}}, OS{PlatformiPad, OSiPadOS, Version{7, 0, 2}}, DeviceTablet}},
 
 	{"Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Mobile/14D27 [FBAN/FBIOS;FBAV/86.0.0.48.52;FBBV/53842252;FBDV/iPhone9,1;FBMD/iPhone;FBSN/iOS;FBSV/10.2.1;FBSS/2;FBCR/Verizon;FBID/phone;FBLC/en_US;FBOP/5;FBRV/0]",
 		UserAgent{
