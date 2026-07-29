@@ -39,7 +39,19 @@ func (u *UserAgent) evalAppleNative(ua string, hints *Hints) {
 	var darwin Version
 	darwin.findVersionNumber(ua, "darwin/")
 
-	u.OS.Platform = PlatformiPhone
-	u.OS.Name = OSiOS
 	u.OS.Version = darwinToIOS(darwin.Major, darwin.Minor)
+
+	switch {
+	case isTVKeyword(ua):
+		u.OS.Platform = PlatformUnknown
+		u.OS.Name = OSiOS
+
+	case hints != nil && hints.ScreenSize.isiPad():
+		u.OS.Platform = PlatformiPad
+		u.OS.Name = OSiPadOS
+
+	default:
+		u.OS.Platform = PlatformiPhone
+		u.OS.Name = OSiOS
+	}
 }
