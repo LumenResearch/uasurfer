@@ -406,10 +406,19 @@ var testUAVars = []struct {
 			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
 	{"MyTVApp/3 CFNetwork/3860.600.12 Darwin/25.5.0",
 		UserAgent{
-			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformUnknown, OSiOS, Version{26, 5, 0}}, DeviceTV}},
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
 	{"RokuRemote/8 CFNetwork/3860.600.12 Darwin/25.5.0",
 		UserAgent{
-			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformUnknown, OSiOS, Version{26, 5, 0}}, DeviceTV}},
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
+	{"SmartVideo/12 CFNetwork/3860.600.12 Darwin/25.5.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
+	{"GuitarTuner/3 CFNetwork/3860.600.12 Darwin/25.5.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
+	{"BestBuy/900 CFNetwork/3860.600.12 Darwin/25.5.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
 	{"App/1 CFNetwork/1999.0.0 Darwin/25.5.0",
 		UserAgent{
 			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformMac, OSUnknown, Version{0, 0, 0}}, DeviceComputer}},

@@ -30,7 +30,7 @@ func (u *UserAgent) evalDevice(ua string) {
 		u.DeviceType = DeviceComputer
 
 	// long list of smarttv and tv dongle identifiers - above "phone" and "tablet" check to prevent TVs from being detected as phones/tablets
-	case isTVKeyword(ua):
+	case u.OS.Platform != PlatformiPhone && u.OS.Platform != PlatformiPad && isTVKeyword(ua):
 		u.DeviceType = DeviceTV
 
 	case u.OS.Platform == PlatformiPad || u.OS.Platform == PlatformiPod || strings.Contains(ua, "tablet") || strings.Contains(ua, "kindle/") || strings.Contains(ua, "playbook"):
