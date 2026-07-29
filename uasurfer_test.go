@@ -392,6 +392,36 @@ var testUAVars = []struct {
 	{"ocspd (unknown version) CFNetwork/520.5.3 Darwin/11.4.2 (x86_64)(MacBookAir5%2C2)",
 		UserAgent{
 			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformMac, OSUnknown, Version{0, 0, 0}}, DeviceComputer}},
+	{"TileExplorer/181 CFNetwork/3860.600.12 Darwin/25.5.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
+	{"MySupermarketSimulator3D/145 CFNetwork/3860.400.51 Darwin/25.3.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 3, 0}}, DevicePhone}},
+	{"ZenColor/1665 CFNetwork/3860.600.12 Darwin/25.5.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
+	{"Colorever/16 CFNetwork/3860.600.12 Darwin/25.5.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
+	{"App/1 CFNetwork/1999.0.0 Darwin/25.5.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformMac, OSUnknown, Version{0, 0, 0}}, DeviceComputer}},
+	{"App/1 CFNetwork/2000.0.0 Darwin/25.5.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
+	{"MobileSafari/8616.2.9.10.11 CFNetwork/1485 Darwin/23.1.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformMac, OSUnknown, Version{0, 0, 0}}, DeviceTablet}},
+	{"FM Radio/195 CFNetwork/3826.400.110 Darwin/24.3.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{18, 3, 0}}, DevicePhone}},
+	{"App/1 CFNetwork/4000.0.0 Darwin/27.1.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{28, 1, 0}}, DevicePhone}},
+	{"App/1 CFNetwork/2500.0.0 Darwin/12.0.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{0, 0, 0}}, DevicePhone}},
 	// Bots
 	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Applebot/0.1; +http://www.apple.com/go/applebot)",
 		UserAgent{

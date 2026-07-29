@@ -92,7 +92,7 @@ func (u *UserAgent) evalOS(ua string, hints *Hints) bool {
 
 		// Apple CFNetwork
 		case strings.Contains(ua, "cfnetwork") && strings.Contains(ua, "darwin"):
-			u.evalMacintosh(ua, hints)
+			u.evalAppleNative(ua, hints)
 
 		default:
 			u.OS.Platform = PlatformUnknown
