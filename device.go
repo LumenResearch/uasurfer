@@ -4,6 +4,21 @@ import (
 	"strings"
 )
 
+func isTVKeyword(ua string) bool {
+	return strings.Contains(ua, "tv") || strings.Contains(ua, "crkey") || strings.Contains(ua, "googletv") || strings.Contains(ua, "aftb") || strings.Contains(ua, "aftt") || strings.Contains(ua, "aftm") ||
+		strings.Contains(ua, "adt-") || strings.Contains(ua, "roku") || strings.Contains(ua, "viera") || strings.Contains(ua, "aquos") || strings.Contains(ua, "dtv") ||
+		strings.Contains(ua, "appletv") || strings.Contains(ua, "smarttv") || strings.Contains(ua, "tuner") || strings.Contains(ua, "smart-tv") || strings.Contains(ua, "hbbtv") ||
+		strings.Contains(ua, "netcast") || strings.Contains(ua, "vizio") || strings.Contains(ua, "stb") || strings.Contains(ua, "swisscom-ip") || strings.Contains(ua, "youview") ||
+		strings.Contains(ua, "aftkrt") || strings.Contains(ua, "aftsss") || strings.Contains(ua, "aftss") || strings.Contains(ua, "aftka") || strings.Contains(ua, "aftr") ||
+		strings.Contains(ua, "aftgazl") || strings.Contains(ua, "aftanna") || strings.Contains(ua, "aftkauk") ||
+		strings.Contains(ua, "bravia") || strings.Contains(ua, "mibox") || strings.Contains(ua, "chromecast") || strings.Contains(ua, "ott-g1") || strings.Contains(ua, "ottera") ||
+		strings.Contains(ua, "tpm191e") || strings.Contains(ua, "nokia streaming box") || (strings.Contains(ua, "stableavb_telly")) || strings.Contains(ua, "lxbox51") ||
+		strings.Contains(ua, "x96max") || strings.Contains(ua, "x96q_max_pro") || strings.Contains(ua, "canal plus box") || strings.Contains(ua, "vectra 4k box") ||
+		strings.Contains(ua, "diw377") || strings.Contains(ua, "diw380") || strings.Contains(ua, "dv8555") || strings.Contains(ua, "dctiw362") || strings.Contains(ua, "gd1 4k") ||
+		strings.Contains(ua, "tpm171e") || strings.Contains(ua, "ai pont") || strings.Contains(ua, "b-stream") || strings.Contains(ua, "tv box") ||
+		(strings.Contains(ua, "mbox") && !strings.Contains(ua, "xbox"))
+}
+
 func (u *UserAgent) evalDevice(ua string) {
 	switch {
 
@@ -15,18 +30,7 @@ func (u *UserAgent) evalDevice(ua string) {
 		u.DeviceType = DeviceComputer
 
 	// long list of smarttv and tv dongle identifiers - above "phone" and "tablet" check to prevent TVs from being detected as phones/tablets
-	case strings.Contains(ua, "tv") || strings.Contains(ua, "crkey") || strings.Contains(ua, "googletv") || strings.Contains(ua, "aftb") || strings.Contains(ua, "aftt") || strings.Contains(ua, "aftm") ||
-		strings.Contains(ua, "adt-") || strings.Contains(ua, "roku") || strings.Contains(ua, "viera") || strings.Contains(ua, "aquos") || strings.Contains(ua, "dtv") ||
-		strings.Contains(ua, "appletv") || strings.Contains(ua, "smarttv") || strings.Contains(ua, "tuner") || strings.Contains(ua, "smart-tv") || strings.Contains(ua, "hbbtv") ||
-		strings.Contains(ua, "netcast") || strings.Contains(ua, "vizio") || strings.Contains(ua, "stb") || strings.Contains(ua, "swisscom-ip") || strings.Contains(ua, "youview") ||
-		strings.Contains(ua, "aftkrt") || strings.Contains(ua, "aftsss") || strings.Contains(ua, "aftss") || strings.Contains(ua, "aftka") || strings.Contains(ua, "aftr") ||
-		strings.Contains(ua, "aftgazl") || strings.Contains(ua, "aftanna") || strings.Contains(ua, "aftkauk") ||
-		strings.Contains(ua, "bravia") || strings.Contains(ua, "mibox") || strings.Contains(ua, "chromecast") || strings.Contains(ua, "ott-g1") || strings.Contains(ua, "ottera") ||
-		strings.Contains(ua, "tpm191e") || strings.Contains(ua, "nokia streaming box") || (strings.Contains(ua, "stableavb_telly")) || strings.Contains(ua, "lxbox51") ||
-		strings.Contains(ua, "x96max") || strings.Contains(ua, "x96q_max_pro") || strings.Contains(ua, "canal plus box") || strings.Contains(ua, "vectra 4k box") ||
-		strings.Contains(ua, "diw377") || strings.Contains(ua, "diw380") || strings.Contains(ua, "dv8555") || strings.Contains(ua, "dctiw362") || strings.Contains(ua, "gd1 4k") ||
-		strings.Contains(ua, "tpm171e") || strings.Contains(ua, "ai pont") || strings.Contains(ua, "b-stream") || strings.Contains(ua, "tv box") ||
-		(strings.Contains(ua, "mbox") && !strings.Contains(ua, "xbox")):
+	case isTVKeyword(ua):
 		u.DeviceType = DeviceTV
 
 	case u.OS.Platform == PlatformiPad || u.OS.Platform == PlatformiPod || strings.Contains(ua, "tablet") || strings.Contains(ua, "kindle/") || strings.Contains(ua, "playbook"):
