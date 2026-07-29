@@ -1127,6 +1127,18 @@ var testUAVarsWithHints = []struct {
 		Hints{ScreenSize: &ScreenSize{Width: 1024, Height: 768}},
 		UserAgent{
 			Browser{BrowserChrome, Version{87, 0, 4280}}, OS{PlatformiPad, OSiPadOS, Version{11, 1, 0}}, DeviceTablet}},
+	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+		Hints{ScreenSize: &ScreenSize{Width: 768, Height: 1024}},
+		UserAgent{
+			Browser{BrowserChrome, Version{87, 0, 4280}}, OS{PlatformiPad, OSiPadOS, Version{11, 1, 0}}, DeviceTablet}},
+	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+		Hints{},
+		UserAgent{
+			Browser{BrowserChrome, Version{87, 0, 4280}}, OS{PlatformMac, OSMacOSX, Version{11, 1, 0}}, DeviceComputer}},
+	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+		Hints{ScreenSize: &ScreenSize{Width: 1024, Height: 1366}},
+		UserAgent{
+			Browser{BrowserChrome, Version{87, 0, 4280}}, OS{PlatformiPad, OSiPadOS, Version{11, 1, 0}}, DeviceTablet}},
 }
 
 func TestAgentSurfer(t *testing.T) {
