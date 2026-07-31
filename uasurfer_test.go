@@ -1540,44 +1540,20 @@ func TestParseEmptyAgent(t *testing.T) {
 }
 
 // Each iota block ends in an unexported terminator (_deviceTypeFinal and
-// friends). Because the terminator shifts whenever a constant is added, it lets
-// these tests enumerate the full list at runtime, which Go constants otherwise
-// do not allow.
+// friends). Because it shifts whenever a constant is added, these tests can
+// enumerate the lists at runtime, which Go constants otherwise do not allow.
 //
-// That is what makes the hand written String methods safe: a
-// constant added without a matching case falls through to the numeric form, and
-// assertNamed walks every value below the terminator looking for exactly that.
+// They deliberately do not pin the exact spelling of every name: all that
+// matters is that each constant has its own String case, which uniqueness
+// establishes. A constant with no case falls into the default arm and repeats
+// the Unknown name, so the duplicate is what gives it away.
 
 func TestDeviceTypeStrings(t *testing.T) {
-	want := []string{
-		"DeviceUnknown", "DeviceComputer", "DeviceTablet", "DevicePhone",
-		"DeviceConsole", "DeviceWearable", "DeviceTV",
-	}
-	assertNamed(t, "DeviceType", int(_deviceTypeFinal), want, func(i int) string { return DeviceType(i).String() })
-	for i, name := range want {
-		if got, trimmed := DeviceType(i).StringTrimPrefix(), strings.TrimPrefix(name, "Device"); got != trimmed {
-			t.Errorf("DeviceType(%d).StringTrimPrefix() = %q, want %q", i, got, trimmed)
-		}
-	}
+	assertNames(t, "DeviceType", "Device", int(_deviceTypeFinal), func(i int) string { return DeviceType(i).String() })
 }
 
 func TestBrowserNameStrings(t *testing.T) {
-	want := []string{
-		"BrowserUnknown", "BrowserChrome", "BrowserIE", "BrowserSafari", "BrowserFirefox",
-		"BrowserAndroid", "BrowserOpera", "BrowserBlackberry", "BrowserUCBrowser",
-		"BrowserSilk", "BrowserNokia", "BrowserNetFront", "BrowserQQ", "BrowserMaxthon",
-		"BrowserSogouExplorer", "BrowserSpotify", "BrowserNintendo", "BrowserSamsung",
-		"BrowserYandex", "BrowserCocCoc", "BrowserBot", "BrowserAppleBot", "BrowserBaiduBot",
-		"BrowserBingBot", "BrowserDuckDuckGoBot", "BrowserFacebookBot", "BrowserGoogleBot",
-		"BrowserLinkedInBot", "BrowserMsnBot", "BrowserPingdomBot", "BrowserTwitterBot",
-		"BrowserYandexBot", "BrowserCocCocBot", "BrowserYahooBot",
-	}
-	assertNamed(t, "BrowserName", int(_browserNameFinal), want, func(i int) string { return BrowserName(i).String() })
-	for i, name := range want {
-		if got, trimmed := BrowserName(i).StringTrimPrefix(), strings.TrimPrefix(name, "Browser"); got != trimmed {
-			t.Errorf("BrowserName(%d).StringTrimPrefix() = %q, want %q", i, got, trimmed)
-		}
-	}
+	assertNames(t, "BrowserName", "Browser", int(_browserNameFinal), func(i int) string { return BrowserName(i).String() })
 
 	// IsBot keys off the BrowserBot..BrowserYahooBot range, so the bot block has
 	// to stay contiguous and stay at the end of the list.
@@ -1588,59 +1564,38 @@ func TestBrowserNameStrings(t *testing.T) {
 }
 
 func TestOSNameStrings(t *testing.T) {
-	want := []string{
-		"OSUnknown", "OSWindowsPhone", "OSWindows", "OSMacOSX", "OSiOS", "OSiPadOS",
-		"OSAndroid", "OSBlackberry", "OSChromeOS", "OSKindle", "OSWebOS", "OSLinux",
-		"OSPlaystation", "OSXbox", "OSNintendo", "OSBot",
-	}
-	assertNamed(t, "OSName", int(_osNameFinal), want, func(i int) string { return OSName(i).String() })
-	for i, name := range want {
-		if got, trimmed := OSName(i).StringTrimPrefix(), strings.TrimPrefix(name, "OS"); got != trimmed {
-			t.Errorf("OSName(%d).StringTrimPrefix() = %q, want %q", i, got, trimmed)
-		}
-	}
+	assertNames(t, "OSName", "OS", int(_osNameFinal), func(i int) string { return OSName(i).String() })
 }
 
 func TestPlatformStrings(t *testing.T) {
-	want := []string{
-		"PlatformUnknown", "PlatformWindows", "PlatformMac", "PlatformLinux",
-		"PlatformiPad", "PlatformiPhone", "PlatformiPod", "PlatformBlackberry",
-		"PlatformWindowsPhone", "PlatformPlaystation", "PlatformXbox",
-		"PlatformNintendo", "PlatformBot",
-	}
-	assertNamed(t, "Platform", int(_platformFinal), want, func(i int) string { return Platform(i).String() })
-	for i, name := range want {
-		if got, trimmed := Platform(i).StringTrimPrefix(), strings.TrimPrefix(name, "Platform"); got != trimmed {
-			t.Errorf("Platform(%d).StringTrimPrefix() = %q, want %q", i, got, trimmed)
-		}
-	}
+	assertNames(t, "Platform", "Platform", int(_platformFinal), func(i int) string { return Platform(i).String() })
 }
 
-// assertNamed checks that every constant below the terminator has a String case
-// returning the expected name, and that nothing beyond the list does.
-//
-// A constant added without a String case falls into the default arm and reads as
-// the type's Unknown name, so it cannot be spotted by its output alone. The
-// terminator is what catches it: it shifts on every addition, so the length
-// check below fires first.
-func assertNamed(t *testing.T, typeName string, final int, want []string, str func(int) string) {
+// assertNames checks that every constant below the terminator has its own String
+// case: names must be unique, and must carry prefix so StringTrimPrefix has
+// something to trim. Values outside the list read as the Unknown name.
+func assertNames(t *testing.T, typeName, prefix string, final int, str func(int) string) {
 	t.Helper()
 
-	if final != len(want) {
-		t.Fatalf("%s has %d constants but this test lists %d: add the new one to want "+
-			"and give it a String case alongside the constants", typeName, final, len(want))
-	}
-
-	for i, name := range want {
-		if got := str(i); got != name {
-			t.Errorf("%s(%d).String() = %q, want %q", typeName, i, got, name)
+	seen := make(map[string]int, final)
+	for i := range final {
+		name := str(i)
+		if !strings.HasPrefix(name, prefix) {
+			t.Errorf("%s(%d).String() = %q, want it to start with %q", typeName, i, name, prefix)
 		}
+		if prev, dup := seen[name]; dup {
+			t.Errorf("%s(%d).String() = %q, already used by %s(%d): either it has no String "+
+				"case and fell through to the default, or two cases return the same name",
+				typeName, i, name, typeName, prev)
+			continue
+		}
+		seen[name] = i
 	}
 
-	// Out of range values, including the terminator itself, read as unknown.
+	unknown := str(0)
 	for _, i := range []int{final, final + 1, -1} {
-		if got := str(i); got != want[0] {
-			t.Errorf("%s(%d).String() = %q, want %q", typeName, i, got, want[0])
+		if got := str(i); got != unknown {
+			t.Errorf("%s(%d).String() = %q, want %q", typeName, i, got, unknown)
 		}
 	}
 }

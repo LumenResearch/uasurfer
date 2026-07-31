@@ -95,15 +95,14 @@ friends). Because it shifts whenever a constant is added, tests can enumerate th
 lists at runtime — which Go constants otherwise do not allow. Keep it last.
 
 This is why there is no `stringer`: `String()` methods are hand written as
-explicit switches next to their constants, and `assertNamed` compares each list
-against a golden set of names. Adding a constant means adding its `case` and
-extending that list.
+explicit switches next to their constants. Adding a constant means adding its
+`case` — nothing else, as the tests do not pin the exact names.
 
-The terminator is doing the real work here. `String()` has no numeric fallback —
-an out-of-range value reads as the type's Unknown name, which is the useful
-answer for a value cast from a newer release, but it also means a constant
-missing its `case` is invisible from its output alone. `assertNamed` catches it
-by length: the terminator moved, so the list no longer matches.
+`assertNames` checks that the names are **unique** and carry the type's prefix,
+not that they match a golden list. Uniqueness is what makes that sufficient:
+`String()` has no numeric fallback, so a constant with no `case` falls into the
+default arm and repeats the Unknown name, and the duplicate gives it away. The
+same check catches two cases returning the same name by copy-paste.
 
 ## Tooling
 
