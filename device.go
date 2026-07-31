@@ -5,13 +5,18 @@ import (
 )
 
 // Markers that are a substring of another marker are omitted: "tv" already
-// subsumes googletv/appletv/smarttv/smart-tv/hbbtv/dtv/"tv box". Amazon's Fire
-// TV models are not listed at all; isFireTV matches the whole family.
+// subsumes googletv/appletv/smarttv/smart-tv/hbbtv/dtv/"tv box", and " x96" the
+// whole X96 box family - with its leading space, because "540x960" is a screen
+// resolution and X96 boxes state their model as a field of its own. Amazon's Fire TV models are not listed at all; isFireTV
+// matches the whole family.
 var tvMarkers = []string{
 	"tv", "roku", "crkey", "chromecast", "stb", "tuner", "vizio", "viera", "aquos", "bravia",
 	"netcast", "youview", "adt-", "swisscom-ip", "mibox", "ott-g1", "ottera",
+	// operator set-top boxes. The French ISP boxes are worth naming: every
+	// reference parser reads them as a desktop or a phone.
+	"freebox", "sfrwpebrowser", "mfi_airplay",
 	"tpm191e", "tpm171e", "nokia streaming box", "stableavb_telly", "lxbox51",
-	"x96max", "x96q_max_pro", "canal plus box", "vectra 4k box",
+	" x96", "canal plus box", "vectra 4k box",
 	"diw377", "diw380", "dv8555", "dctiw362", "gd1 4k", "ai pont", "b-stream",
 }
 
@@ -95,12 +100,26 @@ func isBrowserAgent(ua string) bool {
 // which they should not, and often do:
 // http://android-developers.blogspot.com/2010/12/android-browser-user-agent-issues.html
 //
+// Samsung has three tablet lines and no phone shares their prefixes: "SM-X" is
+// the current Tab A9 and S10, "SM-T" the older Tabs, "SM-P" the ones with a pen
+// (Tab S6 Lite, S7). Its phones are SM-G, SM-A, SM-S, SM-N and SM-F.
+//
 // "; t1-" is Huawei's MediaPad T1 and needs its dash: "; t1" alone also matches
-// a "T100" handset. Everything else here is a model line that only ever shipped
-// as a tablet.
+// a "T100" handset. Lenovo's bare Tab codes need their digit for the same reason:
+// "; tb" alone also matches "TB-7000", a handset. The dashed Lenovo models -
+// "Lenovo TB-X606F" - all carry the brand, so "lenovo tb" reaches those.
+//
+// "-w09" is the one marker here that is not exact. It is Huawei and Honor's
+// WiFi-only variant suffix, which is a tablet 300 times in a 200k sample of real
+// traffic and a phone 21 times - "JMS-W09" is a handset. It is in because 300
+// tablets read as phones is the larger error, but it is the first thing to remove
+// if those phones matter more; nothing else in this list has a known exception.
 var tabletMarkers = []string{
 	"tablet", "nexus 7", "nexus 9", "nexus 10", "xoom",
-	"sm-t", "; kf", "; t1-", "lenovo tab",
+	"sm-t", "sm-x", "sm-p", "; kf", "; t1-",
+	"lenovo tab", "lenovo tb", "; tb1", "; tb3", // Lenovo writes its Tabs both ways
+	"rmp2", // Xiaomi's Redmi Pad
+	"-w09", // Huawei and Honor's WiFi-only variants
 }
 
 // isAndroidTablet reports whether ua names a model known to be a tablet.
@@ -143,10 +162,12 @@ func (u *UserAgent) parseDevice(ua string) {
 	case u.OS.Platform != PlatformiPhone && u.OS.Platform != PlatformiPad && isTV(ua):
 		u.DeviceType = DeviceTV
 
-	case u.OS.Platform == PlatformiPad || u.OS.Platform == PlatformiPod || strings.Contains(ua, "tablet") || strings.Contains(ua, "kindle/") || strings.Contains(ua, "playbook"):
+	case u.OS.Platform == PlatformiPad || strings.Contains(ua, "tablet") || strings.Contains(ua, "kindle/") || strings.Contains(ua, "playbook"):
 		u.DeviceType = DeviceTablet
 
-	case u.OS.Platform == PlatformiPhone || u.OS.Platform == PlatformBlackberry || strings.Contains(ua, "phone"):
+	// The iPod touch sits with the phones: a four inch player carried in a
+	// pocket has more in common with one than with a tablet.
+	case u.OS.Platform == PlatformiPhone || u.OS.Platform == PlatformiPod || u.OS.Platform == PlatformBlackberry || strings.Contains(ua, "phone"):
 		u.DeviceType = DevicePhone
 
 	case u.OS.Name == OSAndroid:

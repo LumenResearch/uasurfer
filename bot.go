@@ -239,7 +239,10 @@ func isBotWord(ua string, start, end int) bool {
 		return true
 	}
 	if c := ua[end]; c != ' ' {
-		return !isLower(c)
+		// "_" binds like a letter: "CUBOT_POWER" is a phone, where no crawler
+		// writes its name as "…bot_". The few that do - pingdom.com_bot,
+		// sukibot_heritrix - are matched by their own markers instead.
+		return !isLower(c) && c != '_'
 	}
 	return start == 0 || !isLower(ua[start-1])
 }

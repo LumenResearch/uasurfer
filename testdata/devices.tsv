@@ -65,7 +65,7 @@ Phone	Android/3.2.0.2 samsung/GT-I9195 4.2.2
 Phone	Android/HTC/HTC One mini/m4
 Tablet	AndroidNative/2.0.51 (Linux; U; Android 4.2.2; de-de; LENOVO IdeaTab A3000-H; Build/JDQ39) tablet; 1024x552; Lenovo
 Phone	AppTokens/Android/de/LGE/LG-D802/4.2.2/1.1.0/-/-/-/-/-/-
-Phone	AppTokens/Android/de/samsung/SM-P605/4.3/1.1.0/-/-/-/-/-/-
+Tablet	AppTokens/Android/de/samsung/SM-P605/4.3/1.1.0/-/-/-/-/-/-
 Wearable	AppleCoreMedia/1.0.0.16R5303d (Apple Watch; U; CPU OS 5_0 like Mac OS X; en_au)
 Tablet	AppsLauncher/Android/de/samsung/SM-T315/4.2.2/1.5.20/-/-/-/-/-/-
 Phone	BBC News (AndroidApp; 2.5.1 WW; 58) LG-E975 (Android 4.1.2, SDK 16)
@@ -2492,7 +2492,7 @@ Tablet	Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML,
 Phone	Mozilla/5.0 (iPhone3,1; iOS 6.1.3) FreeWheelAdManager/5.3.0-r9485-201301220720;com.cnn.iphone CNN/4254
 Phone	Mozilla/5.0 (iPhone; CPU iPhone OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Pandora/1904.1.1
 Phone	Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_1 like Mac OS X; HW iPhone1,1; de_de) AppleWebKit/525.18.1 (KHTML, like Gecko) (AdMob-iSDK-20090617)
-Tablet	Mozilla/5.0 (iPod touch; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69
+Phone	Mozilla/5.0 (iPod touch; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69
 Computer	Mozilla/5.0 LG-GM750 Browser/IE8.12 MMS/LGMMSv1.0/1.2 Java/LGVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1 (compatible; MSIE 4.01; Windows CE; PPC)/UC Browser7.8.0.95
 Unknown	Mozilla/5.0 SAMSUNG-GT-S8003/1.0 SHP/VPP/R5 Bada/1.0 Nextreaming SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1
 Phone	Mozilla/5.0(Linux;U; Android 4.0.4; de-de;NEC-0912 Build/A8212300)AppleWebKit/534.30(KHTML, Like Gecko)Version/4.0 Mobile Safari/534.30
@@ -2842,7 +2842,7 @@ Phone	VKAndroidApp/3.0-120 (Android 4.0.4; SDK 15; armeabi-v7a; Philips Philips 
 Phone	VKAndroidApp/3.2.1-196 (Android 2.3.5; SDK 10; armeabi; samsung GT-S5570I; ru)
 Phone	VKAndroidApp/3.3.2-249 (Android 4.2.2; SDK 17; armeabi-v7a; asus K00F; ru)
 Phone	VKAndroidApp/3.3.3-266 (Android 4.3.1; SDK 18; armeabi-v7a; HTC EndeavorU; de)
-Phone	VKAndroidApp/3.4.1-298 (Android 4.3; SDK 18; armeabi-v7a; samsung SM-P601; uk)
+Tablet	VKAndroidApp/3.4.1-298 (Android 4.3; SDK 18; armeabi-v7a; samsung SM-P601; uk)
 Phone	VMVID Android Application (13, vmvid v2.1) - HUAWEI HUAWEI U8666E Huawei - FFFFFFFF-D691-EF56-1609-2D8F00000000
 Phone	VMVID Android Application (13, vmvid v2.1) - Lenovo SmartTabII10 Lenovo - 00000000-0B14-5E0F-FD85-74DE7356D522
 Phone	VMVID Android Application (13, vmvid v2.1) - TCT ALCATEL ONE TOUCH 6033X TCT - FFFFFFFF-E131-705E-FFFF-FFFFD5B64CAB

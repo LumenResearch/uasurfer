@@ -231,11 +231,11 @@ var testUAVars = []struct {
 	// iPod, iPod Touch
 	{"mozilla/5.0 (ipod touch; cpu iphone os 9_3_3 like mac os x) applewebkit/601.1.46 (khtml, like gecko) version/9.0 mobile/13g34 safari/601.1",
 		UserAgent{
-			Browser{BrowserSafari, Version{9, 0, 0}}, OS{PlatformiPod, OSiOS, Version{9, 3, 3}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{9, 0, 0}}, OS{PlatformiPod, OSiOS, Version{9, 3, 3}}, DevicePhone}},
 
 	{"mozilla/5.0 (ipod; cpu iphone os 6_1_6 like mac os x) applewebkit/536.26 (khtml, like gecko) version/6.0 mobile/10b500 safari/8536.25",
 		UserAgent{
-			Browser{BrowserSafari, Version{6, 0, 0}}, OS{PlatformiPod, OSiOS, Version{6, 1, 6}}, DeviceTablet}},
+			Browser{BrowserSafari, Version{6, 0, 0}}, OS{PlatformiPod, OSiOS, Version{6, 1, 6}}, DevicePhone}},
 
 	// WebOS
 	{"Mozilla/5.0 (hp-tablet; Linux; hpwOS/3.0.0; U; de-DE) AppleWebKit/534.6 (KHTML, like Gecko) wOSBrowser/233.70 Safari/534.6 TouchPad/1.0",
@@ -556,6 +556,45 @@ var testUAVars = []struct {
 	{"curl/8.6.0",
 		UserAgent{
 			Browser{BrowserBot, Version{0, 0, 0}}, OS{PlatformBot, OSBot, Version{0, 0, 0}}, DeviceComputer}},
+
+	// Agents from the top of a real traffic sample that every reference parser
+	// disagreed with us about, or that all of them got wrong. See gap-analysis.md.
+	{"Mozilla/5.0 (Linux; Android 14; SM-X200 Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/126.0.6478.71 Mobile Safari/537.36",
+		UserAgent{
+			Browser{BrowserChrome, Version{126, 0, 6478}}, OS{PlatformLinux, OSAndroid, Version{14, 0, 0}}, DeviceTablet}},
+	{"Hulu/9.34.0 (iOS 26.5.1; en_US; iPhone18,2; 23F81)",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 1}}, DevicePhone}},
+	{"TuneIn Radio/27.1.0 (iPadOS/16.6)",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPad, OSiPadOS, Version{16, 6, 0}}, DeviceTablet}},
+	{"Mozilla/5.0 (Freebox; fbx6hd 1.3.57.2) VODLauncher/1.0 Qt/5.15.19",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformUnknown, OSUnknown, Version{0, 0, 0}}, DeviceTV}},
+	{"SFRWebkitLauncher SFRWpeBrowser/2.38.5 [SFR; SAGEM; 1.46.9];",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformUnknown, OSUnknown, Version{0, 0, 0}}, DeviceTV}},
+	{"Dalvik/2.1.0 (Linux; U; Android 10; X96Q Build/QP1A.191105.004)",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformLinux, OSAndroid, Version{10, 0, 0}}, DeviceTV}},
+	{"Instagram 5.0.2 Android (15/4.0.3; 240dpi; 540x960; HTC/vodafone_de; HTC Sensation Z710e; pyramid; pyramid; de_DE)",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformLinux, OSAndroid, Version{0, 0, 0}}, DevicePhone}},
+	{"VitaMahjong/460 CFNetwork/3860.600.12 Darwin/25.5.0",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
+	{"Mozilla/5.0 (PlayStation Vita 3.61) AppleWebKit/537.73 (KHTML, like Gecko) Silk/3.2 Safari/537.73",
+		UserAgent{
+			Browser{BrowserSilk, Version{3, 2, 0}}, OS{PlatformPlaystation, OSPlaystation, Version{0, 0, 0}}, DeviceConsole}},
+	{"Mozilla/5.0 (Macintosh; Apple macOS 15_7_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+		UserAgent{
+			Browser{BrowserChrome, Version{138, 0, 0}}, OS{PlatformMac, OSMacOSX, Version{15, 7, 3}}, DeviceComputer}},
+	{"AirPlay/2.0 (App/75.109.0) MFi_AirPlay_Device",
+		UserAgent{
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformUnknown, OSUnknown, Version{0, 0, 0}}, DeviceTV}},
+	{"Mozilla/5.0 (iPod touch; CPU iPhone OS 15_8_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/19H384",
+		UserAgent{
+			Browser{BrowserSafari, Version{15, 8, 8}}, OS{PlatformiPod, OSiOS, Version{15, 8, 8}}, DevicePhone}},
 
 	// Unknown or partially handled
 	{"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.1b3pre) Gecko/20090223 SeaMonkey/2.0a3", //Seamonkey (~FF)

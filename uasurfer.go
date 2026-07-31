@@ -458,16 +458,9 @@ var botNames = func() (set [_browserNameFinal]bool) {
 func (u *UserAgent) IsBot() bool {
 	// A name cast from a newer release can be out of range, and reads as no bot
 	// rather than panicking.
-	if u.Browser.Name >= 0 && u.Browser.Name < _browserNameFinal && botNames[u.Browser.Name] {
-		return true
-	}
-	if u.OS.Name == OSBot {
-		return true
-	}
-	if u.OS.Platform == PlatformBot {
-		return true
-	}
-	return false
+	return (u.Browser.Name >= 0 && u.Browser.Name < _browserNameFinal && botNames[u.Browser.Name]) ||
+		u.OS.Name == OSBot ||
+		u.OS.Platform == PlatformBot
 }
 
 // Parse accepts a raw user agent (string) and returns the UserAgent.
@@ -498,21 +491,16 @@ func ParseUserAgentWithHints(ua string, hints *Hints, dest *UserAgent) {
 
 func parse(ua string, hints *Hints, dest *UserAgent) {
 	ua = normalise(ua)
-	switch {
-	case len(ua) == 0:
-		dest.OS.Platform = PlatformUnknown
-		dest.OS.Name = OSUnknown
-		dest.Browser.Name = BrowserUnknown
-		dest.DeviceType = DeviceUnknown
-
-	// stop on on first case returning true
-	case dest.parseOS(ua, hints):
-	case dest.parseBrowserName(ua):
-	default:
-		dest.parseBrowserVersion(ua)
-		dest.parseDevice(ua)
-		hints.apply(dest)
+	if len(ua) == 0 {
+		return // dest keeps its zero (Unknown) values
 	}
+	// each parse* reports a bot, which needs nothing further parsed
+	if dest.parseOS(ua, hints) || dest.parseBrowserName(ua) {
+		return
+	}
+	dest.parseBrowserVersion(ua)
+	dest.parseDevice(ua)
+	hints.apply(dest)
 }
 
 // normalise normalises the user supplied agent string so that

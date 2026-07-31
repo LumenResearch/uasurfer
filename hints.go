@@ -103,19 +103,19 @@ func (h *Hints) applyPlatformVersion(u *UserAgent) {
 		return
 	}
 
+	var want OSName
 	switch unquoteHint(h.Platform) {
 	case "macos":
-		if u.OS.Name == OSMacOSX {
-			u.OS.Version.parse(unquoteHint(h.PlatformVersion))
-		}
+		want = OSMacOSX
 	case "android":
-		if u.OS.Name == OSAndroid {
-			u.OS.Version.parse(unquoteHint(h.PlatformVersion))
-		}
+		want = OSAndroid
 	case "chrome os", "chromium os":
-		if u.OS.Name == OSChromeOS {
-			u.OS.Version.parse(unquoteHint(h.PlatformVersion))
-		}
+		want = OSChromeOS
+	default:
+		return
+	}
+	if u.OS.Name == want {
+		u.OS.Version.parse(unquoteHint(h.PlatformVersion))
 	}
 }
 
