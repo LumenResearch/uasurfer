@@ -131,48 +131,6 @@ func TestParseWindowsVersions(t *testing.T) {
 	}
 }
 
-func TestIsWebOS(t *testing.T) {
-	// LG ships "Web0S" with a zero, Palm and HP shipped the other two.
-	for _, ua := range []string{
-		"mozilla/5.0 (web0s; linux/smarttv) applewebkit/537.36",
-		"mozilla/5.0 (webos; linux/smarttv) applewebkit/538.2",
-		"mozilla/5.0 (hpwos/3.0.5; u; en-us) applewebkit/534.6",
-	} {
-		if !isWebOS(ua) {
-			t.Errorf("isWebOS(%q) = false, want true", ua)
-		}
-	}
-	for _, ua := range []string{"", "mozilla/5.0 (windows nt 10.0)", "web0", "webo"} {
-		if isWebOS(ua) {
-			t.Errorf("isWebOS(%q) = true, want false", ua)
-		}
-	}
-}
-
-func TestParseTvOSVersion(t *testing.T) {
-	tests := []struct {
-		ua   string
-		want Version
-	}{
-		// the version follows the slash after the hardware generation
-		{"appletv6,2/11.1", Version{11, 1, 0}},
-		{"appletv11,1/15.5.1", Version{15, 5, 1}},
-		{"appletv/1.1", Version{1, 1, 0}},
-		// the media player agents carry no model and state it the iOS way
-		{"applecoremedia/1.0.0.12f69 (apple tv; u; cpu os 8_3 like mac os x; en_us)", Version{8, 3, 0}},
-		// nothing parseable: the caller still gets a usable zero value
-		{"appletv", Version{}},
-		{"apple tv", Version{}},
-	}
-	for _, tt := range tests {
-		var u UserAgent
-		u.parseTvOSVersion(tt.ua)
-		if u.OS.Version != tt.want {
-			t.Errorf("parseTvOSVersion(%q) = %v, want %v", tt.ua, u.OS.Version, tt.want)
-		}
-	}
-}
-
 // A version component that cannot fit is nonsense, but it must not come back
 // negative: Less would then sort it before every real release. FuzzParse found
 // this one, and testdata/fuzz keeps it as a seed.
@@ -198,5 +156,25 @@ func TestVersionParseOverflow(t *testing.T) {
 	v.parse("126.0.6478.126")
 	if v != (Version{126, 0, 6478}) {
 		t.Errorf("parse(%q) = %v, want {126 0 6478}", "126.0.6478.126", v)
+	}
+}
+
+// The version of a connected TV comes from a different field on each platform,
+// which is worth pinning through the public API.
+func TestTVOSVersions(t *testing.T) {
+	tests := []struct {
+		agent string
+		want  Version
+	}{
+		{"AppleTV6,2/11.1", Version{11, 1, 0}},
+		{"AppleTV/1.1", Version{1, 1, 0}},
+		{"AppleCoreMedia/1.0.0.12F69 (Apple TV; U; CPU OS 8_3 like Mac OS X; en_us)", Version{8, 3, 0}},
+		{"Roku/DVP-12.5 (12.5.5.4405-46)", Version{12, 5, 0}},
+		{"Mozilla/5.0 (SMART-TV; LINUX; Tizen 6.0) AppleWebKit/537.36 (KHTML, like Gecko) TV Safari/537.36", Version{6, 0, 0}},
+	}
+	for _, tt := range tests {
+		if got := Parse(tt.agent).OS.Version; got != tt.want {
+			t.Errorf("Parse(%.50q).OS.Version = %v, want %v", tt.agent, got, tt.want)
+		}
 	}
 }

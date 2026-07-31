@@ -77,6 +77,58 @@ func isFireTV(specs string) bool {
 // isFieldEdge reports whether c separates two fields of a platform group.
 func isFieldEdge(c byte) bool { return isSpace(c) || c == ';' || c == ',' }
 
+// isBrowserAgent reports whether ua has the shape a browser announces itself
+// with: the Mozilla preamble every one of them still carries, and a rendering
+// engine.
+//
+// Naming an engine is not enough on its own. A decade of vendor software put
+// "AppleWebKit" in agents of its own invention -
+// "Android 4.0.4;AppleWebKit/534.30;Build/HuaweiU8836D;U8836D" - and those are
+// phones, and app agents besides. Requiring the preamble is what separates a
+// browser from software that merely mentions one.
+func isBrowserAgent(ua string) bool {
+	return strings.HasPrefix(ua, "mozilla/") &&
+		(strings.Contains(ua, "applewebkit") || strings.Contains(ua, "gecko"))
+}
+
+// Android tablet models, for the tablets that state "mobile" like a phone -
+// which they should not, and often do:
+// http://android-developers.blogspot.com/2010/12/android-browser-user-agent-issues.html
+//
+// "; t1-" is Huawei's MediaPad T1 and needs its dash: "; t1" alone also matches
+// a "T100" handset. Everything else here is a model line that only ever shipped
+// as a tablet.
+var tabletMarkers = []string{
+	"tablet", "nexus 7", "nexus 9", "nexus 10", "xoom",
+	"sm-t", "; kf", "; t1-", "lenovo tab",
+}
+
+// isAndroidTablet reports whether ua names a model known to be a tablet.
+//
+// A plain loop rather than the bucketed scan isTV uses: at this length the
+// Contains calls are cheaper than a pass over the agent, and the list is a table
+// so that a new model line is one line and a test can enumerate it.
+func isAndroidTablet(ua string) bool {
+	for _, m := range tabletMarkers {
+		if strings.Contains(ua, m) {
+			return true
+		}
+	}
+	return false
+}
+
+// isAndroidWearable reports whether an Android agent belongs on a wrist.
+//
+// There is no form factor field to read: Wear OS states "Mobile" like a phone
+// does, so the model name is all there is. "sm-r" is Samsung's Galaxy Watch
+// line, whose phones and tablets are "sm-g" and "sm-t".
+func isAndroidWearable(ua string) bool {
+	return strings.Contains(ua, "watch") ||
+		strings.Contains(ua, "wear os") ||
+		strings.Contains(ua, "sm-r") ||
+		strings.Contains(ua, "glass")
+}
+
 func (u *UserAgent) parseDevice(ua string) {
 	switch {
 
@@ -98,14 +150,48 @@ func (u *UserAgent) parseDevice(ua string) {
 		u.DeviceType = DevicePhone
 
 	case u.OS.Name == OSAndroid:
-		// android phones report as "mobile", android tablets should not but often do -- http://android-developers.blogspot.com/2010/12/android-browser-user-agent-issues.html
+		// Wear OS names the watch in the model field and says nothing else about
+		// itself, so it has to be read before the phone default below claims it.
+		if isAndroidWearable(ua) {
+			u.DeviceType = DeviceWearable
+			return
+		}
+
+		// A model known to be a tablet settles it, and is read before the token
+		// below rather than after: the whole point of the list is the tablets
+		// that state "mobile" anyway.
+		if isAndroidTablet(ua) {
+			u.DeviceType = DeviceTablet
+			return
+		}
+
 		if strings.Contains(ua, "mobile") {
 			u.DeviceType = DevicePhone
 			return
 		}
 
-		if strings.Contains(ua, "tablet") || strings.Contains(ua, "nexus 7") || strings.Contains(ua, "nexus 9") || strings.Contains(ua, "nexus 10") || strings.Contains(ua, "xoom") ||
-			strings.Contains(ua, "sm-t") || strings.Contains(ua, "; kf") || strings.Contains(ua, "; t1") || strings.Contains(ua, "lenovo tab") {
+		// No "mobile" token, so the version decides at both ends of the history.
+		// Honeycomb shipped on tablets and nothing else; before it, the token
+		// was not yet a convention anyone kept, and the devices of that era are
+		// overwhelmingly phones.
+		switch {
+		case u.OS.Version.Major == 3:
+			u.DeviceType = DeviceTablet
+			return
+		case u.OS.Version.Major > 0 && u.OS.Version.Major < 3:
+			u.DeviceType = DevicePhone
+			return
+		}
+
+		// From Android 4 on, every browser omits "mobile" on a tablet and states
+		// it on a phone. Since Chrome's user agent reduction - "(Linux; Android
+		// 10; K)", no model, no real version - that token is the only signal
+		// left.
+		//
+		// Browsers only: an app HTTP stack states no form factor either way, and
+		// a Dalvik or a download manager on a phone would otherwise read as a
+		// tablet.
+		if isBrowserAgent(ua) {
 			u.DeviceType = DeviceTablet
 			return
 		}
@@ -118,8 +204,11 @@ func (u *UserAgent) parseDevice(ua string) {
 	case strings.Contains(ua, "glass") || strings.Contains(ua, "watch") || strings.Contains(ua, "sm-v"):
 		u.DeviceType = DeviceWearable
 
-	// specifically above "mobile" string check as Kindle Fire tablets report as "mobile"
-	case u.Browser.Name == BrowserSilk || u.OS.Name == OSKindle && !strings.Contains(ua, "sd4930ur"):
+	// Above the "mobile" check, because Kindle Fire tablets report as "mobile".
+	// The exclusion has to cover the Silk arm as well: the Fire Phone runs Silk
+	// too, and reading "|| OSKindle && !sd4930ur" the way Go groups it left the
+	// phone matching on Silk alone.
+	case (u.Browser.Name == BrowserSilk || u.OS.Name == OSKindle) && !strings.Contains(ua, "sd4930ur"):
 		u.DeviceType = DeviceTablet
 
 	case strings.Contains(ua, "mobile") || strings.Contains(ua, "touch") || strings.Contains(ua, " mobi") || strings.Contains(ua, "webos"): //anything "mobile"/"touch" that didn't get captured as tablet, console or wearable is presumed a phone

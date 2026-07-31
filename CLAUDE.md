@@ -92,9 +92,18 @@ only ever reached through `parseBrowserName`'s default arm.
 - Long `strings.Contains` chains over the whole agent are O(markers × len). When
   a list grows past a handful, bucket by first byte and scan once, as `isTV`
   does.
-- Benchmark before and after any hot-path change:
-  `go test -run=XXX -bench=Parse -benchmem -count=6`. Compare against a worktree
-  at the base commit; report medians honestly, including regressions.
+- Benchmark before and after any hot-path change with `make benchstat`, which
+  measures master and the working tree and compares them with benchstat. Report
+  what it says, including regressions. A percentage is not automatically a
+  blocker: a parse is a few hundred nanoseconds, and buying accuracy with some of
+  that budget is a legitimate trade - saying so out loud is the requirement.
+- `make benchguard` is the gate CI runs, on a pull request, measuring the base
+  commit and the change on the same runner. It fails a benchmark only when it is
+  slower by **both** a third and a few hundred nanoseconds, and fails any increase
+  in allocations outright. Needing both keeps a 15ns check growing to 85ns from
+  failing a parse that still costs half a microsecond, while catching the change
+  of shape - a compiled regexp, a scan gone quadratic. Do not chase percentages
+  below that bar; do explain the ones above it.
 
 ## Tests
 
@@ -104,7 +113,16 @@ only ever reached through `parseBrowserName`'s default arm.
   per-change — it is the reason a twenty year old parser can still be refactored
   at all.
 - A test lives in the `_test.go` file mirroring the implementation file it
-  covers. `device.go` → `device_test.go`. Never create catch-all test files.
+  covers. `device.go` → `device_test.go`. Never create catch-all test files. Two
+  deliberate exceptions: **benchmarks** all live in `bench_test.go`, because the
+  parse path is one budget and comparing a change means running the whole set,
+  and a **helper used by more than one test file** lives in `uasurfer_test.go`
+  rather than beside its first caller.
+- Test the exported API. Reach for a private function only when it is
+  package-level, non-trivial, and not already covered through `Parse` —
+  `isFireTV` and `botName` earn a test, the byte predicates they call do not.
+  Testing a marker table entry by entry is noise; testing the behaviour the table
+  exists for is not.
 - Non-trivial logic leaves a runnable check behind. When hand rolling a
   replacement for something standard, keep the original as a test oracle and
   compare differentially — see `TestIsAmazonFire` against the regexp it replaced.
@@ -151,8 +169,9 @@ same check catches two cases returning the same name by copy-paste.
 ## Documentation
 
 `README.md` stays short: what the package is, the API, the honest caveats, and
-links out. Lists and special topics live in `doc/<topic>.md` — the constant
-lists, bot detection, connected TV, fixtures. A new constant goes in the relevant
+links out. Lists and special topics live in `doc/<topic>.md` — bot detection,
+connected TV, in-app browsers, client hints. Constant lists are not duplicated
+anywhere: they link to pkg.go.dev. A new constant goes in the relevant
 `doc/` file, not the README.
 
 ## Tooling
@@ -160,10 +179,16 @@ lists, bot detection, connected TV, fixtures. A new constant goes in the relevan
 Everything below must be clean before work is considered done:
 
 ```sh
-gofmt -l .
+make all   # go fix, goimports, vet, golangci-lint, tests
+```
+
+Which is:
+
+```sh
+go fix ./...              # Go 1.26 modernizers, run as standard
+goimports -l .            # not gofmt: it also fixes the imports an edit moved
 go vet ./...
-golangci-lint run ./...   # CI runs this via bsm/misc; it fails the build
-go fix -diff ./...        # Go 1.26 modernizers, run as standard
+golangci-lint run ./...   # CI runs this; it fails the build
 go test ./...
 ```
 

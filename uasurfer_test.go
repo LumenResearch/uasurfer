@@ -1,6 +1,7 @@
 package uasurfer
 
 import (
+	"embed"
 	"strings"
 	"testing"
 )
@@ -296,7 +297,7 @@ var testUAVars = []struct {
 
 	{"Mozilla/5.0 (Linux; Android 4.4.4; SD4930UR Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/34.0.0.0 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/35.0.0.48.273;]",
 		UserAgent{
-			Browser{BrowserChrome, Version{34, 0, 0}}, OS{PlatformLinux, OSKindle, Version{4, 4, 4}}, DevicePhone}}, // Facebook app on Fire Phone
+			Browser{BrowserFacebook, Version{35, 0, 0}}, OS{PlatformLinux, OSKindle, Version{4, 4, 4}}, DevicePhone}}, // Facebook app on Fire Phone
 
 	{"mozilla/5.0 (linux; android 4.4.3; kfthwi build/ktu84m) applewebkit/537.36 (khtml, like gecko) version/4.0 chrome/34.0.0.0 safari/537.36 [pinterest/android]",
 		UserAgent{
@@ -505,6 +506,57 @@ var testUAVars = []struct {
 		UserAgent{
 			Browser{BrowserBot, Version{0, 0, 0}}, OS{PlatformBot, OSBot, Version{0, 0, 0}}, DeviceComputer}},
 
+	// Agents as they are sent today, which is a different shape to most of the
+	// table above: Chrome's user agent reduction took the model and the real
+	// version out, in-app webviews took over a good share of mobile traffic, and
+	// the connected TV platforms arrived. These carry the whole-agent benchmarks
+	// as well, so the set stays representative of what a parse actually meets.
+	{"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+		UserAgent{
+			Browser{BrowserChrome, Version{126, 0, 0}}, OS{PlatformWindows, OSWindows, Version{10, 0, 0}}, DeviceComputer}},
+	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+		UserAgent{
+			Browser{BrowserChrome, Version{126, 0, 0}}, OS{PlatformMac, OSMacOSX, Version{10, 15, 7}}, DeviceComputer}},
+	{"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36",
+		UserAgent{
+			Browser{BrowserChrome, Version{126, 0, 0}}, OS{PlatformLinux, OSAndroid, Version{10, 0, 0}}, DevicePhone}},
+	{"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+		UserAgent{
+			Browser{BrowserChrome, Version{126, 0, 0}}, OS{PlatformLinux, OSAndroid, Version{10, 0, 0}}, DeviceTablet}},
+	{"Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1",
+		UserAgent{
+			Browser{BrowserSafari, Version{17, 5, 0}}, OS{PlatformiPhone, OSiOS, Version{17, 5, 1}}, DevicePhone}},
+	{"Mozilla/5.0 (iPad; CPU OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1",
+		UserAgent{
+			Browser{BrowserSafari, Version{17, 5, 0}}, OS{PlatformiPad, OSiPadOS, Version{17, 5, 0}}, DeviceTablet}},
+	{"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0",
+		UserAgent{
+			Browser{BrowserIE, Version{126, 0, 0}}, OS{PlatformWindows, OSWindows, Version{10, 0, 0}}, DeviceComputer}},
+	{"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0",
+		UserAgent{
+			Browser{BrowserFirefox, Version{127, 0, 0}}, OS{PlatformWindows, OSWindows, Version{10, 0, 0}}, DeviceComputer}},
+	{"Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [FBAN/FBIOS;FBAV/456.0.0.36.109;FBDV/iPhone14,3]",
+		UserAgent{
+			Browser{BrowserFacebook, Version{456, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{17, 5, 0}}, DevicePhone}},
+	{"Mozilla/5.0 (Linux; Android 13; SM-S911B Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/126.0.0.0 Mobile Safari/537.36 Instagram 331.0.0.37.90 Android",
+		UserAgent{
+			Browser{BrowserInstagram, Version{331, 0, 0}}, OS{PlatformLinux, OSAndroid, Version{13, 0, 0}}, DevicePhone}},
+	{"Mozilla/5.0 (SMART-TV; LINUX; Tizen 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Version/6.0 TV Safari/537.36",
+		UserAgent{
+			Browser{BrowserUnknown, Version{6, 0, 0}}, OS{PlatformLinux, OSTizen, Version{6, 0, 0}}, DeviceTV}},
+	{"Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.2 like Chrome/122.0.6261.119 Safari/537.36",
+		UserAgent{
+			Browser{BrowserSilk, Version{122, 4, 2}}, OS{PlatformLinux, OSAndroid, Version{11, 0, 0}}, DeviceTV}},
+	{"Mozilla/5.0 (Linux; Android 13; Pixel Watch) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36",
+		UserAgent{
+			Browser{BrowserChrome, Version{126, 0, 0}}, OS{PlatformLinux, OSAndroid, Version{13, 0, 0}}, DeviceWearable}},
+	{"Mozilla/5.0 (compatible; GPTBot/1.2; +https://openai.com/gptbot)",
+		UserAgent{
+			Browser{BrowserOpenAIBot, Version{0, 0, 0}}, OS{PlatformBot, OSBot, Version{0, 0, 0}}, DeviceComputer}},
+	{"curl/8.6.0",
+		UserAgent{
+			Browser{BrowserBot, Version{0, 0, 0}}, OS{PlatformBot, OSBot, Version{0, 0, 0}}, DeviceComputer}},
+
 	// Unknown or partially handled
 	{"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.1b3pre) Gecko/20090223 SeaMonkey/2.0a3", //Seamonkey (~FF)
 		UserAgent{
@@ -626,7 +678,7 @@ var testUAVars = []struct {
 	// TODO: is tablet, not phone
 	{"Mozilla/5.0 (Linux; U; Android 3.0; xx-xx; Transformer TF101 Build/HRI66) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13",
 		UserAgent{
-			Browser{BrowserAndroid, Version{4, 0, 0}}, OS{PlatformLinux, OSAndroid, Version{3, 0, 0}}, DevicePhone}},
+			Browser{BrowserAndroid, Version{4, 0, 0}}, OS{PlatformLinux, OSAndroid, Version{3, 0, 0}}, DeviceTablet}},
 
 	{"Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13",
 		UserAgent{
@@ -774,7 +826,7 @@ var testUAVars = []struct {
 
 	{"Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Mobile/14D27 [FBAN/FBIOS;FBAV/86.0.0.48.52;FBBV/53842252;FBDV/iPhone9,1;FBMD/iPhone;FBSN/iOS;FBSV/10.2.1;FBSS/2;FBCR/Verizon;FBID/phone;FBLC/en_US;FBOP/5;FBRV/0]",
 		UserAgent{
-			Browser{BrowserSafari, Version{10, 2, 1}}, OS{PlatformiPhone, OSiOS, Version{10, 2, 1}}, DevicePhone}},
+			Browser{BrowserFacebook, Version{86, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{10, 2, 1}}, DevicePhone}},
 
 	// TODO handle default browser based on iOS version
 	// {"Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/538.34.9 (KHTML, like Gecko) Mobile/12A4265u",
@@ -1202,6 +1254,36 @@ var testUAVarsWithHints = []struct {
 			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformiPhone, OSiOS, Version{26, 5, 0}}, DevicePhone}},
 }
 
+//go:embed testdata/bots.tsv testdata/devices.tsv testdata/tv.tsv
+var fixtures embed.FS
+
+// readFixtures returns the rows of a testdata file, "#" comments and blank
+// lines dropped, each row split on tabs.
+func readFixtures(t *testing.T, name string, fields int) [][]string {
+	t.Helper()
+
+	b, err := fixtures.ReadFile("testdata/" + name)
+	if err != nil {
+		t.Fatalf("reading %s: %v", name, err)
+	}
+
+	var rows [][]string
+	for i, line := range strings.Split(string(b), "\n") {
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		row := strings.Split(line, "\t")
+		if len(row) != fields {
+			t.Fatalf("%s line %d: got %d fields, want %d: %q", name, i+1, len(row), fields, line)
+		}
+		rows = append(rows, row)
+	}
+	if len(rows) == 0 {
+		t.Fatalf("%s: no fixtures", name)
+	}
+	return rows
+}
+
 func TestAgentSurfer(t *testing.T) {
 	for _, determined := range testUAVars {
 		t.Run("", func(t *testing.T) {
@@ -1297,101 +1379,6 @@ func TestAgentSurfer(t *testing.T) {
 	}
 }
 
-func BenchmarkAgentSurfer(b *testing.B) {
-	i := 0
-	for b.Loop() {
-		Parse(testUAVars[i%len(testUAVars)].UA)
-		i++
-	}
-}
-
-func BenchmarkAgentSurferReuse(b *testing.B) {
-	dest := new(UserAgent)
-	i := 0
-	for b.Loop() {
-		dest.Reset()
-		ParseUserAgent(testUAVars[i%len(testUAVars)].UA, dest)
-		i++
-	}
-}
-
-func BenchmarkParseOS(b *testing.B) {
-	var v UserAgent
-	i := 0
-	for b.Loop() {
-		v.parseOS(testUAVars[i%len(testUAVars)].UA, nil)
-		i++
-	}
-}
-
-func BenchmarkParseBrowserName(b *testing.B) {
-	var v UserAgent
-	i := 0
-	for b.Loop() {
-		v.parseBrowserName(testUAVars[i%len(testUAVars)].UA)
-		i++
-	}
-}
-
-func BenchmarkParseBrowserVersion(b *testing.B) {
-	var v UserAgent
-	i := 0
-	for b.Loop() {
-		want := testUAVars[i%len(testUAVars)]
-		v.Browser.Name = want.Browser.Name
-		v.parseBrowserVersion(want.UA)
-		i++
-	}
-}
-
-func BenchmarkParseDevice(b *testing.B) {
-	var v UserAgent
-	i := 0
-	for b.Loop() {
-		want := testUAVars[i%len(testUAVars)]
-		v.OS.Name = want.OS.Name
-		v.OS.Platform = want.OS.Platform
-		v.Browser.Name = want.Browser.Name
-		v.parseDevice(want.UA)
-		i++
-	}
-}
-
-// Chrome for Mac
-func BenchmarkParseChromeMac(b *testing.B) {
-	for b.Loop() {
-		Parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36")
-	}
-}
-
-// Chrome for Windows
-func BenchmarkParseChromeWin(b *testing.B) {
-	for b.Loop() {
-		Parse("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36")
-	}
-}
-
-// Chrome for Android
-func BenchmarkParseChromeAndroid(b *testing.B) {
-	for b.Loop() {
-		Parse("Mozilla/5.0 (Linux; Android 4.4.2; GT-P5210 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.93 Safari/537.36")
-	}
-}
-
-// Safari for Mac
-func BenchmarkParseSafariMac(b *testing.B) {
-	for b.Loop() {
-		Parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12")
-	}
-}
-
-// Safari for iPad
-func BenchmarkParseSafariiPad(b *testing.B) {
-	for b.Loop() {
-		Parse("Mozilla/5.0 (iPad; CPU OS 8_1_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B440 Safari/600.1.4")
-	}
-}
-
 func TestStringTrimPrefix(t *testing.T) {
 	testCases := []struct {
 		f        func() string
@@ -1479,15 +1466,23 @@ func TestParseUserAgentReuse(t *testing.T) {
 }
 
 func TestIsBot(t *testing.T) {
-	// every bot browser constant must report as a bot
-	for name := BrowserBot; name < _browserNameFinal; name++ {
-		if ua := (&UserAgent{Browser: Browser{Name: name}}); !ua.IsBot() {
-			t.Errorf("Browser %v: IsBot() = false, want true", name)
+	// IsBot keys off a set built from the constant names, so the invariant to
+	// assert is the correspondence itself: a constant named "…Bot" reports as a
+	// bot, and nothing else does. That way a new constant of either kind needs
+	// no bookkeeping beyond its name.
+	for name := range _browserNameFinal {
+		want := strings.HasSuffix(name.String(), "Bot")
+		if got := (&UserAgent{Browser: Browser{Name: name}}).IsBot(); got != want {
+			t.Errorf("Browser %v: IsBot() = %v, want %v", name, got, want)
 		}
 	}
-	// the constant immediately before the bot block must not
-	if ua := (&UserAgent{Browser: Browser{Name: BrowserBot - 1}}); ua.IsBot() {
-		t.Errorf("Browser %v: IsBot() = true, want false", BrowserBot-1)
+	// and a value from a newer release than the caller was built against is not
+	// a bot, and does not panic
+	if ua := (&UserAgent{Browser: Browser{Name: _browserNameFinal + 7}}); ua.IsBot() {
+		t.Error("a BrowserName past the end of the list: IsBot() = true, want false")
+	}
+	if ua := (&UserAgent{Browser: Browser{Name: -1}}); ua.IsBot() {
+		t.Error("a negative BrowserName: IsBot() = true, want false")
 	}
 
 	if ua := (&UserAgent{OS: OS{Name: OSBot}}); !ua.IsBot() {
@@ -1552,13 +1547,6 @@ func TestDeviceTypeStrings(t *testing.T) {
 func TestBrowserNameStrings(t *testing.T) {
 	assertNames(t, "BrowserName", "Browser", int(_browserNameFinal), func(i int) string { return BrowserName(i).String() })
 
-	// IsBot treats everything from BrowserBot to the terminator as a bot, so the
-	// bot block has to stay contiguous and stay at the end of the list. Adding a
-	// bot means naming it here; adding a browser after it breaks IsBot.
-	if BrowserPetalBot != _browserNameFinal-1 {
-		t.Errorf("BrowserPetalBot = %d but the list ends at %d: a non-bot constant was "+
-			"added after the bot block, which breaks IsBot", BrowserPetalBot, _browserNameFinal-1)
-	}
 }
 
 func TestOSNameStrings(t *testing.T) {

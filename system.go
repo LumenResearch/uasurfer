@@ -195,7 +195,8 @@ func (u *UserAgent) parseLinux(ua, agentPlatform string) {
 		// Android
 		u.OS.Platform = PlatformLinux
 		u.OS.Name = OSAndroid
-		u.OS.Version.parseAfter(agentPlatform, "android ")
+		// A few old agents wrote it "Android-4.0.3".
+		u.OS.Version.parseAfter(agentPlatform, "android ", "android-")
 
 	// ChromeOS
 	case strings.Contains(ua, "cros"):
