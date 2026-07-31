@@ -1,51 +1,93 @@
 package uasurfer
 
 import (
-	"regexp"
 	"strings"
 )
 
-var (
-	amazonFireFingerprint = regexp.MustCompile(`\s(k[a-z]{3,5}|sd\d{4}ur)\s`) //tablet or phone
-)
-
-func (u *UserAgent) evalOS(ua string, hints *Hints) bool {
-	s := strings.IndexRune(ua, '(')
-	e := strings.IndexRune(ua, ')')
-	if s > e {
-		s = 0
-		e = len(ua)
+// isAmazonFire reports whether s carries a whitespace delimited Amazon Fire
+// tablet or phone model token. It is equivalent to the regexp it replaced,
+// `\s(k[a-z]{3,5}|sd\d{4}ur)\s`, which TestIsAmazonFire pins down by
+// differential testing against that pattern.
+//
+// Hand rolled rather than compiled because handing the agent to regexp makes it
+// escape, which in turn forces parse's normalise buffer onto the heap - the
+// regexp was single-handedly costing every parse an allocation.
+func isAmazonFire(s string) bool {
+	for i := 0; i+1 < len(s); i++ {
+		if !isSpace(s[i]) {
+			continue
+		}
+		n := amazonFireToken(s[i+1:])
+		if n > 0 && i+1+n < len(s) && isSpace(s[i+1+n]) {
+			return true
+		}
 	}
-	if e == -1 {
+	return false
+}
+
+// amazonFireToken returns the length of the model token at the start of s, or 0
+// if there is none. Matching is greedy: for the "k" form the letter run is
+// consumed up to the 5 the pattern allows, and a longer run simply fails the
+// caller's trailing whitespace check, exactly as the regexp's backtracking did
+// (every shorter prefix ends on a letter, never on whitespace).
+func amazonFireToken(s string) int {
+	if len(s) > 0 && s[0] == 'k' {
+		n := 1
+		for n < len(s) && n <= 5 && isLower(s[n]) {
+			n++
+		}
+		if n >= 4 { // "k" plus at least three letters
+			return n
+		}
+		return 0
+	}
+
+	// sd<4 digits>ur
+	if len(s) >= 8 && s[0] == 's' && s[1] == 'd' && s[6] == 'u' && s[7] == 'r' &&
+		isDigit(s[2]) && isDigit(s[3]) && isDigit(s[4]) && isDigit(s[5]) {
+		return 8
+	}
+	return 0
+}
+
+// isSpace matches regexp's \s class: [\t\n\f\r ].
+func isSpace(c byte) bool { return c == ' ' || c == '\t' || c == '\n' || c == '\f' || c == '\r' }
+func isLower(c byte) bool { return c >= 'a' && c <= 'z' }
+func isDigit(c byte) bool { return c >= '0' && c <= '9' }
+
+func (u *UserAgent) parseOS(ua string, hints *Hints) bool {
+	// The platform group is the text between the first parentheses. When the
+	// closing paren is missing or precedes the opening one, the group runs to
+	// the end of the agent instead. Only e moves: s still points at the opening
+	// paren (or -1 when there is none), so the s+1 below skips that paren rather
+	// than the agent's first byte.
+	s := strings.IndexByte(ua, '(')
+	e := strings.IndexByte(ua, ')')
+	if e == -1 || s > e {
 		e = len(ua)
 	}
 
 	agentPlatform := ua[s+1 : e]
-	specsEnd := strings.Index(agentPlatform, ";")
-	var specs string
-	if specsEnd != -1 {
-		specs = agentPlatform[:specsEnd]
-	} else {
-		specs = agentPlatform
-	}
+	// Cut returns the whole string when there is no ";", which is what we want.
+	specs, _, _ := strings.Cut(agentPlatform, ";")
 
 	//strict OS & version identification
 	switch {
 	case specs == "android":
-		u.evalLinux(ua, agentPlatform)
+		u.parseLinux(ua, agentPlatform)
 
 	case specs == "bb10" || specs == "playbook":
 		u.OS.Platform = PlatformBlackberry
 		u.OS.Name = OSBlackberry
 
 	case specs == "x11" || specs == "linux":
-		u.evalLinux(ua, agentPlatform)
+		u.parseLinux(ua, agentPlatform)
 
 	case strings.HasPrefix(specs, "ipad") || strings.HasPrefix(specs, "iphone") || strings.HasPrefix(specs, "ipod touch") || strings.HasPrefix(specs, "ipod"):
-		u.evaliOS(specs, agentPlatform)
+		u.parseiOS(specs, agentPlatform)
 
 	case specs == "macintosh":
-		u.evalMacintosh(ua, hints)
+		u.parseMacintosh(ua, hints)
 
 	default:
 		switch {
@@ -56,20 +98,20 @@ func (u *UserAgent) evalOS(ua string, hints *Hints) bool {
 
 		// Windows Phone
 		case strings.Contains(agentPlatform, "windows phone "):
-			u.evalWindowsPhone(agentPlatform)
+			u.parseWindowsPhone(agentPlatform)
 
 		// Windows, Xbox
 		case strings.Contains(ua, "windows ") || strings.Contains(ua, "microsoft-cryptoapi"):
-			u.evalWindows(ua)
+			u.parseWindows(ua)
 
 		// Kindle
-		case strings.Contains(ua, "kindle/") || amazonFireFingerprint.MatchString(agentPlatform):
+		case strings.Contains(ua, "kindle/") || isAmazonFire(agentPlatform):
 			u.OS.Platform = PlatformLinux
 			u.OS.Name = OSKindle
 
 		// Linux (broader attempt)
 		case strings.Contains(ua, "linux"):
-			u.evalLinux(ua, agentPlatform)
+			u.parseLinux(ua, agentPlatform)
 
 		// WebOS (non-linux flagged)
 		case strings.Contains(ua, "webos") || strings.Contains(ua, "hpwos"):
@@ -88,11 +130,11 @@ func (u *UserAgent) evalOS(ua string, hints *Hints) bool {
 
 		// Android
 		case strings.Contains(ua, "android"):
-			u.evalLinux(ua, agentPlatform)
+			u.parseLinux(ua, agentPlatform)
 
 		// Apple CFNetwork
 		case strings.Contains(ua, "cfnetwork") && strings.Contains(ua, "darwin"):
-			u.evalAppleNative(ua, hints)
+			u.parseAppleNative(ua, hints)
 
 		default:
 			u.OS.Platform = PlatformUnknown
@@ -100,12 +142,12 @@ func (u *UserAgent) evalOS(ua string, hints *Hints) bool {
 		}
 	}
 
-	return u.maybeBot()
+	return u.applyBotDefaults()
 }
 
-// maybeBot checks if the UserAgent is a bot and sets
-// all bot related fields if it is
-func (u *UserAgent) maybeBot() bool {
+// applyBotDefaults reports whether the agent is a bot, and if so overwrites the OS and
+// device fields with the bot defaults.
+func (u *UserAgent) applyBotDefaults() bool {
 	if u.IsBot() {
 		u.OS.Platform = PlatformBot
 		u.OS.Name = OSBot
@@ -115,24 +157,24 @@ func (u *UserAgent) maybeBot() bool {
 	return false
 }
 
-// evalLinux returns the `Platform`, `OSName` and Version of UAs with
+// parseLinux returns the `Platform`, `OSName` and Version of UAs with
 // 'linux' listed as their platform.
-func (u *UserAgent) evalLinux(ua string, agentPlatform string) {
+func (u *UserAgent) parseLinux(ua, agentPlatform string) {
 
 	switch {
 	// Kindle Fire
-	case strings.Contains(ua, "kindle") || amazonFireFingerprint.MatchString(agentPlatform):
+	case strings.Contains(ua, "kindle") || isAmazonFire(agentPlatform):
 		// get the version of Android if available, though we don't call this OSAndroid
 		u.OS.Platform = PlatformLinux
 		u.OS.Name = OSKindle
-		u.OS.Version.findVersionNumber(agentPlatform, "android ")
+		u.OS.Version.parseAfter(agentPlatform, "android ")
 
 	// Android, Kindle Fire
 	case strings.Contains(ua, "android") || strings.Contains(ua, "googletv"):
 		// Android
 		u.OS.Platform = PlatformLinux
 		u.OS.Name = OSAndroid
-		u.OS.Version.findVersionNumber(agentPlatform, "android ")
+		u.OS.Version.parseAfter(agentPlatform, "android ")
 
 	// ChromeOS
 	case strings.Contains(ua, "cros"):
@@ -155,28 +197,28 @@ func (u *UserAgent) evalLinux(ua string, agentPlatform string) {
 	}
 }
 
-// evaliOS returns the `Platform`, `OSName` and Version of UAs with
+// parseiOS returns the `Platform`, `OSName` and Version of UAs with
 // 'ipad' or 'iphone' listed as their platform.
-func (u *UserAgent) evaliOS(uaPlatform string, agentPlatform string) {
+func (u *UserAgent) parseiOS(specs, agentPlatform string) {
 
 	switch {
 	// iPhone
-	case strings.HasPrefix(uaPlatform, "iphone"):
+	case strings.HasPrefix(specs, "iphone"):
 		u.OS.Platform = PlatformiPhone
 		u.OS.Name = OSiOS
-		u.OS.getiOSVersion(agentPlatform)
+		u.OS.parseiOSVersion(agentPlatform)
 
 	// iPad
-	case strings.HasPrefix(uaPlatform, "ipad"):
+	case strings.HasPrefix(specs, "ipad"):
 		u.OS.Platform = PlatformiPad
 		u.OS.Name = OSiPadOS
-		u.OS.getiOSVersion(agentPlatform)
+		u.OS.parseiOSVersion(agentPlatform)
 
 	// iPod
-	case strings.HasPrefix(uaPlatform, "ipod touch") || strings.HasPrefix(uaPlatform, "ipod"):
+	case strings.HasPrefix(specs, "ipod touch") || strings.HasPrefix(specs, "ipod"):
 		u.OS.Platform = PlatformiPod
 		u.OS.Name = OSiOS
-		u.OS.getiOSVersion(agentPlatform)
+		u.OS.parseiOSVersion(agentPlatform)
 
 	default:
 		u.OS.Platform = PlatformiPad
@@ -184,27 +226,25 @@ func (u *UserAgent) evaliOS(uaPlatform string, agentPlatform string) {
 	}
 }
 
-func (u *UserAgent) evalWindowsPhone(agentPlatform string) {
+func (u *UserAgent) parseWindowsPhone(agentPlatform string) {
 	u.OS.Platform = PlatformWindowsPhone
 
-	if u.OS.Version.findVersionNumber(agentPlatform, "windows phone os ") || u.OS.Version.findVersionNumber(agentPlatform, "windows phone ") {
+	if u.OS.Version.parseAfter(agentPlatform, "windows phone os ", "windows phone ") {
 		u.OS.Name = OSWindowsPhone
 	} else {
 		u.OS.Name = OSUnknown
 	}
 }
 
-func (u *UserAgent) evalWindows(ua string) {
+func (u *UserAgent) parseWindows(ua string) {
 
 	switch {
 	//Xbox -- it reads just like Windows
 	case strings.Contains(ua, "xbox"):
 		u.OS.Platform = PlatformXbox
 		u.OS.Name = OSXbox
-		if !u.OS.Version.findVersionNumber(ua, "windows nt ") {
-			u.OS.Version.Major = 6
-			u.OS.Version.Minor = 0
-			u.OS.Version.Patch = 0
+		if !u.OS.Version.parseAfter(ua, "windows nt ") {
+			u.OS.Version = Version{Major: 6}
 		}
 
 	// No windows version
@@ -212,16 +252,14 @@ func (u *UserAgent) evalWindows(ua string) {
 		u.OS.Platform = PlatformWindows
 		u.OS.Name = OSUnknown
 
-	case strings.Contains(ua, "windows nt ") && u.OS.Version.findVersionNumber(ua, "windows nt "):
+	case u.OS.Version.parseAfter(ua, "windows nt "):
 		u.OS.Platform = PlatformWindows
 		u.OS.Name = OSWindows
 
 	case strings.Contains(ua, "windows xp"):
 		u.OS.Platform = PlatformWindows
 		u.OS.Name = OSWindows
-		u.OS.Version.Major = 5
-		u.OS.Version.Minor = 1
-		u.OS.Version.Patch = 0
+		u.OS.Version = Version{Major: 5, Minor: 1}
 
 	default:
 		u.OS.Platform = PlatformWindows
@@ -230,13 +268,15 @@ func (u *UserAgent) evalWindows(ua string) {
 	}
 }
 
-func (u *UserAgent) evalMacintosh(uaPlatformGroup string, hints *Hints) {
+// parseMacintosh takes the whole agent rather than the platform group: the
+// "os x " marker and the CFNetwork path that also calls this both need it.
+func (u *UserAgent) parseMacintosh(ua string, hints *Hints) {
 	u.OS.Platform = PlatformMac
-	if i := strings.Index(uaPlatformGroup, "os x "); i != -1 {
+	if _, after, ok := strings.Cut(ua, "os x "); ok {
 		u.OS.Name = OSMacOSX
-		u.OS.Version.parse(uaPlatformGroup[i+5:])
+		u.OS.Version.parse(after)
 
-		if hints != nil && hints.ScreenSize.isiPad() {
+		if hints != nil && hints.ScreenSize != nil && hints.ScreenSize.isiPad() {
 			u.OS.Name = OSiPadOS
 			u.OS.Platform = PlatformiPad
 		}
@@ -246,27 +286,24 @@ func (u *UserAgent) evalMacintosh(uaPlatformGroup string, hints *Hints) {
 	u.OS.Name = OSUnknown
 }
 
-func (v *Version) findVersionNumber(s string, m string) bool {
-	if ind := strings.Index(s, m); ind != -1 {
-		return v.parse(s[ind+len(m):])
+// parseAfter parses the version following the first of markers that appears in
+// s, trying each marker in order, and stores it on v. It reports whether one
+// parsed.
+func (v *Version) parseAfter(s string, markers ...string) bool {
+	for _, m := range markers {
+		if _, after, ok := strings.Cut(s, m); ok && v.parse(after) {
+			return true
+		}
 	}
 	return false
 }
 
-// getiOSVersion accepts the platform portion of a UA string and returns
-// a Version.
-func (o *OS) getiOSVersion(uaPlatformGroup string) {
-	if i := strings.Index(uaPlatformGroup, "cpu iphone os "); i != -1 {
-		o.Version.parse(uaPlatformGroup[i+14:])
-		return
+// parseiOSVersion reads the iOS version out of the platform group and stores
+// it on o.
+func (o *OS) parseiOSVersion(agentPlatform string) {
+	if !o.Version.parseAfter(agentPlatform, "cpu iphone os ", "cpu os ") {
+		o.Version.parse(agentPlatform)
 	}
-
-	if i := strings.Index(uaPlatformGroup, "cpu os "); i != -1 {
-		o.Version.parse(uaPlatformGroup[i+7:])
-		return
-	}
-
-	o.Version.parse(uaPlatformGroup)
 }
 
 // strToVer accepts a string and returns a Version,
@@ -275,7 +312,7 @@ func (v *Version) parse(str string) bool {
 	if len(str) == 0 || str[0] < '0' || str[0] > '9' {
 		return false
 	}
-	for i := 0; i < 3; i++ {
+	for i := range 3 {
 		empty := true
 		val := 0
 		l := len(str) - 1

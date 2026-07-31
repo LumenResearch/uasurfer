@@ -1,6 +1,9 @@
 package uasurfer
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 var testUAVars = []struct {
 	UA string
@@ -1259,8 +1262,8 @@ func TestAgentSurfer(t *testing.T) {
 			for _, f := range testFuncs {
 				ua := f(determined.UA, &determined.Hints)
 
-				if ua.Browser.Name != determined.UserAgent.Browser.Name {
-					t.Errorf("browserName: got %v, wanted %v", ua.Browser.Name, determined.UserAgent.Browser.Name)
+				if ua.Browser.Name != determined.Browser.Name {
+					t.Errorf("browserName: got %v, wanted %v", ua.Browser.Name, determined.Browser.Name)
 					t.Logf("agent: %s", determined.UA)
 				}
 
@@ -1311,35 +1314,35 @@ func BenchmarkAgentSurferReuse(b *testing.B) {
 	}
 }
 
-func BenchmarkEvalSystem(b *testing.B) {
+func BenchmarkParseOS(b *testing.B) {
 	num := len(testUAVars)
 	v := UserAgent{}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		v.evalOS(testUAVars[i%num].UA, nil)
+		v.parseOS(testUAVars[i%num].UA, nil)
 	}
 }
 
-func BenchmarkEvalBrowserName(b *testing.B) {
+func BenchmarkParseBrowserName(b *testing.B) {
 	num := len(testUAVars)
 	v := UserAgent{}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		v.evalBrowserName(testUAVars[i%num].UA)
+		v.parseBrowserName(testUAVars[i%num].UA)
 	}
 }
 
-func BenchmarkEvalBrowserVersion(b *testing.B) {
+func BenchmarkParseBrowserVersion(b *testing.B) {
 	num := len(testUAVars)
 	v := UserAgent{}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		v.Browser.Name = testUAVars[i%num].Browser.Name
-		v.evalBrowserVersion(testUAVars[i%num].UA)
+		v.parseBrowserVersion(testUAVars[i%num].UA)
 	}
 }
 
-func BenchmarkEvalDevice(b *testing.B) {
+func BenchmarkParseDevice(b *testing.B) {
 	num := len(testUAVars)
 	v := UserAgent{}
 
@@ -1348,7 +1351,7 @@ func BenchmarkEvalDevice(b *testing.B) {
 		v.OS.Name = testUAVars[i%num].OS.Name
 		v.OS.Platform = testUAVars[i%num].OS.Platform
 		v.Browser.Name = testUAVars[i%num].Browser.Name
-		v.evalDevice(testUAVars[i%num].UA)
+		v.parseDevice(testUAVars[i%num].UA)
 	}
 }
 
@@ -1422,5 +1425,177 @@ func TestStringTrimPrefix(t *testing.T) {
 				t.Fatalf("Expected %q, got %q", tc.expected, s)
 			}
 		})
+	}
+}
+
+func TestVersionLess(t *testing.T) {
+	tests := []struct {
+		a, b Version
+		want bool
+	}{
+		{Version{}, Version{}, false},
+		{Version{1, 0, 0}, Version{1, 0, 0}, false},
+		{Version{1, 0, 0}, Version{2, 0, 0}, true},
+		{Version{2, 0, 0}, Version{1, 0, 0}, false},
+		{Version{1, 2, 0}, Version{1, 3, 0}, true},
+		{Version{1, 3, 0}, Version{1, 2, 0}, false},
+		{Version{1, 2, 3}, Version{1, 2, 4}, true},
+		{Version{1, 2, 4}, Version{1, 2, 3}, false},
+		// a larger minor must not outweigh a smaller major
+		{Version{2, 0, 0}, Version{1, 9, 9}, false},
+		{Version{1, 9, 9}, Version{2, 0, 0}, true},
+	}
+	for _, tt := range tests {
+		if got := tt.a.Less(tt.b); got != tt.want {
+			t.Errorf("%+v.Less(%+v) = %v, want %v", tt.a, tt.b, got, tt.want)
+		}
+	}
+}
+
+func TestUserAgentReset(t *testing.T) {
+	ua := Parse("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+	if ua.Browser.Name == BrowserUnknown || ua.OS.Name == OSUnknown || ua.DeviceType == DeviceUnknown {
+		t.Fatalf("precondition: expected a fully populated agent, got %+v", ua)
+	}
+
+	ua.Reset()
+	if *ua != (UserAgent{}) {
+		t.Errorf("after Reset() = %+v, want the zero value", ua)
+	}
+}
+
+func TestParseUserAgentReuse(t *testing.T) {
+	agents := []string{
+		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+		"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+		"Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+	}
+
+	var reused UserAgent
+	for _, agent := range agents {
+		reused.Reset()
+		ParseUserAgent(agent, &reused)
+		if want := Parse(agent); reused != *want {
+			t.Errorf("ParseUserAgent(%q) into a reused agent = %+v, want %+v", agent, reused, want)
+		}
+	}
+}
+
+func TestIsBot(t *testing.T) {
+	// every bot browser constant must report as a bot
+	for name := BrowserBot; name <= BrowserYahooBot; name++ {
+		if ua := (&UserAgent{Browser: Browser{Name: name}}); !ua.IsBot() {
+			t.Errorf("Browser %v: IsBot() = false, want true", name)
+		}
+	}
+	// the constant immediately before the bot block must not
+	if ua := (&UserAgent{Browser: Browser{Name: BrowserBot - 1}}); ua.IsBot() {
+		t.Errorf("Browser %v: IsBot() = true, want false", BrowserBot-1)
+	}
+
+	if ua := (&UserAgent{OS: OS{Name: OSBot}}); !ua.IsBot() {
+		t.Error("OSBot: IsBot() = false, want true")
+	}
+	if ua := (&UserAgent{OS: OS{Platform: PlatformBot}}); !ua.IsBot() {
+		t.Error("PlatformBot: IsBot() = false, want true")
+	}
+	if ua := (&UserAgent{}); ua.IsBot() {
+		t.Error("zero UserAgent: IsBot() = true, want false")
+	}
+}
+
+func TestNormalise(t *testing.T) {
+	tests := []struct{ in, want string }{
+		{"", ""},
+		{"ABC", "abc"},
+		{"Mozilla/5.0 (Windows NT 10.0)", "mozilla/5.0 (windows nt 10.0)"},
+		{"MiXeD 123 !@#", "mixed 123 !@#"},
+		// non ascii falls back to strings.ToLower
+		{"Mozilla/5.0 Ünicode ÅÄÖ", strings.ToLower("Mozilla/5.0 Ünicode ÅÄÖ")},
+	}
+	for _, tt := range tests {
+		if got := normalise(tt.in); got != tt.want {
+			t.Errorf("normalise(%q) = %q, want %q", tt.in, got, tt.want)
+		}
+	}
+
+	// agents longer than the stack buffer take the ToLower path
+	long := strings.Repeat("A", 1025)
+	if got := normalise(long); got != strings.ToLower(long) {
+		t.Errorf("normalise(<1025 chars>) did not match strings.ToLower")
+	}
+	// and one exactly at the boundary takes the in-place path
+	exact := strings.Repeat("A", 1024)
+	if got := normalise(exact); got != strings.ToLower(exact) {
+		t.Errorf("normalise(<1024 chars>) did not match strings.ToLower")
+	}
+}
+
+func TestParseEmptyAgent(t *testing.T) {
+	ua := Parse("")
+	if ua.OS.Platform != PlatformUnknown || ua.OS.Name != OSUnknown ||
+		ua.Browser.Name != BrowserUnknown || ua.DeviceType != DeviceUnknown {
+		t.Errorf("Parse(\"\") = %+v, want all unknown", ua)
+	}
+}
+
+// Each iota block ends in an unexported terminator (_deviceTypeFinal and
+// friends). Because it shifts whenever a constant is added, these tests can
+// enumerate the lists at runtime, which Go constants otherwise do not allow.
+//
+// They deliberately do not pin the exact spelling of every name: all that
+// matters is that each constant has its own String case, which uniqueness
+// establishes. A constant with no case falls into the default arm and repeats
+// the Unknown name, so the duplicate is what gives it away.
+
+func TestDeviceTypeStrings(t *testing.T) {
+	assertNames(t, "DeviceType", "Device", int(_deviceTypeFinal), func(i int) string { return DeviceType(i).String() })
+}
+
+func TestBrowserNameStrings(t *testing.T) {
+	assertNames(t, "BrowserName", "Browser", int(_browserNameFinal), func(i int) string { return BrowserName(i).String() })
+
+	// IsBot keys off the BrowserBot..BrowserYahooBot range, so the bot block has
+	// to stay contiguous and stay at the end of the list.
+	if BrowserYahooBot != _browserNameFinal-1 {
+		t.Errorf("BrowserYahooBot = %d but the list ends at %d: a non-bot constant was "+
+			"added after the bot block, which breaks IsBot", BrowserYahooBot, _browserNameFinal-1)
+	}
+}
+
+func TestOSNameStrings(t *testing.T) {
+	assertNames(t, "OSName", "OS", int(_osNameFinal), func(i int) string { return OSName(i).String() })
+}
+
+func TestPlatformStrings(t *testing.T) {
+	assertNames(t, "Platform", "Platform", int(_platformFinal), func(i int) string { return Platform(i).String() })
+}
+
+// assertNames checks that every constant below the terminator has its own String
+// case: names must be unique, and must carry prefix so StringTrimPrefix has
+// something to trim. Values outside the list read as the Unknown name.
+func assertNames(t *testing.T, typeName, prefix string, final int, str func(int) string) {
+	t.Helper()
+
+	seen := make(map[string]int, final)
+	for i := range final {
+		name := str(i)
+		if !strings.HasPrefix(name, prefix) {
+			t.Errorf("%s(%d).String() = %q, want it to start with %q", typeName, i, name, prefix)
+		}
+		if prev, dup := seen[name]; dup {
+			t.Errorf("%s(%d).String() = %q, already used by %s(%d): either it has no String "+
+				"case and fell through to the default, or two cases return the same name",
+				typeName, i, name, typeName, prev)
+			continue
+		}
+		seen[name] = i
+	}
+
+	unknown := str(0)
+	for _, i := range []int{final, final + 1, -1} {
+		if got := str(i); got != unknown {
+			t.Errorf("%s(%d).String() = %q, want %q", typeName, i, got, unknown)
+		}
 	}
 }

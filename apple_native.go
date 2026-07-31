@@ -27,21 +27,21 @@ func darwinToIOS(darwinMajor, darwinMinor int) Version {
 
 const iosCFNetworkMin = 2000
 
-func (u *UserAgent) evalAppleNative(ua string, hints *Hints) {
+func (u *UserAgent) parseAppleNative(ua string, hints *Hints) {
 	var cfNetwork Version
-	cfNetwork.findVersionNumber(ua, "cfnetwork/")
+	cfNetwork.parseAfter(ua, "cfnetwork/")
 
 	if cfNetwork.Major < iosCFNetworkMin {
-		u.evalMacintosh(ua, hints)
+		u.parseMacintosh(ua, hints)
 		return
 	}
 
 	var darwin Version
-	darwin.findVersionNumber(ua, "darwin/")
+	darwin.parseAfter(ua, "darwin/")
 
 	u.OS.Version = darwinToIOS(darwin.Major, darwin.Minor)
 
-	if hints != nil && hints.ScreenSize.isiPad() {
+	if hints != nil && hints.ScreenSize != nil && hints.ScreenSize.isiPad() {
 		u.OS.Platform = PlatformiPad
 		u.OS.Name = OSiPadOS
 		return

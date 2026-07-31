@@ -4,8 +4,9 @@ import (
 	"strings"
 )
 
-// ponytail: substring set — "tv" already subsumes googletv/appletv/smarttv/smart-tv/hbbtv/dtv/"tv box",
-// "aftss" subsumes "aftsss", "aftka" subsumes "aftkauk".
+// Markers that are a substring of another marker are omitted: "tv" already
+// subsumes googletv/appletv/smarttv/smart-tv/hbbtv/dtv/"tv box", "aftss"
+// subsumes "aftsss", and "aftka" subsumes "aftkauk".
 var tvMarkers = []string{
 	"tv", "roku", "crkey", "chromecast", "stb", "tuner", "vizio", "viera", "aquos", "bravia",
 	"netcast", "youview", "adt-", "swisscom-ip", "mibox", "ott-g1", "ottera",
@@ -15,17 +16,30 @@ var tvMarkers = []string{
 	"diw377", "diw380", "dv8555", "dctiw362", "gd1 4k", "ai pont", "b-stream",
 }
 
-func isTV(ua string) bool {
+// tvMarkersByFirstByte buckets tvMarkers so isTV can scan the agent once
+// instead of running a full strings.Contains pass per marker. This is the
+// hottest check in the parser: every non-desktop, non-iOS agent walks the
+// whole set before being classified.
+var tvMarkersByFirstByte = func() (buckets [256][]string) {
 	for _, m := range tvMarkers {
-		if strings.Contains(ua, m) {
-			return true
+		buckets[m[0]] = append(buckets[m[0]], m)
+	}
+	return
+}()
+
+func isTV(ua string) bool {
+	for i := 0; i < len(ua); i++ {
+		for _, m := range tvMarkersByFirstByte[ua[i]] {
+			if strings.HasPrefix(ua[i:], m) {
+				return true
+			}
 		}
 	}
 
 	return strings.Contains(ua, "mbox") && !strings.Contains(ua, "xbox")
 }
 
-func (u *UserAgent) evalDevice(ua string) {
+func (u *UserAgent) parseDevice(ua string) {
 	switch {
 
 	case u.OS.Platform == PlatformWindows || u.OS.Platform == PlatformMac || u.OS.Name == OSChromeOS:

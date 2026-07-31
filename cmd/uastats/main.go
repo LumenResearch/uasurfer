@@ -49,33 +49,33 @@ func (s *stats) Summary(total int, dest io.Writer) {
 		browserCounts = append(browserCounts, stringCount{name: k.String(), count: v})
 	}
 	sort.Slice(browserCounts, func(i, j int) bool { return browserCounts[j].count < browserCounts[i].count }) // by count reversed
-	fmt.Fprintf(dest, "Browsers\n")
+	_, _ = fmt.Fprintln(dest, "Browsers")
 	err := writeTable(browserCounts, total, dest)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "writing summary: %v", err)
 		return
 	}
 
-	fmt.Fprintln(dest)
+	_, _ = fmt.Fprintln(dest)
 	osCounts := make([]stringCount, 0, len(s.OSNames))
 	for k, v := range s.OSNames {
 		osCounts = append(osCounts, stringCount{name: k.String(), count: v})
 	}
 	sort.Slice(osCounts, func(i, j int) bool { return osCounts[j].count < osCounts[i].count }) // by count reversed
-	fmt.Fprintf(dest, "Operating Systems\n")
+	_, _ = fmt.Fprintln(dest, "Operating Systems")
 	err = writeTable(osCounts, total, dest)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "writing summary: %v", err)
 		return
 	}
 
-	fmt.Fprintln(dest)
+	_, _ = fmt.Fprintln(dest)
 	deviceCounts := make([]stringCount, 0, len(s.DeviceTypes))
 	for k, v := range s.DeviceTypes {
 		deviceCounts = append(deviceCounts, stringCount{name: k.String(), count: v})
 	}
 	sort.Slice(deviceCounts, func(i, j int) bool { return deviceCounts[j].count < deviceCounts[i].count }) // by count reversed
-	fmt.Fprintf(dest, "Device Types\n")
+	_, _ = fmt.Fprintln(dest, "Device Types")
 	err = writeTable(deviceCounts, total, dest)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "writing summary: %v", err)
@@ -86,7 +86,8 @@ func (s *stats) Summary(total int, dest io.Writer) {
 func writeTable(counts []stringCount, total int, dest io.Writer) error {
 	tw := tabwriter.NewWriter(dest, 10, 1, 2, ' ', 0)
 	for i := range counts {
-		fmt.Fprintf(tw, "%s\t%d (%.2f%%)\n", counts[i].name, counts[i].count, percent(counts[i].count, total))
+		// tabwriter buffers, so any write error surfaces from Flush below.
+		_, _ = fmt.Fprintf(tw, "%s\t%d (%.2f%%)\n", counts[i].name, counts[i].count, percent(counts[i].count, total))
 	}
 	return tw.Flush()
 }
