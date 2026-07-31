@@ -5,12 +5,11 @@ import (
 )
 
 // Markers that are a substring of another marker are omitted: "tv" already
-// subsumes googletv/appletv/smarttv/smart-tv/hbbtv/dtv/"tv box", "aftss"
-// subsumes "aftsss", and "aftka" subsumes "aftkauk".
+// subsumes googletv/appletv/smarttv/smart-tv/hbbtv/dtv/"tv box". Amazon's Fire
+// TV models are not listed at all; isFireTV matches the whole family.
 var tvMarkers = []string{
 	"tv", "roku", "crkey", "chromecast", "stb", "tuner", "vizio", "viera", "aquos", "bravia",
 	"netcast", "youview", "adt-", "swisscom-ip", "mibox", "ott-g1", "ottera",
-	"aftb", "aftt", "aftm", "aftr", "aftss", "aftka", "aftkrt", "aftgazl", "aftanna",
 	"tpm191e", "tpm171e", "nokia streaming box", "stableavb_telly", "lxbox51",
 	"x96max", "x96q_max_pro", "canal plus box", "vectra 4k box",
 	"diw377", "diw380", "dv8555", "dctiw362", "gd1 4k", "ai pont", "b-stream",
@@ -36,8 +35,47 @@ func isTV(ua string) bool {
 		}
 	}
 
-	return strings.Contains(ua, "mbox") && !strings.Contains(ua, "xbox")
+	if strings.Contains(ua, "mbox") && !strings.Contains(ua, "xbox") {
+		return true
+	}
+
+	// Last, because it is the only check that has to look at where in the agent
+	// the match sits: every other marker here is distinctive enough to match
+	// anywhere.
+	return isFireTV(platformGroup(ua))
 }
+
+// isFireTV reports whether specs carries an Amazon Fire TV model token: "aft"
+// and up to ten more letters or digits, as its own field.
+//
+// Amazon has shipped dozens of these - aftb, aftmm, aftka, aftkm, aftdck,
+// aftkmst12, aftbamr311 - and enumerating them meant every new stick read as a
+// phone until someone noticed. The family prefix is stable, so match on that.
+//
+// Only the platform group is searched, never the whole agent: unanchored, "aft"
+// also begins "after", which turns any agent quoting a URL like
+// "afterice.se" into a television.
+func isFireTV(specs string) bool {
+	for i := 0; i+3 <= len(specs); i++ {
+		if i > 0 && !isFieldEdge(specs[i-1]) {
+			continue
+		}
+		if specs[i] != 'a' || specs[i+1] != 'f' || specs[i+2] != 't' {
+			continue
+		}
+		n := i + 3
+		for n < len(specs) && n-i <= 12 && (isLower(specs[n]) || isDigit(specs[n])) {
+			n++
+		}
+		if n > i+3 && (n == len(specs) || isFieldEdge(specs[n])) {
+			return true
+		}
+	}
+	return false
+}
+
+// isFieldEdge reports whether c separates two fields of a platform group.
+func isFieldEdge(c byte) bool { return isSpace(c) || c == ';' || c == ',' }
 
 func (u *UserAgent) parseDevice(ua string) {
 	switch {

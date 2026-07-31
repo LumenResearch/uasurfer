@@ -130,3 +130,73 @@ func TestParseWindowsVersions(t *testing.T) {
 		}
 	}
 }
+
+func TestIsWebOS(t *testing.T) {
+	// LG ships "Web0S" with a zero, Palm and HP shipped the other two.
+	for _, ua := range []string{
+		"mozilla/5.0 (web0s; linux/smarttv) applewebkit/537.36",
+		"mozilla/5.0 (webos; linux/smarttv) applewebkit/538.2",
+		"mozilla/5.0 (hpwos/3.0.5; u; en-us) applewebkit/534.6",
+	} {
+		if !isWebOS(ua) {
+			t.Errorf("isWebOS(%q) = false, want true", ua)
+		}
+	}
+	for _, ua := range []string{"", "mozilla/5.0 (windows nt 10.0)", "web0", "webo"} {
+		if isWebOS(ua) {
+			t.Errorf("isWebOS(%q) = true, want false", ua)
+		}
+	}
+}
+
+func TestParseTvOSVersion(t *testing.T) {
+	tests := []struct {
+		ua   string
+		want Version
+	}{
+		// the version follows the slash after the hardware generation
+		{"appletv6,2/11.1", Version{11, 1, 0}},
+		{"appletv11,1/15.5.1", Version{15, 5, 1}},
+		{"appletv/1.1", Version{1, 1, 0}},
+		// the media player agents carry no model and state it the iOS way
+		{"applecoremedia/1.0.0.12f69 (apple tv; u; cpu os 8_3 like mac os x; en_us)", Version{8, 3, 0}},
+		// nothing parseable: the caller still gets a usable zero value
+		{"appletv", Version{}},
+		{"apple tv", Version{}},
+	}
+	for _, tt := range tests {
+		var u UserAgent
+		u.parseTvOSVersion(tt.ua)
+		if u.OS.Version != tt.want {
+			t.Errorf("parseTvOSVersion(%q) = %v, want %v", tt.ua, u.OS.Version, tt.want)
+		}
+	}
+}
+
+// A version component that cannot fit is nonsense, but it must not come back
+// negative: Less would then sort it before every real release. FuzzParse found
+// this one, and testdata/fuzz keeps it as a seed.
+func TestVersionParseOverflow(t *testing.T) {
+	for _, agent := range []string{
+		"roku/10000000000000000000",
+		"chrome/99999999999999999999.99999999999999999999",
+		"mozilla/5.0 (windows nt 184467440737095516151) applewebkit/537.36",
+	} {
+		ua := Parse(agent)
+		for _, v := range []Version{ua.Browser.Version, ua.OS.Version} {
+			if v.Major < 0 || v.Minor < 0 || v.Patch < 0 {
+				t.Errorf("Parse(%q) = %v, want no negative component", agent, v)
+			}
+			if v.Major > maxVersionPart*10 {
+				t.Errorf("Parse(%q) = %v, want each component capped", agent, v)
+			}
+		}
+	}
+
+	// and the cap must not disturb versions anyone actually ships
+	var v Version
+	v.parse("126.0.6478.126")
+	if v != (Version{126, 0, 6478}) {
+		t.Errorf("parse(%q) = %v, want {126 0 6478}", "126.0.6478.126", v)
+	}
+}

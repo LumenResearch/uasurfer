@@ -1,0 +1,1091 @@
+# Connected TV fixtures: <expected device>\t<expected OS>\t<agent>.
+#
+# Every row is a television, a stick or a set top box. The OS expectation comes
+# from the platform token the agent states about itself - "Tizen 6.0", "Web0S",
+# "Roku/DVP-", "AppleTV6,2" - or from Android where the device is an Android TV
+# or a Fire TV, which is what makes these rows worth asserting: the device type
+# and the OS have to survive together.
+#
+# Agent strings collected from the sources credited in testdata/NOTICE.md and
+# redistributed under their licences. The expectations beside them are this
+# project's own: a row is a claim about what the agent means, not a snapshot of
+# whatever the parser said the day it was written.
+
+TV	TvOS	AppleCoreMedia/1.0.0.12F69 (Apple TV; U; CPU OS 8_3 like Mac OS X; en_us)
+TV	TvOS	AppleTV/1.1
+TV	Unknown	GoogleTV/092754 youtube.com/tv#
+TV	Android	GoogleTV/234.0 AndroidTV/234.0
+TV	Unknown	GoogleTV/b70199 Silk-Accelerated=true
+TV	Unknown	HbbTV/1.1.1 (+PVR;Humax;HD FOX+;1.00.12;1.0)CE-HTML/1.0 ANTGalio/3.1.1.23.04.09
+TV	Unknown	HbbTV/1.1.1 (+PVR;Panasonic;DIGA WebKit M8158;3.300;;)
+TV	Unknown	HbbTV/1.1.1 (; ; ; 1.0; 1.0;) NetFront/4.1
+TV	Unknown	HbbTV/1.1.1 (; CUS:; MB70; 1.0; 1.0;) LOH; Opera; CE-HTML/1.0 NetFront/4.1
+TV	Unknown	HbbTV/1.1.1 (; CUS:MEDION; MB70; 1.0; 1.0;) LOH; Opera; CE-HTML/1.0 NetFront/4.1 NETRANGEMMH
+TV	Unknown	HbbTV/1.1.1 (; CUS:OEM; MB70; 1.0; 1.0;) LOH; Opera; CE-HTML/1.0 NetFront/4.1 NETRANGEMMH iplayerV3
+TV	Unknown	HbbTV/1.1.1 (; CUS:PEAQ; MB70; 1.0; 1.0;) LOH; Opera; CE-HTML/1.0 NetFront/4.1 NETRANGEMMH
+TV	Unknown	HbbTV/1.1.1 (; CUS:VESTEL; MB70; 1.0; 1.0;) LOH; Opera; CE-HTML/1.0 NetFront/4.1 NETRANGEMMH iplayerV3
+TV	Unknown	HbbTV/1.1.1 (; ST; FLTk3D; 1.0; 1.0;) NetFront/3.5
+TV	Unknown	HbbTV/1.1.1 (;;;;;) Maple_2011
+TV	Unknown	HbbTV/1.1.1 (;;;;;) firetv-firefox-plugin 1.1.20
+TV	Unknown	HbbTV/1.1.1 (;HyperPanel;hytv;;;) NetFront/3.5
+TV	Unknown	HbbTV/1.1.1 (;Metz;MMS;;;) CE-HTML/1.0
+TV	Unknown	HbbTV/1.1.1 (;Panasonic;VIERA 2011;f.532;0071-0802 2000-0000;)
+TV	Unknown	HbbTV/1.1.1 (;Panasonic;VIERA 2012;1.261;0071-3103 2000-0000;)
+TV	Unknown	HbbTV/1.1.1 (;Samsung;SmartTV2012;;;) WebKit
+TV	Unknown	HbbTV/1.1.1 (;Samsung;SmartTV2013;T-FXPDEUC-1102.2;;) WebKit
+TV	Unknown	HbbTV/1.1.1 (;Samsung;SmartTV2013;T-MST12DEUC-1102.1;;) WebKit
+TV	Unknown	HbbTV/1.1.1 (;TechnoTrend Goerler/Kathrein;S-855/S-955/UFS-925;3.2.0.25.08;;) CE-HTML/1.0 (<profilelist><ui_profile name=\
+TV	Unknown	HbbTV/1.2.1 (;Panasonic;VIERA 2013;3.672;4101-0003 0002-0000;)
+TV	Unknown	Mozilla/4.0 (DTV;TSBNetTV/T0C.0102.18E)NetFront/3.1 InettvBrowser/1.0 (000039;T0C;0102;18E)
+TV	Unknown	Mozilla/4.08 (DTV;NetTV/1.0) NetFront/3.1 InettvBrowser/1.0(0050C9;010;001;000)
+TV	Unknown	Mozilla/5.0 (;;;) AppleWebKit/534.6 HbbTV/1.1.1 (+DL+PVR; inverto; IDL-6640N Volksbox Essential; 1.0; 1.0;) hdplusinteraktiv/1.0 (NETRANGEMMH;)  CE-HTML/1.0
+TV	Unknown	Mozilla/5.0 (;;;) AppleWebKit/534.6 HbbTV/1.1.1 (+DL+PVR; inverto; IDL-6651N Volksbox Web Edition; 1.0; 1.0;) hdplusinteraktiv/1.0 (NETRANGEMMH;)  CE-HTML/1.0
+TV	Unknown	Mozilla/5.0 (;;;) AppleWebKit/534.6 HbbTV/1.1.1 (+DL+PVR; smart; VX10; 1.0; 1.0;)  CE-HTML/1.0
+TV	Unknown	Mozilla/5.0 (;;;) AppleWebKit/534.6 HbbTV/1.1.1 (+DL+PVR; smart; ZAPPIX HD+; 1.0; 1.0;)  CE-HTML/1.0
+TV	Linux	Mozilla/5.0 (AAC; Linux; U; ja-JP) (KHTML, like Gecko) InettvBrowser/2.2 (000087;IP07-04;0100;0000)
+TV	Unknown	Mozilla/5.0 (CrKey armv7l 1.5.16041) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.0 Safari/537.36
+TV	Unknown	Mozilla/5.0 (DTV) NetFront/3.4 InettvBrowser/2.2 (08001F;DTV03VSFC;0002;0001)
+TV	Unknown	Mozilla/5.0 (DTV; TSBNetTV/T29.0203.1DD; like Gecko) NetFront/3.4 InettvBrowser/2.2 (000039;T29;0203;1DD)
+TV	Unknown	Mozilla/5.0 (DTV; TSBNetTV/T32013713.0203.7DD; TVwithVideoPlayer; like Gecko) NetFront/4.1 DTVNetBrowser/2.2 (000039;T32013713;0203;7DD) InettvBrowser/2.2 (000039;T32013713;0203;7DD) YahooDTV/2.0 (Video=0x03;Audio=0x01;Screen=0x01;Device=0x00;Remote=0x10)
+TV	Unknown	Mozilla/5.0 (DTV; TSBNetTV/T33010302.0203.3DD; like Gecko) NetFront/3.4 DTVNetBrowser/2.2 (000039;T33010302;0203;3DD) InettvBrowser/2.2 (000039;T33010302;0203;3DD) YahooDTV/1.1 (Video=0x03;Audio=0x01;Screen=0x01;Device=0x00;Remote=0x10)
+TV	Unknown	Mozilla/5.0 (DTV; TSBNetTV/T34013906.0203.9DD; TVwithVideoPlayer; like Gecko) NetFront/4.1 DTVNetBrowser/2.2 (000039;T34013906;0203;9DD) InettvBrowser/2.2 (000039;T34013906;0203;9DD)
+TV	Unknown	Mozilla/5.0 (DTV; TSBNetTV/T35013A0C.0203.ADD; TVwithVideoPlayer; like Gecko) NetFront/4.1 DTVNetBrowser/2.2 (000039;T35013A0C;0203;ADD) InettvBrowser/2.2 (000039;T35013A0C;0203;ADD) YahooDTV/2.0 (Video=0x03;Audio=0x01;Screen=0x01;Device=0x00;Remote=0x10)
+TV	Unknown	Mozilla/5.0 (DTV; TSBNetTV/T38014006.0203.0DD; TVwithVideoPlayer; like Gecko) NetFront/4.1 DTVNetBrowser/2.2 (000039;T38014006;0203;0DD) InettvBrowser/2.2 (000039;T38014006;0203;0DD)
+TV	Unknown	Mozilla/5.0 (DTV; TSBNetTV/T3B014613.0203.6DD; TVwithVideoPlayer; like Gecko) NetFront/4.1 DTVNetBrowser/2.2 (000039;T3B014613;0203;6DD) InettvBrowser/2.2 (000039;T3B014613;0203;6DD) YahooDTV/2.0 (Video=0x03;Audio=0x01;Screen=0x01;Device=0x00;Remote=0x10)
+TV	Unknown	Mozilla/5.0 (DTV; TVwithVideoPlayer) NetFront/4.1 InettvBrowser/2.2 (08001F;DTV04VSFC3;0001;0001)
+TV	Unknown	Mozilla/5.0 (DTV; TVwithVideoPlayer) NetFront/4.1 InettvBrowser/2.2 (08001F;DTV05VSFC3;0003;0001)
+TV	Unknown	Mozilla/5.0 (DTV; TVwithVideoPlayer) NetFront/4.1 InettvBrowser/2.2 (08001F;DTV06VSFC;0004;0001)
+TV	Linux	Mozilla/5.0 (DirectFB; Linux 35230) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/4.1.4(+mouse+3D+PORTAL_KEY+SCREEN+TUNER; LGE; GLOBAL-PLAT3; 09.00.00; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ HbbTV/1.1.1 ( ;LGE ;NetCast 3.0 ;1.0 ;1.0M ;)
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.0.0(+SCREEN+TUNER; LGE; GP4; s/w; h/w); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 32LM620S-ZE; 04.10.37; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 42LM620S-ZE; 04.01.73; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 42LM640S-ZA; 04.10.23; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 42LM660S-ZA; 04.10.23; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 47LM620S-ZE; 04.10.37; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 47LM640S-ZA; 04.10.37; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 47LM669S-ZC; 04.01.63; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 47LM671S-ZB; 04.10.23; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 47LM760S-ZB; 04.10.37; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 47LM860V-ZB; 04.10.26; 0x00000001;); LG NetCast.TV-2012 0
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 55LM620S-ZE; 04.10.23; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 55LM660S-ZA; 04.10.37; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 55LM671S-ZB; 04.10.37; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 55LM760S-ZB; 04.10.23; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+ LG Browser/5.00.00(+mouse+3D+SCREEN+TUNER; LGE; 55LM860V-ZB; 04.10.26; 0x00000001;); LG NetCast.TV-2012
+TV	Linux	Mozilla/5.0 (DirectFB; Linux armv7l) AppleWebKit/534.26+ (KHTML, like Gecko) Version/5.0 Safari/534.26+; CNS_UA; LG Browser/4.05; AD_LOGON=4C47452E4E4554; HbbTV/1.1.1 (;LG Electronics;;;)
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ HbbTV/1.1.1 ( ;LGE ;GLOBAL_PLAT3 ;1.0 ;1.0 ;)
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+3D+PORTAL_KEY+SCREEN+TUNER; LGE; 42LW5590-ZE; 06.01.04; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+3D+PORTAL_KEY+SCREEN+TUNER; LGE; 42LW570S-ZD; 06.01.04; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+3D+PORTAL_KEY+SCREEN+TUNER; LGE; 47LK950S-ZA; 06.01.04; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+3D+PORTAL_KEY+SCREEN+TUNER; LGE; 47LW570S-ZD; 06.01.04; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+3D+PORTAL_KEY+SCREEN+TUNER; LGE; 47LW579S-ZD; 06.01.04; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+3D+PORTAL_KEY+SCREEN+TUNER; LGE; 47LW659S-ZC; 05.11.08; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+3D+PORTAL_KEY+SCREEN+TUNER; LGE; 55LW5500-ZE; 06.01.04; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+PORTAL_KEY+SCREEN+TUNER; LGE; 37LV5500-ZC; 09.00.00; 0x00000001;); LG NetCast.TV-2011 0
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+PORTAL_KEY+SCREEN+TUNER; LGE; 37LV5590-ZC; 06.01.04; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+PORTAL_KEY+SCREEN+TUNER; LGE; 37LV570S-ZB; 06.01.04; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 35230; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+mouse+PORTAL_KEY+SCREEN+TUNER; LGE; 42LV470S-ZC; 06.01.04; 0x00000001;); LG NetCast.TV-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 7630; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+3D+BDP; LGE; Media/BD670; BD.8.97.413.E; 0x00000001;); LG NetCast.Media-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 7630; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+3D+BDP; LGE; Media/HB906; HB.8.97.404.E; 0x00000001;); LG NetCast.Media-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux 7631; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+NO_NUM; LGE; Media/ST600; ST.8.79.207.F; 0x00000001;); LG NetCast.Media-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux armv5tejl; c) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ HbbTV/1.1.1 (;RT-RK;TV;1.0;1.0;),gzip(gfe),gzip(gfe),gzip(gfe)
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux armv6l; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+3D+PORTAL_KEY+BDP; LGE; Media/BH5320; 7697; abc;); LG NetCast.Media-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux armv6l; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+3D+PORTAL_KEY+BDP; LGE; Media/BH6520; 7574; abc;); LG NetCast.Media-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux armv6l; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.1.4(+3D+PORTAL_KEY+BDP; LGE; Media/BP520; 7697; abc;); LG NetCast.Media-2011
+TV	Linux	Mozilla/5.0 (DirectFB; U; Linux mips; en) AppleWebKit/531.2+ (KHTML, like Gecko) Safari/531.2+ LG Browser/4.0.10(+SCREEN+TUNER; LGE; 32LD650-SA; 06.00.00; 0x00000001;); LG NetCast.TV-2010
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; de-DE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11 SmartTvA/3.0.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; en-GB) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.19.8 Chrome/23.0.1271.97 Safari/537.11 SmartTvA/3.0.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; es-ES) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.3.3 Chrome/23.0.1271.97 Safari/537.11
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; it-IT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.17 Chrome/23.0.1271.97 Safari/537.11 SmartTvA/3.0.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; it-IT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.3.3 Chrome/23.0.1271.97 Safari/537.11
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; pt-BR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11 SmartTvA/3.0.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; ru-RU) AppleWebKit/535.1 (KHTML, like Gecko) Viera/1.5.2 Chrome/14.0.835.202 Safari/535.1
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.20 Chrome/23.0.1271.97 Safari/537.11 SmartTvA/3.0.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11 SmartTvA/3.0.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11 SmartTvA/3.0.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.3.3 Chrome/23.0.1271.97 Safari/537.11
+TV	Unknown	Mozilla/5.0 (FreeBSD; Viera; ru:34.0) Gecko/20100101 Firefox/34.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; Viera; ru:66.0) Gecko/20100101 Firefox/66.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; Viera; ru:68.0) Gecko/68.0 Firefox/68.0
+TV	Unknown	Mozilla/5.0 (FreeBSD; Viera; rv:34.0) Gecko/20100101 Firefox/34.0
+TV	Unknown	Mozilla/5.0 (Fuchsia) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 CrKey/1.56.500000
+TV	Unknown	Mozilla/5.0 (LG smartTV)
+TV	Linux	Mozilla/5.0 (Linux mips; U;HbbTV/1.1.1 (+RTSP;DMM;Dreambox;0.1a;1.0;) CE-HTML/1.0; en) AppleWebKit/535.19 no/Volksbox QtWebkit/2.2
+TV	Linux	Mozilla/5.0 (Linux mipsel; U; HbbTV/1.1.1 (; TOSHIBA; DTV_L7363; 7.1.90.34.01.1; a5; ) ; ToshibaTP/2.0.0 (+DRM+3D) ; de) AppleWebKit/537.4 (KHTML, like Gecko) TOSHIBA-DTV (DTV_L7363; 7.1.90.34.01.1; 2013A; EU)
+TV	Linux	Mozilla/5.0 (Linux mipsel; U; HbbTV/1.1.1 (; TOSHIBA; DTV_RL838; 55.4.02.0; t12; ) ; ToshibaTP/1.3.0 (+VIDEO_MP4+VIDEO_X_MS_ASF+AUDIO_MPEG+AUDIO_MP4+DRM) ; pl) AppleWebKit/534.1 (KHTML, like Gecko)
+TV	Linux	Mozilla/5.0 (Linux mipsel; U; HbbTV/1.1.1 (; TOSHIBA; DTV_RL933; 56.2.00.0; t12; ) ; ToshibaTP/1.3.0 (+VIDEO_MP4+VIDEO_X_MS_ASF+AUDIO_MPEG+AUDIO_MP4+DRM+NATIVELAUNCH) ; de) AppleWebKit/534.1 (KHTML, like Gecko)
+TV	Linux	Mozilla/5.0 (Linux mipsel; U; HbbTV/1.1.1 (; TOSHIBA; DTV_RL938; 7.0.21.6; a5; ) ; ToshibaTP/1.3.0 (+VIDEO_MP4+VIDEO_X_MS_ASF+AUDIO_MPEG+AUDIO_MP4+DRM+NATIVELAUNCH+WEBSTORAGE+OFFLINEAPP+HAS_CMD_HTTP_SERVER) ; de) AppleWebKit/534.1 (KHTML, like
+TV	Linux	Mozilla/5.0 (Linux mipsel; U; HbbTV/1.1.1 (; TOSHIBA; DTV_TL838; 55.4.02.0; t12; ) ; ToshibaTP/1.3.0 (+VIDEO_MP4+VIDEO_X_MS_ASF+AUDIO_MPEG+AUDIO_MP4+DRM+3D) ; pl) AppleWebKit/534.1 (KHTML, like Gecko)
+TV	Linux	Mozilla/5.0 (Linux mipsel; U; HbbTV/1.1.1 (; TOSHIBA; DTV_TL933; 64.4.08.7; t12; ) ; ToshibaTP/1.3.0 (+VIDEO_MP4+VIDEO_X_MS_ASF+AUDIO_MPEG+AUDIO_MP4+DRM+3D+NATIVELAUNCH+OFFLINEAPP+WEBSTORAGE) ; pl) AppleWebKit/534.1 (KHTML, like Gecko)
+TV	Linux	Mozilla/5.0 (Linux mipsel; U; HbbTV/1.1.1 (; TOSHIBA; DTV_TL938; 7.0.27.9; a5; ) ; ToshibaTP/1.3.0 (+VIDEO_MP4+VIDEO_X_MS_ASF+AUDIO_MPEG+AUDIO_MP4+DRM+3D+NATIVELAUNCH+WEBSTORAGE+OFFLINEAPP+HAS_CMD_HTTP_SERVER) ; en) AppleWebKit/534.1 (KHTML, like Gecko)
+TV	Linux	Mozilla/5.0 (Linux mipsel; U; HbbTV/1.1.1 (; TOSHIBA; DTV_VL963; 64.4.08.7; t12; ) ; ToshibaTP/1.3.0 (+VIDEO_MP4+VIDEO_X_MS_ASF+AUDIO_MPEG+AUDIO_MP4+DRM+3D+NATIVELAUNCH+OFFLINEAPP+WEBSTORAGE) ; pl) AppleWebKit/534.1 (KHTML, like Gecko)
+TV	Linux	Mozilla/5.0 (Linux mipsel; U; HbbTV/1.1.1 (; TOSHIBA; RL858; 43.2.54.0; 1; ) ; ToshibaTP/1.1.0 () ; en) AppleWebKit/534.1 (KHTML, like Gecko)
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.2 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.5.4 like Chrome/128.0.6613.194 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.6.1 like Chrome/128.0.6613.194 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.1.71 like Chrome/130.0.6723.86 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.5.7 like Chrome/130.0.6723.142 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.6.5 like Chrome/130.0.6723.184 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.1.129 like Chrome/136.0.7103.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/138.1.150 like Chrome/138.0.7204.157 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKRT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.3.3 like Chrome/126.0.6478.186 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKRT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKRT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.5.7 like Chrome/130.0.6723.142 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKRT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.6.5 like Chrome/130.0.6723.184 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKRT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKRT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.3.3 like Chrome/136.0.7103.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTKRT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/138.1.150 like Chrome/138.0.7204.157 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.1.60 like Chrome/122.0.6261.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.2.2 like Chrome/122.0.6261.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.3.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.2 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.6.4 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 11; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.2.1 like Chrome/126.0.6478.186 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 12.0; Build/STTL.240206.002) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.0 Safari/537.36 CrKey/1.56.500000 DeviceType/AndroidTV
+TV	Android	Mozilla/5.0 (Linux; Android 4.0.4; Mystery Android Smart TV Build/MYSTERY.SMARTTV.20130816) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.107 Safari/537.36 OPR/29.0.1809.93516
+TV	Android	Mozilla/5.0 (Linux; Android 4.0.4; Woxter Android TV BOX 600 Build/V1.03.02MC03_20121227) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166  Safari/535.19
+TV	Android	Mozilla/5.0 (Linux; Android 4.1.1; Woxter Android TV 700 Build/JRO03H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.63 Safari/537.36 OPR/15.0.1162.61647
+TV	Android	Mozilla/5.0 (Linux; Android 4.2.2; POV_TV-SMARTTV-500 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTB) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTB) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTB) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.1.145 like Chrome/80.0.3987.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTB) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.2.11 like Chrome/88.0.4324.152 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTB) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.3.15 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTB) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTB) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.4.6 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.1.145 like Chrome/80.0.3987.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/81.1.248 like Chrome/81.0.4044.117 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.3.19 like Chrome/83.0.4103.106 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTRS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS Build/LVY48F) AppleWebKit/537.36 (KHTML, like Gecko) Silk/62.7.2 like Chrome/62.0.3202.84 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.16.2 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.17.5 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.3.7 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/81.1.248 like Chrome/81.0.4044.117 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.1.135 like Chrome/83.0.4103.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.2.40 like Chrome/86.0.4240.185 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.1.160 like Chrome/87.0.4280.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.2.11 like Chrome/88.0.4324.152 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.3.18 like Chrome/94.0.4606.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.2.5 like Chrome/98.0.4758.123 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/108.3.7 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.1.153 like Chrome/100.0.4896.127 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.1.178 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.1.144 like Chrome/106.0.5249.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.2.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.3.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.4.4 like Chrome/106.0.5249.190 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.10.4 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.12.8 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.13.3 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.14.4 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.16.2 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.17.5 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.3.7 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.4.6 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.6.6 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.7.2 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.8.5 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.9.6 like Chrome/108.0.5359.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.4.3 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/79.5.1 like Chrome/79.0.3945.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/79.6.3 like Chrome/79.0.3945.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.1.145 like Chrome/80.0.3987.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.5.11 like Chrome/80.0.3987.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/81.1.248 like Chrome/81.0.4044.117 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.1.135 like Chrome/83.0.4103.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.2.20 like Chrome/83.0.4103.106 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.3.19 like Chrome/83.0.4103.106 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/84.2.3 like Chrome/84.0.4147.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/84.3.5 like Chrome/84.0.4147.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.2.1 like Chrome/85.0.4183.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.3.7 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.4.5 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.1.106 like Chrome/86.0.4240.110 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.2.40 like Chrome/86.0.4240.185 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.1.160 like Chrome/87.0.4280.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.2.4 like Chrome/87.0.4280.141 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.2.11 like Chrome/88.0.4324.152 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.3.15 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.122 like Chrome/89.0.4389.90 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.2.29 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.1.131 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.3.51 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.3.18 like Chrome/94.0.4606.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.2.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.1.152 like Chrome/98.0.4758.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.2.5 like Chrome/98.0.4758.123 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.6.10 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1.1; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.7.2 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 5.1; AFTS Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/41.99900.2250.0242 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/79.5.1 like Chrome/79.0.3945.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.1.135 like Chrome/83.0.4103.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.16.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/81.1.248 like Chrome/81.0.4044.117 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.1.135 like Chrome/83.0.4103.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.4.5 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.2.40 like Chrome/86.0.4240.185 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.1.160 like Chrome/87.0.4280.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.2.4 like Chrome/87.0.4280.141 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.2.11 like Chrome/88.0.4324.152 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.3.15 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.3.51 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.2.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.1.152 like Chrome/98.0.4758.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBU001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTBU001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.2.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.6.7 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.18.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.25.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.3.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.5.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.7.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.3.19 like Chrome/83.0.4103.106 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.4.5 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.2.40 like Chrome/86.0.4240.185 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.1.160 like Chrome/87.0.4280.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.2.4 like Chrome/87.0.4280.141 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.3.51 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.3.18 like Chrome/94.0.4606.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.1.152 like Chrome/98.0.4758.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTEAMR311) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.4.3 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.2.7 like Chrome/112.0.5615.174 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.1.145 like Chrome/80.0.3987.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.5.11 like Chrome/80.0.3987.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/81.1.248 like Chrome/81.0.4044.117 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.1.135 like Chrome/83.0.4103.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/84.2.3 like Chrome/84.0.4147.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/84.3.5 like Chrome/84.0.4147.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.3.7 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.2.40 like Chrome/86.0.4240.185 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTJMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.1.153 like Chrome/100.0.4896.127 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.3.11 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.6.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.14.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.6.3 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.7.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/73.5.7 like Chrome/73.0.3683.90 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/79.5.1 like Chrome/79.0.3945.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/79.6.3 like Chrome/79.0.3945.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.1.145 like Chrome/80.0.3987.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.1.135 like Chrome/83.0.4103.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.3.7 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.4.5 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.1.106 like Chrome/86.0.4240.110 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTKMST12) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTLE) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTLE) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTLE) AppleWebKit/537.36 (KHTML, like Gecko) Silk/81.1.248 like Chrome/81.0.4044.117 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTLE) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.3.19 like Chrome/83.0.4103.106 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTLE) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/116.3.2 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/98.1.152 like Chrome/98.0.4758.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.1.153 like Chrome/100.0.4896.127 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.1.178 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.1.154 like Chrome/104.0.5112.97 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.1.144 like Chrome/106.0.5249.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.2.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.3.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.4.4 like Chrome/106.0.5249.190 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.1.77 like Chrome/110.0.5481.154 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.4.3 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.6.7 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.4.29 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.2.7 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.3.11 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.3.2 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.4.3 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.6.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.10.3 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.11.3 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.12.4 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.13.3 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.14.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.15.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.16.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.18.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.2.12 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.20.12 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.25.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.3.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.5.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.6.3 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.7.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/78.3.19 like Chrome/78.0.3904.108 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/79.5.1 like Chrome/79.0.3945.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/79.6.3 like Chrome/79.0.3945.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.1.145 like Chrome/80.0.3987.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.5.11 like Chrome/80.0.3987.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/81.1.248 like Chrome/81.0.4044.117 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.1.135 like Chrome/83.0.4103.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.3.19 like Chrome/83.0.4103.106 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/84.2.3 like Chrome/84.0.4147.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/84.3.5 like Chrome/84.0.4147.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.2.1 like Chrome/85.0.4183.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.3.7 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.4.5 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.1.106 like Chrome/86.0.4240.110 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.2.40 like Chrome/86.0.4240.185 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.1.160 like Chrome/87.0.4280.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.2.4 like Chrome/87.0.4280.141 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.2.11 like Chrome/88.0.4324.152 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.3.15 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.1.214 like Chrome/92.0.4515.131 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.3.51 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.3.18 like Chrome/94.0.4606.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.2.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.1.152 like Chrome/98.0.4758.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.2.5 like Chrome/98.0.4758.123 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.5.8 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.6.10 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTMM) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.7.2 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.12.4 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.13.3 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.14.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.6.3 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.7.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.9.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.1.145 like Chrome/80.0.3987.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/81.1.248 like Chrome/81.0.4044.117 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.1.135 like Chrome/83.0.4103.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/84.2.3 like Chrome/84.0.4147.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.3.7 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTTIFF55) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.2.4 like Chrome/87.0.4280.141 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 7.1.2; AFTTIFF55) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFT6E0FA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTALMO) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.4.3 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTALMO) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.5.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTALMO) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTALMO) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.3.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTALMO) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.2.3 like Chrome/120.0.6099.232 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTALMO) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.6.4 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTALMO) AppleWebKit/537.36 (KHTML, like Gecko) Silk/124.3.2 like Chrome/124.0.6367.221 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTANNA0) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTANNA0) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.3.2 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTANNA0) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.5.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTANNA0) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTANNA0) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTBOXE1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTBOXE1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.4.3 like Chrome/120.0.6099.266 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTBOXE1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTBOXE1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.3.3 like Chrome/126.0.6478.186 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTBOXE1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTBOXE1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTBOXE1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.5.7 like Chrome/130.0.6723.142 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTBOXE1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTBOXE1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/134.4.17 like Chrome/134.0.6998.207 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.6.1 like Chrome/128.0.6613.194 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.6.5 like Chrome/130.0.6723.184 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.5.5 like Chrome/132.0.6834.209 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.3.3 like Chrome/136.0.7103.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/84.3.5 like Chrome/84.0.4147.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.2.40 like Chrome/86.0.4240.185 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.3.15 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.3.51 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.1.152 like Chrome/98.0.4758.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTDCT31) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.7.2 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU011) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.6.7 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU011) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.2.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.1.77 like Chrome/110.0.5481.154 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.4.3 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.6.7 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.2.7 like Chrome/112.0.5615.174 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.5.1 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.3.11 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.1.152 like Chrome/98.0.4758.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTEU014) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.6.10 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTGAZL) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTGAZL) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTGAZL) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTGAZL) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.6.1 like Chrome/128.0.6613.194 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.2.3 like Chrome/120.0.6099.232 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.3.3 like Chrome/136.0.7103.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.7.3 like Chrome/136.0.7103.169 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.7.2 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA002) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.5.1 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA002) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.5.5 like Chrome/132.0.6834.209 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA003) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA004) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA004) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.6.5 like Chrome/130.0.6723.184 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTHA004) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTJULI1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTJULI1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTJULI1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.3.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTJULI1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/124.5.2 like Chrome/124.0.6367.248 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.1.153 like Chrome/100.0.4896.127 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.1.154 like Chrome/104.0.5112.97 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.1.144 like Chrome/106.0.5249.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.3.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.4.4 like Chrome/106.0.5249.190 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.4.3 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.6.7 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.5.1 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.6.11 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.7.5 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.2.7 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.3.11 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.3.2 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.4.3 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.5.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.6.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.2.12 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.3.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.1.53 like Chrome/120.0.6099.193 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.2.3 like Chrome/120.0.6099.232 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.4.3 like Chrome/120.0.6099.266 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.5.10 like Chrome/120.0.6099.295 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.1.60 like Chrome/122.0.6261.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.2.2 like Chrome/122.0.6261.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.3.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.2 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.5.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.6.4 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/124.3.2 like Chrome/124.0.6367.221 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.2.1 like Chrome/126.0.6478.186 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.3.3 like Chrome/126.0.6478.186 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.5.1 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.6.1 like Chrome/128.0.6613.194 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.1.71 like Chrome/130.0.6723.86 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.6.5 like Chrome/130.0.6723.184 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.7.3 like Chrome/136.0.7103.169 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.3.51 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.2.5 like Chrome/98.0.4758.123 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKA002) AppleWebKit/537.36 (KHTML, like Gecko) Silk/134.4.17 like Chrome/134.0.6998.207 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKAUK001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.2.3 like Chrome/120.0.6099.232 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTKAUK001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTPR001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTPR001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTPR001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTPR001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTPR001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/120.2.3 like Chrome/120.0.6099.232 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.1.153 like Chrome/100.0.4896.127 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.1.77 like Chrome/110.0.5481.154 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.6.7 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.2.7 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.4.3 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.5.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.6.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.2.12 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.3.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.3.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.5.7 like Chrome/130.0.6723.142 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.3.3 like Chrome/136.0.7103.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.1.145 like Chrome/80.0.3987.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/80.5.11 like Chrome/80.0.3987.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/83.3.19 like Chrome/83.0.4103.106 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.3.7 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.4.5 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.1.160 like Chrome/87.0.4280.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.2.4 like Chrome/87.0.4280.141 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.2.11 like Chrome/88.0.4324.152 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.3.15 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.151 like Chrome/91.0.4472.120 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.2.5 like Chrome/98.0.4758.123 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTR) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.2.3 like Chrome/120.0.6099.232 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.4.3 like Chrome/120.0.6099.266 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.5.10 like Chrome/120.0.6099.295 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.2.2 like Chrome/122.0.6261.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.3.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.2 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.6.4 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/124.5.2 like Chrome/124.0.6367.248 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.3.3 like Chrome/126.0.6478.186 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSHN01) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.6.1 like Chrome/128.0.6613.194 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.1.153 like Chrome/100.0.4896.127 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.1.77 like Chrome/110.0.5481.154 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.6.7 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.2.7 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.2.12 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.3.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.2.3 like Chrome/120.0.6099.232 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.4.3 like Chrome/120.0.6099.266 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.2 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/81.1.248 like Chrome/81.0.4044.117 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.4.5 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.3.51 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSO001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/110.1.77 like Chrome/110.0.5481.154 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/116.6.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/122.4.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/98.6.10 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.1.153 like Chrome/100.0.4896.127 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.1.178 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.1.154 like Chrome/104.0.5112.97 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.1.144 like Chrome/106.0.5249.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.2.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.3.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.4.4 like Chrome/106.0.5249.190 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.1.77 like Chrome/110.0.5481.154 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.4.3 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.6.7 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.2.7 like Chrome/112.0.5615.174 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.6.11 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.7.5 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.2.7 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.3.11 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.1.80 like Chrome/116.0.5845.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.3.2 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.4.3 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.5.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.6.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.2.12 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.3.1 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.2.3 like Chrome/120.0.6099.232 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.4.3 like Chrome/120.0.6099.266 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.5.10 like Chrome/120.0.6099.295 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.1.60 like Chrome/122.0.6261.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.2.2 like Chrome/122.0.6261.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.3.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.2 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.5.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.6.4 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/124.3.2 like Chrome/124.0.6367.221 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/124.5.2 like Chrome/124.0.6367.248 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.3.3 like Chrome/126.0.6478.186 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.5.1 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.2.3 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.6.1 like Chrome/128.0.6613.194 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.1.71 like Chrome/130.0.6723.86 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.5.7 like Chrome/130.0.6723.142 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.6.5 like Chrome/130.0.6723.184 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.4.1 like Chrome/132.0.6834.209 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.5.5 like Chrome/132.0.6834.209 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/134.2.6 like Chrome/134.0.6998.188 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/134.4.17 like Chrome/134.0.6998.207 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.1.129 like Chrome/136.0.7103.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.3.3 like Chrome/136.0.7103.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.7.3 like Chrome/136.0.7103.169 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.4.5 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.2.40 like Chrome/86.0.4240.185 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.1.160 like Chrome/87.0.4280.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.2.4 like Chrome/87.0.4280.141 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.2.11 like Chrome/88.0.4324.152 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.3.15 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.1.214 like Chrome/92.0.4515.131 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.3.51 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.3.18 like Chrome/94.0.4606.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.2.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.1.152 like Chrome/98.0.4758.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.2.5 like Chrome/98.0.4758.123 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.5.8 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.6.10 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.7.2 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.1.153 like Chrome/100.0.4896.127 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.1.178 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.1.154 like Chrome/104.0.5112.97 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.2.16 like Chrome/104.0.5112.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.1.144 like Chrome/106.0.5249.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.2.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.3.7 like Chrome/106.0.5249.170 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.4.4 like Chrome/106.0.5249.190 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/108.1.135 like Chrome/108.0.5359.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.4.3 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.6.7 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.2.7 like Chrome/112.0.5615.174 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.5.1 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.6.11 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.2.7 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.3.11 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.1.80 like Chrome/116.0.5845.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.3.2 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.4.3 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.5.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.6.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.1.84 like Chrome/118.0.5993.111 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.2.12 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.2.3 like Chrome/120.0.6099.232 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.4.3 like Chrome/120.0.6099.266 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.5.10 like Chrome/120.0.6099.295 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.1.60 like Chrome/122.0.6261.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.2.2 like Chrome/122.0.6261.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.3.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.2 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.5.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.6.4 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/124.5.2 like Chrome/124.0.6367.248 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.2.1 like Chrome/126.0.6478.186 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.5.1 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.5.4 like Chrome/128.0.6613.194 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.1.71 like Chrome/130.0.6723.86 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.5.7 like Chrome/130.0.6723.142 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/130.6.5 like Chrome/130.0.6723.184 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.5.5 like Chrome/132.0.6834.209 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/134.2.6 like Chrome/134.0.6998.188 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.1.129 like Chrome/136.0.7103.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/136.7.3 like Chrome/136.0.7103.169 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.3.7 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/85.4.5 like Chrome/85.0.4183.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.2.40 like Chrome/86.0.4240.185 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/86.3.20 like Chrome/86.0.4240.198 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.1.160 like Chrome/87.0.4280.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/87.2.4 like Chrome/87.0.4280.141 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.2.11 like Chrome/88.0.4324.152 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.3.15 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.4.18 like Chrome/88.0.4324.181 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.2.29 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/90.3.2 like Chrome/90.0.4430.210 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.1.138 like Chrome/91.0.4472.114 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.2.16 like Chrome/91.0.4472.133 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/91.4.3 like Chrome/91.0.4472.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.1.214 like Chrome/92.0.4515.131 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/92.2.15 like Chrome/92.0.4515.159 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.1.131 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.3.51 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.3.18 like Chrome/94.0.4606.126 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.4.4 like Chrome/94.0.4606.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.2.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.4.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.1.152 like Chrome/98.0.4758.101 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.2.5 like Chrome/98.0.4758.123 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.6.10 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTSSS) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.7.2 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.5.10 like Chrome/120.0.6099.295 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/124.5.2 like Chrome/124.0.6367.248 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/134.2.6 like Chrome/134.0.6998.188 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/93.2.7 like Chrome/93.0.4577.82 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTT) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML%2C like Gecko) Silk/114.2.7 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.4.4 like Chrome/106.0.5249.190 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.7.5 like Chrome/112.0.5615.213 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/114.2.7 like Chrome/114.0.5735.220 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.3.2 like Chrome/116.0.5845.187 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.5.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/116.6.1 like Chrome/116.0.5845.229 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.4.3 like Chrome/120.0.6099.266 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.5.10 like Chrome/120.0.6099.295 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.2.2 like Chrome/122.0.6261.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.6.4 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.3.3 like Chrome/126.0.6478.186 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/126.6.2 like Chrome/126.0.6478.238 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTI43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/132.1.101 like Chrome/132.0.6834.163 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTIFF43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.2.23 like Chrome/100.0.4896.162 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTIFF43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.2.1 like Chrome/102.0.5005.125 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTIFF43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/102.3.17 like Chrome/102.0.5005.164 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTIFF43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/106.5.14 like Chrome/106.0.5249.208 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTIFF43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/120.5.10 like Chrome/120.0.6099.295 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTIFF43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/128.3.2 like Chrome/128.0.6613.146 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTIFF43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.1.237 like Chrome/96.0.4664.128 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTTIFF43) AppleWebKit/537.36 (KHTML, like Gecko) Silk/98.4.4 like Chrome/98.0.4758.136 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWI001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/100.1.153 like Chrome/100.0.4896.127 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWI001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/110.4.3 like Chrome/110.0.5481.212 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWI001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/118.4.2 like Chrome/118.0.5993.155 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWI001) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.2.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWMST22 Build/PS7233; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.152 Mobile Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWMST22) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.3.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWMST22) AppleWebKit/537.36 (KHTML, like Gecko) Silk/122.4.1 like Chrome/122.0.6261.160 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWMST22) AppleWebKit/537.36 (KHTML, like Gecko) Silk/124.5.2 like Chrome/124.0.6367.248 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWMST22) AppleWebKit/537.36 (KHTML, like Gecko) Silk/138.1.150 like Chrome/138.0.7204.157 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWMST22) AppleWebKit/537.36 (KHTML, like Gecko) Silk/88.2.11 like Chrome/88.0.4324.152 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWMST22) AppleWebKit/537.36 (KHTML, like Gecko) Silk/89.1.159 like Chrome/89.0.4389.105 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWMST22) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.1.208 like Chrome/94.0.4606.119 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; AFTWMST22) AppleWebKit/537.36 (KHTML, like Gecko) Silk/96.2.18 like Chrome/96.0.4664.175 Safari/537.36
+TV	Android	Mozilla/5.0 (Linux; Android 9; SHIELD Android TV Build/PPR1.180610.011) AppleWebKit/537.36 (KHTML, like Gecko) Silk/62.4.4 like Chrome/62.0.3202.84 Safari/537.36
+TV	Linux	Mozilla/5.0 (Linux; BRAVIA 2015 Build/LMY48E.S39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36 OPR/28.0.1754.0 OMI/4.4.22.20.E102586-1.113 SonyCEBrowser/1.0 (KDL-50W800C; CTV/PKG2.465.0017PAA; AUS;)
+TV	Android	Mozilla/5.0 (Linux; GoogleTV 3.2; LG Google TV G3 Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
+TV	Android	Mozilla/5.0 (Linux; GoogleTV 3.2; NSZ-GS7/GX70 Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
+TV	Android	Mozilla/5.0 (Linux; GoogleTV 4.0.4; LG Google TV Build/000000) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
+TV	Linux	Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.33 Safari/537.31 SmartTV/5.0
+TV	Linux	Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.31 SmartTV/6.0
+TV	Linux	Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79 Safari/537.4 SmartTV/4.6
+TV	Tizen	Mozilla/5.0 (Linux; Tizen 2.3) AppleWebKit/538.1 (KHTML, like Gecko)Version/2.3 TV Safari/538.1
+TV	Android	Mozilla/5.0 (Linux; U; Android 4.2.2; en-gb; AFTM Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30
+TV	Android	Mozilla/5.0 (Linux; U; Android 5.1.1; de-de; AFTT Build/JDQ39) waipu/4.1.0-bf2db044d (TV; Amazon; AFTT; waipu; FireOS 5.1.1) AppleWebKit/537.36 (KHTML, like Gecko) Silk/62.6.25 like Chrome/62.0.3202.84 Safari/537.36
+TV	Linux	Mozilla/5.0 (QtEmbedded; Linux) AppleWebKit/537.4 (KHTML, like Gecko) MWB/1.0 Safari/537.4 HbbTV/1.1.1 (; TOSHIBA; MWB;;;)
+TV	Linux	Mozilla/5.0 (SAMSUNG; SAMSUNG-SMART-TV; U; Linux/SmartTV) AppleWebKit/531.2+ (KHTML, like Gecko) WebBrowser/1.0 SmartTV Safari/531.2+
+TV	Tizen	Mozilla/5.0 (SMART-TV; LINUX; Tizen 6.5) AppleWebKit/537.36 (KHTML, like Gecko) 85.0.4183.93/6.5 TV Safari/537.36
+TV	Tizen	Mozilla/5.0 (SMART-TV; Linux; Tizen 2.3) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1
+TV	Tizen	Mozilla/5.0 (SMART-TV; Linux; Tizen 4.0) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/2.1 Chrome/56.0.2924.0 TV Safari/537.36
+TV	Linux	Mozilla/5.0 (SMART-TV; X11; Linux armv7l) AppleWebKit/537.42 (KHTML, like Gecko) Chromium/25.0.1349.2 Chrome/25.0.1349.2 Safari/537.42
+TV	Linux	Mozilla/5.0 (SMART-TV; X11; Linux i686) AppleWebKit/534.7 (KHTML, like Gecko) Version/5.0 Safari/534.7
+TV	Linux	Mozilla/5.0 (SMART-TV; X11; Linux i686) AppleWebKit/535.20+ (KHTML, like Gecko) Version/5.0 Safari/535.20+
+TV	Unknown	Mozilla/5.0 (Spyglass 3.0; OpenTV) Gecko/20081010  InettvBrowser/1.0 (F00001;OTV-IB24L;2.4;00000),gzip(gfe),gzip(gfe),gzip(gfe)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ HbbTV/1.1.1 ( ;LGE ;NetCast 4.0 ;03.01.42 ;1.0M ;)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ HbbTV/1.1.1 ( ;LGE ;NetCast 4.0 ;03.20.30 ;1.0M ;)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ LG Browser/6.00.00(+mouse+3D+SCREEN+TUNER; LGE; 42LA6208-ZA; 04.00.49; 0x00000001;); LG NetCast.TV-2013 /04.00.49 (LG, 42LA6208-ZA, wireless)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ LG Browser/6.00.00(+mouse+3D+SCREEN+TUNER; LGE; 42LA620S-ZA; 04.22.11; 0x00000001;); LG NetCast.TV-2013 /04.22.11 (LG, 42LA620S-ZA, wireless)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ LG Browser/6.00.00(+mouse+3D+SCREEN+TUNER; LGE; 42LA6608-ZA; 04.00.13; 0x00000001;); LG NetCast.TV-2013 /04.00.13 (LG, 42LA6608-ZA, wireless)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ LG Browser/6.00.00(+mouse+3D+SCREEN+TUNER; LGE; 42LA6928-ZC; 04.04.17; 0x00000001;); LG NetCast.TV-2013 /04.04.17 (LG, 42LA6928-ZC, wireless)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ LG Browser/6.00.00(+mouse+3D+SCREEN+TUNER; LGE; 47LA6208-ZA; 04.00.13; 0x00000001;); LG NetCast.TV-2013 /04.00.13 (LG, 47LA6208-ZA, wireless)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ LG Browser/6.00.00(+mouse+3D+SCREEN+TUNER; LGE; 47LA6418-ZC; 04.00.13; 0x00000001;); LG NetCast.TV-2013 /04.00.13 (LG, 47LA6418-ZC, wireless)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ LG Browser/6.00.00(+mouse+SCREEN+TUNER; LGE; 32LN5758-ZE; 04.22.11; 0x00000001;); LG NetCast.TV-2013 /04.22.11 (LG, 32LN5758-ZE, wireless)
+TV	Linux	Mozilla/5.0 (Unknown; Linux armv7l) AppleWebKit/537.1+ (KHTML, like Gecko) Safari/537.1+ LG Browser/6.00.00(+mouse+SCREEN+TUNER; LGE; 42LN5758-ZE; 04.00.41; 0x00000001;); LG NetCast.TV-2013 /04.00.41 (LG, 42LN5758-ZE, wireless)
+TV	WebOS	Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.41 (KHTML, like Gecko) Large Screen WebAppManager Safari/537.41
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; bg-BG) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.10 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; cs-CZ) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.17 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; da-DK) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; de-DE) AppleWebKit/535.1 (KHTML, like Gecko) Viera/1.5.2 Chrome/14.0.835.202 Safari/535.1
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; de-DE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; de-DE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.51 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; de-DE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.12.5 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; de-DE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; de-DE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.13 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; el-GR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.14 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.17 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.18 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.13 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en-GB) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.3.3 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en-IE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.14 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en-IE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.20 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en-IE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en-IE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.12.5 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; en-US) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.13 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; es-BR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.17 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; es-BR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.0 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; es-BR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.5.15 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; es-US) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.0 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; fr-CA) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.18 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; fr-FR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; fr-FR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.13 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; it-IT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.14 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; it-IT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.17 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; it-IT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; it-IT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.51 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; it-IT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.12.5 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; it-IT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; it-IT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.13 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ja-JP) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; nl-NL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.12.5 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pl-PL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.14 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pl-PL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.15 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pl-PL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.17 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pl-PL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pl-PL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pl-PL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.3.3 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pl-PL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.13 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pt-BR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.12 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pt-BR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.17 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pt-BR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pt-PT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.14 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; pt-PT) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.13 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/535.1 (KHTML, like Gecko) Viera/1.5.2 Chrome/14.0.835.202 Safari/535.1
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.14 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.17 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.20 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.51 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.3.2 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.3.3 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; ru-RU) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.10 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; sk-SK) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.51 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; sk-SK) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.13 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; sv-SE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.17 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; sv-SE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.21 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; sv-SE) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.4.13 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; tr-TR) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; FreeBSD; U; Viera; vi-SG) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.18.1 Chrome/23.0.1271.97 Safari/537.11
+TV	Linux	Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.47 Safari/537.36 CrKey/1.36.159268
+TV	Linux	Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.225 Safari/537.36 CrKey/1.56.500000 DeviceType/Chromecast
+TV	Linux	Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.225 Safari/537.36 CrKey/1.56.500000 DeviceType/SmartSpeaker
+TV	Linux	Mozilla/5.0 (X11; Linux armv7l) CrKey/1
+TV	Android	Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/092754
+TV	Android	Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/092811
+TV	Linux	Mozilla/5.0 (X11; U; Linux i686; de) AppleWebKit/534.1 (KHTML, like Gecko) HbbTV/1.1.1 (+PVR;Mstar;OWB;;;)
+TV	Linux	Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.0 (KHTML, like Gecko) HbbTV/1.1.1 (+DL+PVR; inverto; IDL-6650N Volksbox; 1.0; 1.0;) hdplusinteraktiv/1.0 (NETRANGEMMH;)  CE-HTML/1.0
+TV	Linux	Mozilla/5.0 (X11; U; Linux i686; en-US; 1.9.2.10) AppleWebKit/533.1 (KHTML, like Gecko) HbbTV/1.1.1 (+DL+PVR;TRIDENT;HBBTV;1.0;1.0;)
+TV	Linux	Opera/10.60 (Linux i686 ; U; HbbTV/1.1.1 (;;;;;); CE-HTML; TechniSat MultyVision ISIO; de) Presto/2.6.33 Version/10.60
+TV	Linux	Opera/10.60 (Linux sh4 ; U; HbbTV/1.1.1 (+PVR; Loewe; SL121; LOH/3.10;;) CE-HTML/1.0 Config(L:deu,CC:DEU); en) Presto/2.6.33 Version/10.60
+TV	Linux	Opera/10.60 (Linux sh4 ; U; HbbTV/1.1.1 (+PVR; Loewe; SL150; LOH/3.00;;) CE-HTML/1.0 Config(L:deu,CC:DEU); en) Presto/2.6.33 Version/10.60
+TV	Linux	Opera/10.60 (Linux sh4 ; U; HbbTV/1.1.1 (;;;;;); CE-HTML; TechniSat DIGIT ISIO S; de) Presto/2.6.33 Version/10.60
+TV	Linux	Opera/9.80 (Linux 7325b0; U; HbbTV/1.1.1 (; Humax; HD NANO; 1.00.28; 1.0;  hdplusSmartTV/1.0 (NETRANGEMMH; )); ce-html/1.0; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux 7335b0-smp; U; HbbTV/1.1.1 (; Humax; iCord MINI; 1.00.28; 1.0;  hdplusSmartTV/1.0 (NETRANGEMMH; )); ce-html/1.0; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux 7405b0-smp; U; HbbTV/1.1.1 (; Humax; HD-FOX C; 1.00.01; 1.0; ); ce-html/1.0; en) Presto/2.9.167 Version/11.50
+TV	Linux	Opera/9.80 (Linux armv6l; Opera TV Store/4563; U; (SonyBDP/BDV12); en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux armv6l; Opera TV Store/5557; (SonyBDP/BDV13)) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv6l; Opera TV Store/5599; (SonyBDP/BDV13)) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv6l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;IKEA LF1V362; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux armv6l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;IKEA LF1V365; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux armv6l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;PEAQ LF1V359; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux armv6l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;PEAQ LF1V368; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux armv6l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;PEAQ LF1V389; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux armv6l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;THOM LF1V373; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux armv6l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;THOMSON LF1V394; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux armv6l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;THOMSON LF1V401; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux armv7l;  HbbTV/1.1.1 (; Philips; ; ; PHILIPSTV; ) CE-HTML/1.0 NETTV/4.3.1 PHILIPSTV/2.1.1 Firmware/003.001.000.001 (PhilipsTV, 2.1.1,) en) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l;  HbbTV/1.1.1 (; Sony; KDL42W655A; PKG4.201EUA; 2013;); ) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l;  HbbTV/1.1.1 (; Sony; KDL42W805A; PKG3.208EUA; 2013;); ) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l;  HbbTV/1.1.1 (; Sony; KDL47W805A; PKG3.710EUA; 2013;); ) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l;  HbbTV/1.1.1 (; Sony; KDL50W685A; PKG3.712EUA; 2013;); ) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l; HbbTV/1.1.1 (; Sony; KDL32W650A; PKG3.211EUA; 2013;); ) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 40PFK671912; ; PhilipsTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/012.003.038.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50
+TV	Linux	Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 42PFK710912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/012.002.016.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50
+TV	Linux	Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 42PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50
+TV	Linux	Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 55PFH550988; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.010.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50
+TV	Linux	Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KD55X9005A; CC/DEU) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KDL42W674A; CC/VNM) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KDL42W805A; CC/ARG) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KDL42W807A; CC/FIN) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KDL47W805A; CC/POL) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV140;0001;0001) KDL32W705B; CC/DEU) Presto/2.12.407 Version/12.50
+TV	Linux	Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV140;0001;0001) KDL40W600B; CC/MEX) Presto/2.12.407 Version/12.50
+TV	Linux	Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV140;0001;0001) KDL40W705C; CC/SWE) Presto/2.12.407 Version/12.50
+TV	Linux	Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV140;0001;0001) KDL50W828B; CC/FIN) Presto/2.12.407 Version/12.50
+TV	Linux	Opera/9.80 (Linux armv7l; U; HbbTV/1.1.1 (; INTEK; VANTAGE-ibox; 1.0; 1.0;) CE-HTML/1.0; FXM-U2FsdGVkX1+h0H+PQGvIkY1hx1djZ+X1R7vhB4maaA6ft4c7ZxQcruknL9ekvukS-END; en) Presto/2.9.167 Version/11.50
+TV	Linux	Opera/9.80 (Linux armv7l; U; HbbTV/1.1.1 (;tv2n;videoweb;1.0.0;1.0;); en) Presto/2.8.115 Version/11.10
+TV	Linux	Opera/9.80 (Linux armv7l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;Vendor/THOM;SW-Version/V8-MT51F01-LF1V307;Cnt/DEU;Lan/bul) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux armv7l; U; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0;Vendor/THOMSON;SW-Version/V8-MT51F01-LF1V325;Cnt/HRV;Lan/swe; NETRANGEMMH;HbbTV/1.1.1;CE-HTML/1.0) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux i686; HbbTV/1.1.1 (+PVR; BANGOLUFSEN; A3; ; ; ) CE-HTML/1.0 NETTV/4.3.9) Presto/2.12.407 Version/12.50 A3/1.0.5.33043 (BANGOLUFSEN, A3, wired)
+TV	Linux	Opera/9.80 (Linux mips ; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/3.1.0; en) Presto/2.6.33 Version/10.70
+TV	Linux	Opera/9.80 (Linux mips ; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/3.2.1; en) Presto/2.6.33 Version/10.70
+TV	Linux	Opera/9.80 (Linux mips; HbbTV/1.2.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/4.3.3 PHILIPSTV/1.1.1 Firmware/173.65.0 (PhilipsTV, 1.1.1,) en) Presto/2.12.362 Version/12.11
+TV	Linux	Opera/9.80 (Linux mips; U;  HbbTV/1.1.1 (; Sony; KDL22EX320; PKG4.017EUA; 2011;);; en) Presto/2.7.61 Version/11.00
+TV	Linux	Opera/9.80 (Linux mips; U;  HbbTV/1.1.1 (; Sony; KDL40EX725; PKG4.021EUA; 2011;);; en) Presto/2.7.61 Version/11.00
+TV	Linux	Opera/9.80 (Linux mips; U;  HbbTV/1.1.1 (; Sony; KDL40HX751; PKG1.902EUA; 2012;);; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux mips; U;  HbbTV/1.1.1 (; Sony; KDL40HX755; PKG1.920EUA; 2012;);; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux mips; U;  HbbTV/1.1.1 (; Sony; KDL46EX720; PKG4.022EUA; 2011;);; en) Presto/2.7.61 Version/11.00
+TV	Linux	Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (; Opera Software; videowebtv; ; ; ); en) Presto/2.10.287 Version/12.00
+TV	Linux	Opera/9.80 (Linux sh4; HbbTV/1.2.1 (+PVR; Loewe; SL210; LOH/10.2.1.63;;) CE-HTML/1.0 Config(L:nld,CC:NLD) NETRANGEMMH) Presto/2.12.362 Version/12.10
+TV	Linux	Opera/9.80 (Linux sh4; HbbTV/1.2.1 (+PVR; Loewe; SL220; LOH/2.1.36.0;;) CE-HTML/1.0 Config(L:deu,CC:DEU) NETRANGEMMH) Presto/2.12.362 Version/12.10
+TV	Linux	Opera/9.80 (Linux sh4; HbbTV/1.2.1 (;Sharp;LE652;v0.2.3.3;;) CE-HTML/1.0 Config(L:deu,CC:DEU) NETRANGEMMH) Presto/2.12.362 Version/12.10
+TV	Linux	Opera/9.80 (Linux sh4; U; ; en; CreNova Build) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1 HbbTV/1.1.1 (;CreNova;CNV001;1.0;1.0; FXM-U2FsdGVkX1+ck0PszsOkJ85Ph0dtmJlCmp7M2VZeoERwEwVagOkMaqjfAh8Gb7JU-END; en) Presto/2.9.167 Version/11.50
+TV	Linux	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (; INTEK; VT-100 HD+;;;) hdplusSmartTV/1.0 (NETRANGEMMH;) Bee/3.2 CE-HTML/1.0; FXM-U2FsdGVkX1/N3/2AunjF4HAWRQygAcGqj02QZuofQI5yHfuXsLw507L8Q1cbFwrQ-END; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (; INTEK; Vantage Full HD Model;;;) hdplusSmartTV/1.0 (NETRANGEMMH;) Bee/3.2 CE-HTML/1.0; FXM-U2FsdGVkX19Qg/USD6FU3img+tXTDE7V5tSiPuMpHRrd3vp0JyPLfoYS/+dL6w/H-END; en) Presto/2.10.250 Version/11.60
+TV	Linux	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (;;;;;); CE-HTML; TechniSat DigiCorder ISIO C; de) Presto/2.9.167 Version/11.50
+TV	Linux	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (;;;;;); CE-HTML; TechniSat DigiCorder ISIO S; de) Presto/2.9.167 Version/11.50
+TV	Linux	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (;;;;;); CE-HTML; TechniSat Digit ISIO C; de) Presto/2.9.167 Version/11.50
+TV	Linux	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (;;;;;); CE-HTML; TechniSat Digit ISIO S International; de) Presto/2.9.167 Version/11.50
+TV	Linux	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (;;;;;); CE-HTML; TechniSat Digit ISIO S; de) Presto/2.9.167 Version/11.50
+TV	Roku	Roku/DVP-5.0 (025.00E08043A)
+TV	Roku	Roku/DVP-5.1 (025.01E01195A)
+TV	Roku	Roku/DVP-6.2 (096.02E06005A)

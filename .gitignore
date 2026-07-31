@@ -54,3 +54,7 @@ Thumbs.db
 # Dev Tools #
 ######################
 .vagrant
+# Fuzzing artefacts. A crasher belongs in a named test in the relevant
+# _test.go file, not in a generated seed file: see TestVersionParseOverflow,
+# which is what FuzzParse found here.
+testdata/fuzz/

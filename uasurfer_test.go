@@ -361,11 +361,11 @@ var testUAVars = []struct {
 
 	{"Roku/DVP-5.2 (025.02E03197A)", // Roku
 		UserAgent{
-			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformUnknown, OSUnknown, Version{0, 0, 0}}, DeviceTV}},
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformLinux, OSRoku, Version{5, 2, 0}}, DeviceTV}},
 
 	{"mozilla/5.0 (smart-tv; linux; tizen 2.3) applewebkit/538.1 (khtml, like gecko) samsungbrowser/1.0 tv safari/538.1", // Samsung SmartTV
 		UserAgent{
-			Browser{BrowserSamsung, Version{0, 0, 0}}, OS{PlatformLinux, OSLinux, Version{0, 0, 0}}, DeviceTV}},
+			Browser{BrowserSamsung, Version{0, 0, 0}}, OS{PlatformLinux, OSTizen, Version{2, 3, 0}}, DeviceTV}},
 
 	{"mozilla/5.0 (linux; u) applewebkit/537.36 (khtml, like gecko) version/4.0 mobile safari/537.36 smarttv/6.0 (netcast)",
 		UserAgent{
@@ -1050,9 +1050,10 @@ var testUAVars = []struct {
 	{"Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0. 3865.120 Safari/537.36 OPR/46.0.2207.0 OMI/4.20.5.80.Catcher3.128 Model/Hisense-MT9602 VIDAA/4.0(Hisense;SmartTV;32A35EUV_0002;MTK9602/V0000.01.00K.M0713;HD)",
 		UserAgent{
 			Browser{BrowserOpera, Version{46, 0, 2207}}, OS{PlatformLinux, OSLinux, Version{0, 0, 0}}, DeviceTV}},
+	// LG spells its TV OS "Web0S", with a zero
 	{"Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.34 Safari/537.36 WebAppManager",
 		UserAgent{
-			Browser{BrowserChrome, Version{53, 0, 2785}}, OS{PlatformLinux, OSLinux, Version{0, 0, 0}}, DeviceTV}},
+			Browser{BrowserChrome, Version{53, 0, 2785}}, OS{PlatformLinux, OSWebOS, Version{0, 0, 0}}, DeviceTV}},
 	{"Mozilla/5.0 (PlayStation 4 WebMAF) AppleWebKit/601.2 (KHTML, like Gecko) WebMAF/v3.0.2-0-g0f0b69bc SDK: (0x09508001u), Built: Aug 17 2022 20:04:00",
 		UserAgent{
 			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformPlaystation, OSPlaystation, Version{0, 0, 0}}, DeviceConsole}},
@@ -1061,7 +1062,7 @@ var testUAVars = []struct {
 			Browser{BrowserSafari, Version{15, 4, 0}}, OS{PlatformPlaystation, OSPlaystation, Version{0, 0, 0}}, DeviceConsole}},
 	{"Mozilla/5.0 (Linux; Tizen 2.3; SmartHub; SMART-TV; SmartTV; U; Maple2012) AppleWebKit/538.1+ (KHTML, like Gecko) TV Safari/538.1+",
 		UserAgent{
-			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformLinux, OSLinux, Version{0, 0, 0}}, DeviceTV}},
+			Browser{BrowserUnknown, Version{0, 0, 0}}, OS{PlatformLinux, OSTizen, Version{2, 3, 0}}, DeviceTV}},
 	{"Mozilla/5.0 (Linux; Andr0id 12; IP2300) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.198 Safari/537.36 OPR/46.0.2207.0 OMI/4.24.0.81.CRON5.4 Model/Swisscom-IP2300",
 		UserAgent{
 			Browser{BrowserOpera, Version{46, 0, 2207}}, OS{PlatformLinux, OSLinux, Version{0, 0, 0}}, DeviceTV}},
@@ -1297,100 +1298,96 @@ func TestAgentSurfer(t *testing.T) {
 }
 
 func BenchmarkAgentSurfer(b *testing.B) {
-	num := len(testUAVars)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		Parse(testUAVars[i%num].UA)
+	i := 0
+	for b.Loop() {
+		Parse(testUAVars[i%len(testUAVars)].UA)
+		i++
 	}
 }
 
 func BenchmarkAgentSurferReuse(b *testing.B) {
 	dest := new(UserAgent)
-	num := len(testUAVars)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	i := 0
+	for b.Loop() {
 		dest.Reset()
-		ParseUserAgent(testUAVars[i%num].UA, dest)
+		ParseUserAgent(testUAVars[i%len(testUAVars)].UA, dest)
+		i++
 	}
 }
 
 func BenchmarkParseOS(b *testing.B) {
-	num := len(testUAVars)
-	v := UserAgent{}
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		v.parseOS(testUAVars[i%num].UA, nil)
+	var v UserAgent
+	i := 0
+	for b.Loop() {
+		v.parseOS(testUAVars[i%len(testUAVars)].UA, nil)
+		i++
 	}
 }
 
 func BenchmarkParseBrowserName(b *testing.B) {
-	num := len(testUAVars)
-	v := UserAgent{}
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		v.parseBrowserName(testUAVars[i%num].UA)
+	var v UserAgent
+	i := 0
+	for b.Loop() {
+		v.parseBrowserName(testUAVars[i%len(testUAVars)].UA)
+		i++
 	}
 }
 
 func BenchmarkParseBrowserVersion(b *testing.B) {
-	num := len(testUAVars)
-	v := UserAgent{}
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		v.Browser.Name = testUAVars[i%num].Browser.Name
-		v.parseBrowserVersion(testUAVars[i%num].UA)
+	var v UserAgent
+	i := 0
+	for b.Loop() {
+		want := testUAVars[i%len(testUAVars)]
+		v.Browser.Name = want.Browser.Name
+		v.parseBrowserVersion(want.UA)
+		i++
 	}
 }
 
 func BenchmarkParseDevice(b *testing.B) {
-	num := len(testUAVars)
-	v := UserAgent{}
-
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		v.OS.Name = testUAVars[i%num].OS.Name
-		v.OS.Platform = testUAVars[i%num].OS.Platform
-		v.Browser.Name = testUAVars[i%num].Browser.Name
-		v.parseDevice(testUAVars[i%num].UA)
+	var v UserAgent
+	i := 0
+	for b.Loop() {
+		want := testUAVars[i%len(testUAVars)]
+		v.OS.Name = want.OS.Name
+		v.OS.Platform = want.OS.Platform
+		v.Browser.Name = want.Browser.Name
+		v.parseDevice(want.UA)
+		i++
 	}
 }
 
 // Chrome for Mac
 func BenchmarkParseChromeMac(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		Parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36")
 	}
 }
 
 // Chrome for Windows
 func BenchmarkParseChromeWin(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		Parse("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36")
 	}
 }
 
 // Chrome for Android
 func BenchmarkParseChromeAndroid(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		Parse("Mozilla/5.0 (Linux; Android 4.4.2; GT-P5210 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.93 Safari/537.36")
 	}
 }
 
 // Safari for Mac
 func BenchmarkParseSafariMac(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		Parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12")
 	}
 }
 
 // Safari for iPad
 func BenchmarkParseSafariiPad(b *testing.B) {
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		Parse("Mozilla/5.0 (iPad; CPU OS 8_1_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B440 Safari/600.1.4")
 	}
 }
@@ -1483,7 +1480,7 @@ func TestParseUserAgentReuse(t *testing.T) {
 
 func TestIsBot(t *testing.T) {
 	// every bot browser constant must report as a bot
-	for name := BrowserBot; name <= BrowserYahooBot; name++ {
+	for name := BrowserBot; name < _browserNameFinal; name++ {
 		if ua := (&UserAgent{Browser: Browser{Name: name}}); !ua.IsBot() {
 			t.Errorf("Browser %v: IsBot() = false, want true", name)
 		}
@@ -1555,11 +1552,12 @@ func TestDeviceTypeStrings(t *testing.T) {
 func TestBrowserNameStrings(t *testing.T) {
 	assertNames(t, "BrowserName", "Browser", int(_browserNameFinal), func(i int) string { return BrowserName(i).String() })
 
-	// IsBot keys off the BrowserBot..BrowserYahooBot range, so the bot block has
-	// to stay contiguous and stay at the end of the list.
-	if BrowserYahooBot != _browserNameFinal-1 {
-		t.Errorf("BrowserYahooBot = %d but the list ends at %d: a non-bot constant was "+
-			"added after the bot block, which breaks IsBot", BrowserYahooBot, _browserNameFinal-1)
+	// IsBot treats everything from BrowserBot to the terminator as a bot, so the
+	// bot block has to stay contiguous and stay at the end of the list. Adding a
+	// bot means naming it here; adding a browser after it breaks IsBot.
+	if BrowserPetalBot != _browserNameFinal-1 {
+		t.Errorf("BrowserPetalBot = %d but the list ends at %d: a non-bot constant was "+
+			"added after the bot block, which breaks IsBot", BrowserPetalBot, _browserNameFinal-1)
 	}
 }
 

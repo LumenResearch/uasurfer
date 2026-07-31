@@ -4,7 +4,17 @@ import "strings"
 
 // Retrieve browser name from UA strings
 func (u *UserAgent) parseBrowserName(ua string) bool {
-	// Blackberry goes first because it reads as MSIE & Safari
+	// Bots go first: a crawler copies a whole browser agent and appends itself,
+	// so every check below would match one before we got to it. Only agents
+	// carrying a hint of one pay for the full pass.
+	if botSuspect(ua) {
+		if name, ok := botName(ua); ok {
+			u.Browser.Name = name
+			return u.applyBotDefaults()
+		}
+	}
+
+	// Blackberry goes next because it reads as MSIE & Safari
 	if strings.Contains(ua, "blackberry") || strings.Contains(ua, "playbook") || strings.Contains(ua, "bb10") || strings.Contains(ua, "rim ") {
 		u.Browser.Name = BrowserBlackberry
 		return u.applyBotDefaults()
@@ -12,9 +22,6 @@ func (u *UserAgent) parseBrowserName(ua string) bool {
 
 	if strings.Contains(ua, "applewebkit") {
 		switch {
-		case strings.Contains(ua, "googlebot"):
-			u.Browser.Name = BrowserGoogleBot
-
 		case strings.Contains(ua, "qq/") || strings.Contains(ua, "qqbrowser/"):
 			u.Browser.Name = BrowserQQ
 
@@ -56,10 +63,6 @@ func (u *UserAgent) parseBrowserName(ua string) bool {
 		case strings.Contains(ua, " spotify/"):
 			u.Browser.Name = BrowserSpotify
 
-		// AppleBot uses webkit signature as well
-		case strings.Contains(ua, "applebot"):
-			u.Browser.Name = BrowserAppleBot
-
 		// presume it's safari unless an esoteric browser is being specified (webOSBrowser, SamsungBrowser, etc.)
 		case strings.Contains(ua, "like gecko") && strings.Contains(ua, "mozilla/") && strings.Contains(ua, "safari/") && !strings.Contains(ua, "linux") && !strings.Contains(ua, "android") && !strings.Contains(ua, "browser/") && !strings.Contains(ua, "os/") && !strings.Contains(ua, "yabrowser/"):
 			u.Browser.Name = BrowserSafari
@@ -96,51 +99,27 @@ notwebkit:
 	case strings.Contains(ua, "ucbrowser"):
 		u.Browser.Name = BrowserUCBrowser
 
-	case strings.Contains(ua, "applebot"):
-		u.Browser.Name = BrowserAppleBot
-
-	case strings.Contains(ua, "baiduspider"):
-		u.Browser.Name = BrowserBaiduBot
-
-	case strings.Contains(ua, "adidxbot") || strings.Contains(ua, "bingbot") || strings.Contains(ua, "bingpreview"):
-		u.Browser.Name = BrowserBingBot
-
-	case strings.Contains(ua, "duckduckbot"):
-		u.Browser.Name = BrowserDuckDuckGoBot
-
-	case strings.Contains(ua, "facebot") || strings.Contains(ua, "facebookexternalhit"):
-		u.Browser.Name = BrowserFacebookBot
-
-	case strings.Contains(ua, "googlebot"):
-		u.Browser.Name = BrowserGoogleBot
-
-	case strings.Contains(ua, "linkedinbot"):
-		u.Browser.Name = BrowserLinkedInBot
-
-	case strings.Contains(ua, "msnbot"):
-		u.Browser.Name = BrowserMsnBot
-
-	case strings.Contains(ua, "pingdom.com_bot"):
-		u.Browser.Name = BrowserPingdomBot
-
-	case strings.Contains(ua, "twitterbot"):
-		u.Browser.Name = BrowserTwitterBot
-
-	case strings.Contains(ua, "yandex") || strings.Contains(ua, "yadirectfetcher"):
+	// Yandex names every one of its crawlers "Yandex<something>" and its own
+	// browser is matched above, so the bare vendor name is safe here. Yahoo's is
+	// not, and is handled by token in botMarkers instead.
+	case strings.Contains(ua, "yandex"):
 		u.Browser.Name = BrowserYandexBot
 
-	case strings.Contains(ua, "yahoo"):
-		u.Browser.Name = BrowserYahooBot
-
-	case strings.Contains(ua, "coccocbot"):
-		u.Browser.Name = BrowserCocCocBot
-
-	case strings.Contains(ua, "phantomjs"):
-		u.Browser.Name = BrowserBot
-
 	default:
-		u.Browser.Name = BrowserUnknown
-
+		// No browser token at all: the shape of a script, an HTTP library or a
+		// crawler that never pretended to be a browser. None of those trip
+		// botSuspect, so they get the full pass here, where it costs nothing -
+		// the alternative for these agents is reporting Unknown. It is also the
+		// one place a bare contact URL can be trusted, nothing here being a
+		// browser.
+		switch name, ok := botName(ua); {
+		case ok:
+			u.Browser.Name = name
+		case hasContactURL(ua):
+			u.Browser.Name = BrowserBot
+		default:
+			u.Browser.Name = BrowserUnknown
+		}
 	}
 
 	return u.applyBotDefaults()
