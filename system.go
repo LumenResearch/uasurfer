@@ -92,7 +92,7 @@ func (u *UserAgent) evalOS(ua string, hints *Hints) bool {
 
 		// Apple CFNetwork
 		case strings.Contains(ua, "cfnetwork") && strings.Contains(ua, "darwin"):
-			u.evalMacintosh(ua, hints)
+			u.evalAppleNative(ua, hints)
 
 		default:
 			u.OS.Platform = PlatformUnknown
@@ -236,14 +236,9 @@ func (u *UserAgent) evalMacintosh(uaPlatformGroup string, hints *Hints) {
 		u.OS.Name = OSMacOSX
 		u.OS.Version.parse(uaPlatformGroup[i+5:])
 
-		if hints != nil && hints.ScreenSize != nil {
-			for _, screenSize := range iPadScreenSizes {
-				if screenSize.Width == hints.ScreenSize.Width && screenSize.Height == hints.ScreenSize.Height {
-					u.OS.Name = OSiPadOS
-					u.OS.Platform = PlatformiPad
-					return
-				}
-			}
+		if hints != nil && hints.ScreenSize.isiPad() {
+			u.OS.Name = OSiPadOS
+			u.OS.Platform = PlatformiPad
 		}
 
 		return
