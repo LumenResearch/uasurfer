@@ -5,9 +5,10 @@
 // strings.
 package uasurfer
 
-import "strings"
-
-//go:generate stringer -type=DeviceType,BrowserName,OSName,Platform -output=const_string.go
+import (
+	"cmp"
+	"strings"
+)
 
 // DeviceType (int) returns a constant.
 type DeviceType int
@@ -22,7 +23,31 @@ const (
 	DeviceConsole
 	DeviceWearable
 	DeviceTV
+
+	// _deviceTypeFinal terminates the list so tests can enumerate it; keep it last.
+	_deviceTypeFinal
 )
+
+func (d DeviceType) String() string {
+	switch d {
+	case DeviceComputer:
+		return "DeviceComputer"
+	case DeviceTablet:
+		return "DeviceTablet"
+	case DevicePhone:
+		return "DevicePhone"
+	case DeviceConsole:
+		return "DeviceConsole"
+	case DeviceWearable:
+		return "DeviceWearable"
+	case DeviceTV:
+		return "DeviceTV"
+	default:
+		// anything out of range, including a value cast from a newer
+		// release, reads as unknown rather than a numeric placeholder
+		return "DeviceUnknown"
+	}
+}
 
 // StringTrimPrefix is like String() but trims the "Device" prefix
 func (d DeviceType) StringTrimPrefix() string {
@@ -69,7 +94,85 @@ const (
 	BrowserYandexBot
 	BrowserCocCocBot
 	BrowserYahooBot // Bot list ends here
+
+	// _browserNameFinal terminates the list so tests can enumerate it; keep it last.
+	_browserNameFinal
 )
+
+func (b BrowserName) String() string {
+	switch b {
+	case BrowserChrome:
+		return "BrowserChrome"
+	case BrowserIE:
+		return "BrowserIE"
+	case BrowserSafari:
+		return "BrowserSafari"
+	case BrowserFirefox:
+		return "BrowserFirefox"
+	case BrowserAndroid:
+		return "BrowserAndroid"
+	case BrowserOpera:
+		return "BrowserOpera"
+	case BrowserBlackberry:
+		return "BrowserBlackberry"
+	case BrowserUCBrowser:
+		return "BrowserUCBrowser"
+	case BrowserSilk:
+		return "BrowserSilk"
+	case BrowserNokia:
+		return "BrowserNokia"
+	case BrowserNetFront:
+		return "BrowserNetFront"
+	case BrowserQQ:
+		return "BrowserQQ"
+	case BrowserMaxthon:
+		return "BrowserMaxthon"
+	case BrowserSogouExplorer:
+		return "BrowserSogouExplorer"
+	case BrowserSpotify:
+		return "BrowserSpotify"
+	case BrowserNintendo:
+		return "BrowserNintendo"
+	case BrowserSamsung:
+		return "BrowserSamsung"
+	case BrowserYandex:
+		return "BrowserYandex"
+	case BrowserCocCoc:
+		return "BrowserCocCoc"
+	case BrowserBot:
+		return "BrowserBot"
+	case BrowserAppleBot:
+		return "BrowserAppleBot"
+	case BrowserBaiduBot:
+		return "BrowserBaiduBot"
+	case BrowserBingBot:
+		return "BrowserBingBot"
+	case BrowserDuckDuckGoBot:
+		return "BrowserDuckDuckGoBot"
+	case BrowserFacebookBot:
+		return "BrowserFacebookBot"
+	case BrowserGoogleBot:
+		return "BrowserGoogleBot"
+	case BrowserLinkedInBot:
+		return "BrowserLinkedInBot"
+	case BrowserMsnBot:
+		return "BrowserMsnBot"
+	case BrowserPingdomBot:
+		return "BrowserPingdomBot"
+	case BrowserTwitterBot:
+		return "BrowserTwitterBot"
+	case BrowserYandexBot:
+		return "BrowserYandexBot"
+	case BrowserCocCocBot:
+		return "BrowserCocCocBot"
+	case BrowserYahooBot:
+		return "BrowserYahooBot"
+	default:
+		// anything out of range, including a value cast from a newer
+		// release, reads as unknown rather than a numeric placeholder
+		return "BrowserUnknown"
+	}
+}
 
 // StringTrimPrefix is like String() but trims the "Browser" prefix
 func (b BrowserName) StringTrimPrefix() string {
@@ -100,7 +203,49 @@ const (
 	OSXbox
 	OSNintendo
 	OSBot
+
+	// _osNameFinal terminates the list so tests can enumerate it; keep it last.
+	_osNameFinal
 )
+
+func (o OSName) String() string {
+	switch o {
+	case OSWindowsPhone:
+		return "OSWindowsPhone"
+	case OSWindows:
+		return "OSWindows"
+	case OSMacOSX:
+		return "OSMacOSX"
+	case OSiOS:
+		return "OSiOS"
+	case OSiPadOS:
+		return "OSiPadOS"
+	case OSAndroid:
+		return "OSAndroid"
+	case OSBlackberry:
+		return "OSBlackberry"
+	case OSChromeOS:
+		return "OSChromeOS"
+	case OSKindle:
+		return "OSKindle"
+	case OSWebOS:
+		return "OSWebOS"
+	case OSLinux:
+		return "OSLinux"
+	case OSPlaystation:
+		return "OSPlaystation"
+	case OSXbox:
+		return "OSXbox"
+	case OSNintendo:
+		return "OSNintendo"
+	case OSBot:
+		return "OSBot"
+	default:
+		// anything out of range, including a value cast from a newer
+		// release, reads as unknown rather than a numeric placeholder
+		return "OSUnknown"
+	}
+}
 
 // StringTrimPrefix is like String() but trims the "OS" prefix
 func (o OSName) StringTrimPrefix() string {
@@ -128,7 +273,43 @@ const (
 	PlatformXbox
 	PlatformNintendo
 	PlatformBot
+
+	// _platformFinal terminates the list so tests can enumerate it; keep it last.
+	_platformFinal
 )
+
+func (p Platform) String() string {
+	switch p {
+	case PlatformWindows:
+		return "PlatformWindows"
+	case PlatformMac:
+		return "PlatformMac"
+	case PlatformLinux:
+		return "PlatformLinux"
+	case PlatformiPad:
+		return "PlatformiPad"
+	case PlatformiPhone:
+		return "PlatformiPhone"
+	case PlatformiPod:
+		return "PlatformiPod"
+	case PlatformBlackberry:
+		return "PlatformBlackberry"
+	case PlatformWindowsPhone:
+		return "PlatformWindowsPhone"
+	case PlatformPlaystation:
+		return "PlatformPlaystation"
+	case PlatformXbox:
+		return "PlatformXbox"
+	case PlatformNintendo:
+		return "PlatformNintendo"
+	case PlatformBot:
+		return "PlatformBot"
+	default:
+		// anything out of range, including a value cast from a newer
+		// release, reads as unknown rather than a numeric placeholder
+		return "PlatformUnknown"
+	}
+}
 
 // StringTrimPrefix is like String() but trims the "Platform" prefix
 func (p Platform) StringTrimPrefix() string {
@@ -141,24 +322,13 @@ type Version struct {
 	Patch int
 }
 
+// Less reports whether v sorts before c, comparing major, then minor, then patch.
 func (v Version) Less(c Version) bool {
-	if v.Major < c.Major {
-		return true
-	}
-
-	if v.Major > c.Major {
-		return false
-	}
-
-	if v.Minor < c.Minor {
-		return true
-	}
-
-	if v.Minor > c.Minor {
-		return false
-	}
-
-	return v.Patch < c.Patch
+	return cmp.Or(
+		cmp.Compare(v.Major, c.Major),
+		cmp.Compare(v.Minor, c.Minor),
+		cmp.Compare(v.Patch, c.Patch),
+	) < 0
 }
 
 type UserAgent struct {
@@ -167,6 +337,10 @@ type UserAgent struct {
 	DeviceType DeviceType
 }
 
+// Browser contains the name of the browser and its version. Browsers are
+// grouped without consideration for device: Chrome (Chrome/43.0) and Chrome for
+// iOS (CriOS/43.0) both report as BrowserChrome with version 43.0, and Internet
+// Explorer 11 and Edge 12 both report as BrowserIE with version 11 or 12.
 type Browser struct {
 	Name    BrowserName
 	Version Version
@@ -183,21 +357,21 @@ type Hints struct {
 }
 
 // Reset resets the UserAgent to it's zero value
-func (ua *UserAgent) Reset() {
-	ua.Browser = Browser{}
-	ua.OS = OS{}
-	ua.DeviceType = DeviceUnknown
+func (u *UserAgent) Reset() {
+	u.Browser = Browser{}
+	u.OS = OS{}
+	u.DeviceType = DeviceUnknown
 }
 
 // IsBot returns true if the UserAgent represent a bot
-func (ua *UserAgent) IsBot() bool {
-	if ua.Browser.Name >= BrowserBot && ua.Browser.Name <= BrowserYahooBot {
+func (u *UserAgent) IsBot() bool {
+	if u.Browser.Name >= BrowserBot && u.Browser.Name <= BrowserYahooBot {
 		return true
 	}
-	if ua.OS.Name == OSBot {
+	if u.OS.Name == OSBot {
 		return true
 	}
-	if ua.OS.Platform == PlatformBot {
+	if u.OS.Platform == PlatformBot {
 		return true
 	}
 	return false
@@ -239,16 +413,21 @@ func parse(ua string, hints *Hints, dest *UserAgent) {
 		dest.DeviceType = DeviceUnknown
 
 	// stop on on first case returning true
-	case dest.evalOS(ua, hints):
-	case dest.evalBrowserName(ua):
+	case dest.parseOS(ua, hints):
+	case dest.parseBrowserName(ua):
 	default:
-		dest.evalBrowserVersion(ua)
-		dest.evalDevice(ua)
+		dest.parseBrowserVersion(ua)
+		dest.parseDevice(ua)
 	}
 }
 
 // normalise normalises the user supplied agent string so that
 // we can more easily parse it.
+//
+// The returned string is the parser's one remaining allocation: buf itself is
+// stack allocated, but converting it to a string that outlives this frame is
+// not something the compiler can keep on the stack. Removing it would mean
+// parsing over []byte throughout rather than string.
 func normalise(ua string) string {
 	if len(ua) <= 1024 {
 		var buf [1024]byte

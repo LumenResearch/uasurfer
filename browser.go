@@ -1,29 +1,13 @@
 package uasurfer
 
-import (
-	"strings"
-)
-
-// Browser struct contains the lowercase name of the browser, along
-// with its browser version number. Browser are grouped together without
-// consideration for device. For example, Chrome (Chrome/43.0) and Chrome for iOS
-// (CriOS/43.0) would both return as "chrome" (name) and 43.0 (version). Similarly
-// Internet Explorer 11 and Edge 12 would return as "ie" and "11" or "12", respectively.
-// type Browser struct {
-// 		Name    BrowserName
-// 		Version struct {
-// 				Major int
-// 			Minor int
-// 			Patch int
-// 		}
-// }
+import "strings"
 
 // Retrieve browser name from UA strings
-func (u *UserAgent) evalBrowserName(ua string) bool {
+func (u *UserAgent) parseBrowserName(ua string) bool {
 	// Blackberry goes first because it reads as MSIE & Safari
 	if strings.Contains(ua, "blackberry") || strings.Contains(ua, "playbook") || strings.Contains(ua, "bb10") || strings.Contains(ua, "rim ") {
 		u.Browser.Name = BrowserBlackberry
-		return u.maybeBot()
+		return u.applyBotDefaults()
 	}
 
 	if strings.Contains(ua, "applewebkit") {
@@ -40,7 +24,7 @@ func (u *UserAgent) evalBrowserName(ua string) bool {
 		case strings.Contains(ua, "silk/"):
 			u.Browser.Name = BrowserSilk
 
-		case strings.Contains(ua, "edg/") || strings.Contains(ua, "edgios/") || strings.Contains(ua, "edga/")|| strings.Contains(ua, "edge/") || strings.Contains(ua, "iemobile/") || strings.Contains(ua, "msie "):
+		case strings.Contains(ua, "edg/") || strings.Contains(ua, "edgios/") || strings.Contains(ua, "edga/") || strings.Contains(ua, "edge/") || strings.Contains(ua, "iemobile/") || strings.Contains(ua, "msie "):
 			u.Browser.Name = BrowserIE
 
 		case strings.Contains(ua, "ucbrowser/") || strings.Contains(ua, "ucweb/"):
@@ -92,7 +76,7 @@ func (u *UserAgent) evalBrowserName(ua string) bool {
 			goto notwebkit
 
 		}
-		return u.maybeBot()
+		return u.applyBotDefaults()
 	}
 
 notwebkit:
@@ -159,7 +143,7 @@ notwebkit:
 
 	}
 
-	return u.maybeBot()
+	return u.applyBotDefaults()
 }
 
 // Retrieve browser version
@@ -167,30 +151,27 @@ notwebkit:
 // 1st: look for generic version/#
 // 2nd: look for browser-specific instructions (e.g. chrome/34)
 // 3rd: infer from OS (iOS only)
-func (u *UserAgent) evalBrowserVersion(ua string) {
+func (u *UserAgent) parseBrowserVersion(ua string) {
 	// if there is a 'version/#' attribute with numeric version, use it -- except for Chrome since Android vendors sometimes hijack version/#
-	if u.Browser.Name != BrowserChrome && u.Browser.Version.findVersionNumber(ua, "version/") {
+	if u.Browser.Name != BrowserChrome && u.Browser.Version.parseAfter(ua, "version/") {
 		return
 	}
 
 	switch u.Browser.Name {
 	case BrowserChrome:
 		// match both chrome and crios
-		_ = u.Browser.Version.findVersionNumber(ua, "chrome/") || u.Browser.Version.findVersionNumber(ua, "crios/") || u.Browser.Version.findVersionNumber(ua, "crmo/")
+		_ = u.Browser.Version.parseAfter(ua, "chrome/", "crios/", "crmo/")
 	case BrowserYandex:
-		_ = u.Browser.Version.findVersionNumber(ua, "yabrowser/")
+		_ = u.Browser.Version.parseAfter(ua, "yabrowser/")
 	case BrowserQQ:
-		if u.Browser.Version.findVersionNumber(ua, "qq/") {
-			return
-		}
-		_ = u.Browser.Version.findVersionNumber(ua, "qqbrowser/")
+		_ = u.Browser.Version.parseAfter(ua, "qq/", "qqbrowser/")
 	case BrowserIE:
-		if u.Browser.Version.findVersionNumber(ua, "msie ") || u.Browser.Version.findVersionNumber(ua, "edge/") || u.Browser.Version.findVersionNumber(ua, "edgios/") || u.Browser.Version.findVersionNumber(ua, "edga/") || u.Browser.Version.findVersionNumber(ua, "edg/") {
+		if u.Browser.Version.parseAfter(ua, "msie ", "edge/", "edgios/", "edga/", "edg/") {
 			return
 		}
 
 		// get MSIE version from trident version https://en.wikipedia.org/wiki/Trident_(layout_engine)
-		if u.Browser.Version.findVersionNumber(ua, "trident/") {
+		if u.Browser.Version.parseAfter(ua, "trident/") {
 			// convert trident versions 3-7 to MSIE version
 			if (u.Browser.Version.Major >= 3) && (u.Browser.Version.Major <= 7) {
 				u.Browser.Version.Major += 4
@@ -198,7 +179,7 @@ func (u *UserAgent) evalBrowserVersion(ua string) {
 		}
 
 	case BrowserFirefox:
-		_ = u.Browser.Version.findVersionNumber(ua, "firefox/") || u.Browser.Version.findVersionNumber(ua, "fxios/")
+		_ = u.Browser.Version.parseAfter(ua, "firefox/", "fxios/")
 
 	case BrowserSafari: // executes typically if we're on iOS and not using a familiar browser
 		u.Browser.Version = u.OS.Version
@@ -208,18 +189,18 @@ func (u *UserAgent) evalBrowserVersion(ua string) {
 		}
 
 	case BrowserUCBrowser:
-		_ = u.Browser.Version.findVersionNumber(ua, "ucbrowser/")
+		_ = u.Browser.Version.parseAfter(ua, "ucbrowser/")
 
 	case BrowserOpera:
-		_ = u.Browser.Version.findVersionNumber(ua, "opr/") || u.Browser.Version.findVersionNumber(ua, "opios/") || u.Browser.Version.findVersionNumber(ua, "opera/")
+		_ = u.Browser.Version.parseAfter(ua, "opr/", "opios/", "opera/")
 
 	case BrowserSilk:
-		_ = u.Browser.Version.findVersionNumber(ua, "silk/")
+		_ = u.Browser.Version.parseAfter(ua, "silk/")
 
 	case BrowserSpotify:
-		_ = u.Browser.Version.findVersionNumber(ua, "spotify/")
+		_ = u.Browser.Version.parseAfter(ua, "spotify/")
 
 	case BrowserCocCoc:
-		_ = u.Browser.Version.findVersionNumber(ua, "coc_coc_browser/")
+		_ = u.Browser.Version.parseAfter(ua, "coc_coc_browser/")
 	}
 }
