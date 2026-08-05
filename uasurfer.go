@@ -93,7 +93,16 @@ const (
 	BrowserTwitterBot
 	BrowserYandexBot
 	BrowserCocCocBot
-	BrowserYahooBot // Bot list ends here
+	BrowserYahooBot
+	BrowserOpenAIBot
+	BrowserAnthropicBot
+	BrowserPerplexityBot
+	BrowserAmazonBot
+	BrowserBytedanceBot
+	BrowserCommonCrawlBot
+	BrowserAhrefsBot
+	BrowserSemrushBot
+	BrowserPetalBot // Bot list ends here
 
 	// _browserNameFinal terminates the list so tests can enumerate it; keep it last.
 	_browserNameFinal
@@ -167,6 +176,24 @@ func (b BrowserName) String() string {
 		return "BrowserCocCocBot"
 	case BrowserYahooBot:
 		return "BrowserYahooBot"
+	case BrowserOpenAIBot:
+		return "BrowserOpenAIBot"
+	case BrowserAnthropicBot:
+		return "BrowserAnthropicBot"
+	case BrowserPerplexityBot:
+		return "BrowserPerplexityBot"
+	case BrowserAmazonBot:
+		return "BrowserAmazonBot"
+	case BrowserBytedanceBot:
+		return "BrowserBytedanceBot"
+	case BrowserCommonCrawlBot:
+		return "BrowserCommonCrawlBot"
+	case BrowserAhrefsBot:
+		return "BrowserAhrefsBot"
+	case BrowserSemrushBot:
+		return "BrowserSemrushBot"
+	case BrowserPetalBot:
+		return "BrowserPetalBot"
 	default:
 		// anything out of range, including a value cast from a newer
 		// release, reads as unknown rather than a numeric placeholder
@@ -203,6 +230,9 @@ const (
 	OSXbox
 	OSNintendo
 	OSBot
+	OSTizen // Samsung smart TVs, and the handful of Tizen phones
+	OSRoku
+	OSTvOS
 
 	// _osNameFinal terminates the list so tests can enumerate it; keep it last.
 	_osNameFinal
@@ -240,6 +270,12 @@ func (o OSName) String() string {
 		return "OSNintendo"
 	case OSBot:
 		return "OSBot"
+	case OSTizen:
+		return "OSTizen"
+	case OSRoku:
+		return "OSRoku"
+	case OSTvOS:
+		return "OSTvOS"
 	default:
 		// anything out of range, including a value cast from a newer
 		// release, reads as unknown rather than a numeric placeholder
@@ -273,6 +309,7 @@ const (
 	PlatformXbox
 	PlatformNintendo
 	PlatformBot
+	PlatformAppleTV
 
 	// _platformFinal terminates the list so tests can enumerate it; keep it last.
 	_platformFinal
@@ -304,6 +341,8 @@ func (p Platform) String() string {
 		return "PlatformNintendo"
 	case PlatformBot:
 		return "PlatformBot"
+	case PlatformAppleTV:
+		return "PlatformAppleTV"
 	default:
 		// anything out of range, including a value cast from a newer
 		// release, reads as unknown rather than a numeric placeholder
@@ -365,7 +404,10 @@ func (u *UserAgent) Reset() {
 
 // IsBot returns true if the UserAgent represent a bot
 func (u *UserAgent) IsBot() bool {
-	if u.Browser.Name >= BrowserBot && u.Browser.Name <= BrowserYahooBot {
+	// The bot constants are a contiguous block that ends the BrowserName list,
+	// so the upper bound is the terminator rather than the last bot by name;
+	// TestBrowserNameStrings pins the block to the end of the list.
+	if u.Browser.Name >= BrowserBot && u.Browser.Name < _browserNameFinal {
 		return true
 	}
 	if u.OS.Name == OSBot {

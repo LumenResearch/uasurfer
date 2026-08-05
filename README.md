@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/LumenResearch/uasurfer.svg?branch=master)](https://travis-ci.org/LumenResearch/uasurfer)  [![GoDoc](https://godoc.org/github.com/LumenResearch/uasurfer?status.svg)](https://godoc.org/github.com/LumenResearch/uasurfer)  [![Go Report Card](https://goreportcard.com/badge/github.com/LumenResearch/uasurfer)](https://goreportcard.com/report/github.com/LumenResearch/uasurfer)
+[![Go](https://github.com/LumenResearch/uasurfer/actions/workflows/test.yaml/badge.svg)](https://github.com/LumenResearch/uasurfer/actions/workflows/test.yaml) [![Go Reference](https://pkg.go.dev/badge/github.com/LumenResearch/uasurfer.svg)](https://pkg.go.dev/github.com/LumenResearch/uasurfer)  [![Go Report Card](https://goreportcard.com/badge/github.com/LumenResearch/uasurfer)](https://goreportcard.com/report/github.com/LumenResearch/uasurfer)
 
 # uasurfer
 
@@ -8,32 +8,49 @@
 
 The following information is returned by uasurfer from a raw HTTP User-Agent string:
 
-| Name           | Example | Coverage in 192,792 parses |
-|----------------|---------|--------------------------------|
-| Browser name    | `chrome` | 99.85%                         |
-| Browser version | `53` | 99.17%                         |
-| Platform       | `ipad`  | 99.97%                         |
-| OS name         | `ios`  | 99.96%                         |
-| OS version      | `10`   | 98.81%                         |
-| Device type    |  `tablet` | 99.98%                         |
+| Name | Example |
+|---|---|
+| Browser name | `chrome` |
+| Browser version | `53` |
+| Platform | `ipad` |
+| OS name | `ios` |
+| OS version | `10` |
+| Device type | `tablet` |
+| Bot | `false` |
 
-Layout engine, browser language, and other esoteric attributes are not parsed.
+Layout engine, browser language, device brand and device model are not parsed.
 
-Coverage is estimated from a random sample of real UA strings collected across thousands of sources in US and EU mid-2016.
+Mainstream desktop and mobile are effectively solved. Two caveats are worth
+knowing before relying on a field:
+
+* **Android phone versus tablet** is not always decidable, because vendors ship
+  tablets that announce `Mobile`. An Android agent with no tablet indicator
+  defaults to a phone.
+* **Bot detection** trades the long tail for a name table nobody has to
+  maintain: it catches 83% of a 1,975 agent crawler fixture set with no false
+  positive across 2,906 real device agents. See [doc/bots.md](doc/bots.md).
+* **Chrome's user agent reduction** hollowed out several fields at the source.
+  Chromium browsers report a frozen `10.15.7` for macOS, NT 10.0 for both
+  Windows 10 and 11, `Android 10` on every Android device, and `0` for every
+  version component below the major. No parser can recover these from the agent.
 
 ## Usage
 
 ### Parse(ua string) Function
 
-The `Parse()` function accepts a user agent `string` and returns UserAgent struct with named constants and integers for versions (minor, major and patch separately), and the full UA string that was parsed (lowercase). A string can be retrieved by adding `.String()` to a variable, such as `uasurfer.BrowserName.String()`.
+The `Parse()` function accepts a user agent `string` and returns a `*UserAgent`, with named constants for the browser, OS, platform and device, and integers for versions (major, minor and patch separately). A string can be retrieved by adding `.String()` to a variable, such as `uasurfer.BrowserName.String()`, or `.StringTrimPrefix()` to drop the type name.
 
-```
+```go
 // Define a user agent string
 myUA := "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36"
 
-// Parse() returns all attributes, including returning the full UA string last
-ua, uaString := uasurfer.Parse(myUA)
+ua := uasurfer.Parse(myUA)
 ```
+
+For a request loop, `ParseUserAgent(ua string, dest *UserAgent)` fills a
+`UserAgent` the caller owns; call `Reset()` before reusing one. `ParseWithHints`
+takes a `Hints` struct carrying what the agent cannot say for itself - today the
+screen size, which is how an iPad in desktop mode is told apart from a Mac.
 
 where example UserAgent is:
 ```
@@ -61,60 +78,37 @@ where example UserAgent is:
 
 **Usage note:** There are some OSes that do not return a version, see docs below. Linux is typically not reported with a specific Linux distro name or version.
 
-#### Browser Name
-* `BrowserChrome` - Google [Chrome](https://en.wikipedia.org/wiki/Google_Chrome), [Chromium](https://en.wikipedia.org/wiki/Chromium_(web_browser))
-* `BrowserSafari` - Apple [Safari](https://en.wikipedia.org/wiki/Safari_(web_browser)), Google Search ([GSA](https://itunes.apple.com/us/app/google/id284815942))
-* `BrowserIE` - Microsoft [Internet Explorer](https://en.wikipedia.org/wiki/Internet_Explorer), [Edge](https://en.wikipedia.org/wiki/Microsoft_Edge)
-* `BrowserFirefox` - Mozilla [Firefox](https://en.wikipedia.org/wiki/Firefox), GNU [IceCat](https://en.wikipedia.org/wiki/GNU_IceCat), [Iceweasel](https://en.wikipedia.org/wiki/Mozilla_Corporation_software_rebranded_by_the_Debian_project#Iceweasel), [Seamonkey](https://en.wikipedia.org/wiki/SeaMonkey)
-* `BrowserAndroid` - Android [WebView](https://developer.chrome.com/multidevice/webview/overview) (Android OS <4.4 only)
-* `BrowserOpera` - [Opera](https://en.wikipedia.org/wiki/Opera_(web_browser))
-* `BrowserUCBrowser` - [UC Browser](https://en.wikipedia.org/wiki/UC_Browser)
-* `BrowserSilk` - Amazon [Silk](https://en.wikipedia.org/wiki/Amazon_Silk)
-* `BrowserQQ` - Tencent [QQ](https://en.wikipedia.org/wiki/Tencent_QQ)
-* `BrowserSpotify` - [Spotify](https://en.wikipedia.org/wiki/Spotify#Clients) desktop client
-* `BrowserBlackberry` - RIM [BlackBerry](https://en.wikipedia.org/wiki/BlackBerry)
-* `BrowserYandex` - [Yandex](https://en.wikipedia.org/wiki/Yandex_Browser)
-* `BrowserNintendo` - [Nintendo DS(i) Browser](https://en.wikipedia.org/wiki/Nintendo_DS_%26_DSi_Browser)
-* `BrowserSamsung` - [Samsung Internet](https://en.wikipedia.org/wiki/Samsung_Internet_for_Android)
-* `BrowserCocCoc`- [Cốc Cốc](https://en.wikipedia.org/wiki/C%E1%BB%91c_C%E1%BB%91c)
-* `BrowserUnknown` - Unknown
+#### Constants
+
+The full lists of `BrowserName`, `OSName`, `Platform` and `DeviceType` constants
+live in the package reference:
+[`BrowserName`](https://pkg.go.dev/github.com/LumenResearch/uasurfer#BrowserName),
+[`OSName`](https://pkg.go.dev/github.com/LumenResearch/uasurfer#OSName),
+[`Platform`](https://pkg.go.dev/github.com/LumenResearch/uasurfer#Platform),
+[`DeviceType`](https://pkg.go.dev/github.com/LumenResearch/uasurfer#DeviceType).
+Grouping worth knowing about:
+
+* `BrowserChrome` covers Chromium and Android WebView 4.4 or newer.
+* `BrowserIE` covers Edge as well, including Chromium Edge; version >= 79 is how
+  you tell them apart.
+* `BrowserFirefox` covers IceCat, Iceweasel and SeaMonkey.
+* `BrowserSafari` covers the Google Search app on iOS, which is Safari in
+  disguise.
+* Crawlers have their own constants and their own document: see
+  [doc/bots.md](doc/bots.md).
 
 #### Browser Version
 
-Browser version returns an `unint8` of the major version attribute of the User-Agent String. For example Chrome 45.0.23423 would return `45`. The intention is to support math operators with versions, such as "do XYZ for Chrome version >23".
+Browser version is a `Version{Major, Minor, Patch}` of ints. For example Chrome
+45.0.23423 gives `{45, 0, 23423}`, so `ua.Browser.Version.Major > 23` is the
+usual test. Versions compare with `Less`: `if ver1.Less(ver2) {}`.
 
-Unknown version is returned as `0`.
-
-#### Platform
-* `PlatformWindows` - Microsoft Windows
-* `PlatformMac` - Apple Macintosh
-* `PlatformLinux` - Linux, including Android and other OSes
-* `PlatformiPad` - Apple iPad
-* `PlatformiPhone` - Apple iPhone
-* `PlatformBlackberry` - RIM Blackberry
-* `PlatformWindowsPhone` Microsoft Windows Phone & Mobile
-* `PlatformKindle` - Amazon Kindle & Kindle Fire
-* `PlatformPlaystation` - Sony Playstation, Vita, PSP
-* `PlatformXbox` - Microsoft Xbox
-* `PlatformNintendo` - Nintendo DS, Wii, etc.
-* `PlatformUnknown` - Unknown
-
-#### OS Name
-* `OSWindows`
-* `OSMacOSX` - includes "macOS Sierra"
-* `OSiOS`
-* `OSAndroid`
-* `OSChromeOS`
-* `OSWebOS`
-* `OSLinux`
-* `OSPlaystation`
-* `OSXbox`
-* `OSNintendo`
-* `OSUnknown`
+An unknown version is `{0, 0, 0}`. Chromium browsers now report `0` for
+everything below the major version, whatever they are actually running.
 
 #### OS Version
 
-OS X major version is always 10 for releases prior to Big Sur with consecutive minor versions indicating release releases (10 - Yosemite, 11 - El Capitain, 12 Sierra, etc). macOS Big Sur is indicated as `{11, 1, 0}`. Windows version is NT version. `Version{0, 0, 0}` indicated version is unknown or not evaluated.
+OS X major version is always 10 for releases prior to Big Sur with consecutive minor versions indicating releases (10 - Yosemite, 11 - El Capitan, 12 Sierra, etc). macOS Big Sur is indicated as `{11, 1, 0}`, though Chrome and Firefox freeze what they report at `10.15.7` whatever the machine runs. Windows version is the NT version. `Version{0, 0, 0}` means the version is unknown or not evaluated.
 Versions can be compared using `Less` function: `if ver1.Less(ver2) {}`
 
 Here are some examples across the platform, os.name, and os.version:
@@ -137,45 +131,35 @@ Here are some examples across the platform, os.name, and os.version:
 Windows 95, 98, and ME represent 0.01% of traffic worldwide and are not available through this package at this time.
 
 #### DeviceType
-DeviceType is typically quite accurate, though determining between phones and tablets on Android is not always possible due to how some vendors design their UA strings. A mobile Android device without tablet indicator defaults to being classified as a phone. DeviceTV supports major brands such as Philips, Sharp, Vizio and steaming boxes such as Apple, Google, Roku, Amazon.
+DeviceType is typically quite accurate, though determining between phones and tablets on Android is not always possible due to how some vendors design their UA strings. A mobile Android device without a tablet indicator defaults to being classified as a phone.
 
-* `DeviceComputer`
-* `DevicePhone`
-* `DeviceTablet`
-* `DeviceTV`
-* `DeviceConsole`
-* `DeviceWearable`
-* `DeviceUnknown`
+`DeviceTV` covers the major TV brands and the streaming sticks and boxes from
+Apple, Google, Roku and Amazon, most of which also report an OS of their own:
+see [doc/tv.md](doc/tv.md).
 
 ## Example Combinations of Attributes
 * Surface RT -> `OSWindows8`, `DeviceTablet`, OSVersion >= `6`
 * Android Tablet -> `OSAndroid`, `DeviceTablet`
 * Microsoft Edge -> `BrowserIE`, BrowserVersion >= `12.0.0`
 
-## To do
+## Deliberately not supported
 
-* Remove compiled regexp in favor of string.Contains wherever possible (lowers mem/alloc)
-* Better version support on Firefox derivatives (e.g. SeaMonkey)
-* Potential additional browser support:
- * "NetFront" (1% share in India)
- * "Sogou Explorer" (5% share in China)
- * "Maxthon" (1.5% share in China)
- * "Nokia"
-* Potential additional OS support:
- * "Nokia" (5% share in India)
- * "Series 40" (5.5% share in India)
- * Windows 2003 Server
-* iOS safari browser identification based on iOS version
-* Add android version to browser identification
-* old Macs
- * "opera/9.64 (macintosh; ppc mac os x; u; en) presto/2.1.1"
-* old Windows
- * "mozilla/5.0 (windows nt 4.0; wow64) applewebkit/537.36 (khtml, like gecko) chrome/37.0.2049.0 safari/537.36"
+Device brand and model, layout engine, CPU architecture and browser language.
+Naming every Chromium skin (Vivaldi, Whale, MIUI, Huawei) and every in-app
+webview (Facebook, Instagram, WeChat) is not done either: those report as the
+engine they are. Client hints beyond the screen size are not read yet, which is
+what the frozen version fields above would need.
 
 ## Adding new user agents
 
 1. Source user agent strings which identify a device type, system or a browser you want to add
 2. Identify a unique part of the user agent string which identifies a device
 3. Add a condition to a switch statement inside `browser.go`, `device.go` or `system.go`
+4. Add rows to the fixture sets in `testdata/` that fail without the change
 
 For example, to identify a Google TV user agent as device type TV, we identify that all user agents contain "googletv" string and we add `strings.Contains(ua, "googletv")` to the `device.go` switch condition for identifying TVs.
+
+Before opening a PR: `gofmt -l .`, `go vet ./...`, `golangci-lint run ./...`,
+`go test ./...`, and for anything on the parse path, before-and-after medians
+from `go test -run=XXX -bench=Parse -benchmem -count=6`. `CLAUDE.md` has the
+conventions in full.

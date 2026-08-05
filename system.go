@@ -55,19 +55,22 @@ func isSpace(c byte) bool { return c == ' ' || c == '\t' || c == '\n' || c == '\
 func isLower(c byte) bool { return c >= 'a' && c <= 'z' }
 func isDigit(c byte) bool { return c >= '0' && c <= '9' }
 
-func (u *UserAgent) parseOS(ua string, hints *Hints) bool {
-	// The platform group is the text between the first parentheses. When the
-	// closing paren is missing or precedes the opening one, the group runs to
-	// the end of the agent instead. Only e moves: s still points at the opening
-	// paren (or -1 when there is none), so the s+1 below skips that paren rather
-	// than the agent's first byte.
+// platformGroup returns the text between the first parentheses. When the closing
+// paren is missing or precedes the opening one, the group runs to the end of the
+// agent instead. Only e moves: s still points at the opening paren (or -1 when
+// there is none), so the s+1 below skips that paren rather than the agent's
+// first byte.
+func platformGroup(ua string) string {
 	s := strings.IndexByte(ua, '(')
 	e := strings.IndexByte(ua, ')')
 	if e == -1 || s > e {
 		e = len(ua)
 	}
+	return ua[s+1 : e]
+}
 
-	agentPlatform := ua[s+1 : e]
+func (u *UserAgent) parseOS(ua string, hints *Hints) bool {
+	agentPlatform := platformGroup(ua)
 	// Cut returns the whole string when there is no ";", which is what we want.
 	specs, _, _ := strings.Cut(agentPlatform, ";")
 
@@ -114,7 +117,7 @@ func (u *UserAgent) parseOS(ua string, hints *Hints) bool {
 			u.parseLinux(ua, agentPlatform)
 
 		// WebOS (non-linux flagged)
-		case strings.Contains(ua, "webos") || strings.Contains(ua, "hpwos"):
+		case isWebOS(ua):
 			u.OS.Platform = PlatformLinux
 			u.OS.Name = OSWebOS
 
@@ -132,9 +135,27 @@ func (u *UserAgent) parseOS(ua string, hints *Hints) bool {
 		case strings.Contains(ua, "android"):
 			u.parseLinux(ua, agentPlatform)
 
+		// Apple TV, ahead of the CFNetwork case below: its native apps carry the
+		// same Darwin signature as an iPhone's, and the model is what separates
+		// them. The version follows the model generation ("AppleTV6,2/11.1") or,
+		// for the media player agents, sits in the iOS style "CPU OS" field.
+		case strings.Contains(ua, "appletv") || strings.Contains(ua, "apple tv"):
+			u.OS.Platform = PlatformAppleTV
+			u.OS.Name = OSTvOS
+			u.parseTvOSVersion(ua)
+
 		// Apple CFNetwork
 		case strings.Contains(ua, "cfnetwork") && strings.Contains(ua, "darwin"):
 			u.parseAppleNative(ua, hints)
+
+		// Roku, after CFNetwork: the players state their OS version after the
+		// model ("Roku/DVP-12.5", "Roku4640X/DVP-7.70") and never carry Darwin,
+		// while "Roku" on its own is also the remote control app, which runs on
+		// a phone and is caught above.
+		case strings.Contains(ua, "roku"):
+			u.OS.Platform = PlatformLinux
+			u.OS.Name = OSRoku
+			u.OS.Version.parseAfter(ua, "/dvp-", "roku/")
 
 		default:
 			u.OS.Platform = PlatformUnknown
@@ -181,8 +202,15 @@ func (u *UserAgent) parseLinux(ua, agentPlatform string) {
 		u.OS.Platform = PlatformLinux
 		u.OS.Name = OSChromeOS
 
+	// Tizen: Samsung's smart TVs, which report "SMART-TV; LINUX; Tizen 6.0",
+	// and the few Tizen phones, which report "Linux; Tizen 2.3".
+	case strings.Contains(ua, "tizen"):
+		u.OS.Platform = PlatformLinux
+		u.OS.Name = OSTizen
+		u.OS.Version.parseAfter(ua, "tizen ", "tizen/")
+
 	// WebOS
-	case strings.Contains(ua, "webos") || strings.Contains(ua, "hpwos"):
+	case isWebOS(ua):
 		u.OS.Platform = PlatformLinux
 		u.OS.Name = OSWebOS
 
@@ -224,6 +252,27 @@ func (u *UserAgent) parseiOS(specs, agentPlatform string) {
 		u.OS.Platform = PlatformiPad
 		u.OS.Name = OSUnknown
 	}
+}
+
+// isWebOS covers the three spellings in the wild: Palm and HP's original
+// "webOS" and "hpwOS", and the "Web0S" - with a zero - that LG ships on its
+// smart TVs.
+func isWebOS(ua string) bool {
+	return strings.Contains(ua, "webos") ||
+		strings.Contains(ua, "web0s") ||
+		strings.Contains(ua, "hpwos")
+}
+
+// parseTvOSVersion reads the tvOS version, which sits after the slash that
+// follows the hardware generation: "AppleTV6,2/11.1", "AppleTV/1.1". The media
+// player agents carry no model and state the version the iOS way instead.
+func (u *UserAgent) parseTvOSVersion(ua string) {
+	if _, after, ok := strings.Cut(ua, "appletv"); ok {
+		if _, version, ok := strings.Cut(after, "/"); ok && u.OS.Version.parse(version) {
+			return
+		}
+	}
+	u.OS.Version.parseAfter(ua, "cpu os ", "os x ")
 }
 
 func (u *UserAgent) parseWindowsPhone(agentPlatform string) {
@@ -306,6 +355,15 @@ func (o *OS) parseiOSVersion(agentPlatform string) {
 	}
 }
 
+// maxVersionPart caps each component of a version.
+//
+// Nothing has ever shipped a version number this large, and accumulating one
+// unchecked overflows: FuzzParse found "roku/10000000000000000000", which gave a
+// negative major that then compares as older than every release there has been.
+// The cap is also small enough that the multiply below cannot overflow an int on
+// a 32 bit platform.
+const maxVersionPart = 1 << 24
+
 // strToVer accepts a string and returns a Version,
 // with {0, 0, 0} being default.
 func (v *Version) parse(str string) bool {
@@ -339,7 +397,9 @@ func (v *Version) parse(str string) bool {
 					break
 				}
 
-				val = 10*val + int(c) - 48
+				if val <= maxVersionPart {
+					val = 10*val + int(c) - 48
+				}
 				if k == l {
 					str = str[:0]
 				}

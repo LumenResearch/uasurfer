@@ -20,8 +20,10 @@ explicit decision. Constants are append-only and must keep their values: callers
 persist them as ints. Internal naming, file layout and implementation are free to
 change.
 
-`BrowserBot`..`BrowserYahooBot` must stay a contiguous block at the end of the
-`BrowserName` list — `IsBot` is a range check over it.
+The bot constants must stay a contiguous block at the **end** of the
+`BrowserName` list: `IsBot` is a range check from `BrowserBot` to the terminator,
+so a non-bot appended after them silently becomes a bot.
+`TestBrowserNameStrings` pins the last one by name and fails if that happens.
 
 ## Naming
 
@@ -61,6 +63,23 @@ Every type here is a handful of ints, cheap to copy. So:
 `UserAgent.IsBot` is the one exception: it does not mutate but keeps its pointer
 receiver because it is exported and the API is frozen.
 
+## Bot markers
+
+`botMarkers` in `bot.go` is deliberately not a list of crawler names: the generic
+tokens (`bot` as a word, `spider`, `crawl`, `+http`) carry most of the recall, and
+a name is listed only when it is reported through its own constant or is too
+quiet to carry a generic token.
+
+A marker must be one **no real device can carry**. This is the whole discipline
+of the file, and it is easy to get wrong: `java/` looks like a server-side stack
+and is what J2ME feature phones announce; `whatsapp/` is the messenger as often
+as the link fetcher; `dalvik`, `cfnetwork` and `okhttp` carry real ad requests
+from real apps. `bot` needs its word check or the phone brand CUBOT matches.
+
+A marker that must be found in a browser-shaped agent also has to trip
+`botSuspect`, the cheap gate deciding who pays for the full scan; otherwise it is
+only ever reached through `parseBrowserName`'s default arm.
+
 ## Performance
 
 - **Avoid allocating where you reasonably can.** A parse currently costs one
@@ -79,6 +98,11 @@ receiver because it is exported and the API is frozen.
 
 ## Tests
 
+- **New non-trivial code ships with a test.** A branch, a loop, a table, a
+  parser, a boundary rule: if it can be wrong, something has to fail when it is.
+  Trivial one-liners and pure renames do not need one. This is not negotiable
+  per-change — it is the reason a twenty year old parser can still be refactored
+  at all.
 - A test lives in the `_test.go` file mirroring the implementation file it
   covers. `device.go` → `device_test.go`. Never create catch-all test files.
 - Non-trivial logic leaves a runnable check behind. When hand rolling a
@@ -86,7 +110,27 @@ receiver because it is exported and the API is frozen.
   compare differentially — see `TestIsAmazonFire` against the regexp it replaced.
 - When correctness depends on an invariant, assert the invariant, not just the
   behaviour: `TestIPadScreenSizesAreLandscape` guards the table ordering that
-  `isiPad` relies on.
+  `isiPad` relies on, and `TestBotMarkersAreIndexed` guards the index `botName`
+  reads, where a mis-bucketed marker is simply never tried.
+- Anything that walks untrusted input by index belongs in `FuzzParse`'s
+  properties rather than in another table of hand-picked strings. CI fuzzes for a
+  minute per run; a crash found there is written to `testdata/fuzz` and becomes a
+  permanent seed.
+
+### Fixtures
+
+Fixture sets of real agents live in `testdata/` and are documented in
+[doc/fixtures.md](doc/fixtures.md). Two rules matter when touching them:
+
+- A row is a claim about what an agent *means*, not a snapshot of current output.
+  When a change makes one fail, work out which of the two is wrong first. Test
+  suites that were regenerated to match a bug are how parsers rot.
+- Sources must be permissively licensed (MIT, BSD, Apache-2.0) and credited in
+  `testdata/NOTICE.md`. Take agent strings, never another parser's labels: those
+  are its judgement in its categories, and copying them imports both.
+- `botRecallFloor` in `bot_test.go` is the share of the bot fixture set detected.
+  Raise it when detection improves; lowering it to make a change pass is how a
+  detector rots.
 
 ### Enum terminators
 
@@ -103,6 +147,13 @@ not that they match a golden list. Uniqueness is what makes that sufficient:
 `String()` has no numeric fallback, so a constant with no `case` falls into the
 default arm and repeats the Unknown name, and the duplicate gives it away. The
 same check catches two cases returning the same name by copy-paste.
+
+## Documentation
+
+`README.md` stays short: what the package is, the API, the honest caveats, and
+links out. Lists and special topics live in `doc/<topic>.md` — the constant
+lists, bot detection, connected TV, fixtures. A new constant goes in the relevant
+`doc/` file, not the README.
 
 ## Tooling
 
