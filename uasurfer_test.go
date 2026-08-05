@@ -183,6 +183,8 @@ var testUAVars = []struct {
 		UserAgent{
 			Browser{BrowserIE, Version{11, 0, 0}}, OS{PlatformWindowsPhone, OSWindowsPhone, Version{8, 1, 0}}, DevicePhone}},
 
+	// "5.01" is {5, 0, 1}, not {5, 1, 0}: the zero padding is what separates IE
+	// 5.01 from a bare 5.1. See TestVersionParseZeroPadded.
 	{"Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0; SV1; .NET CLR 1.1.4322; .NET CLR 1.0.3705; .NET CLR 2.0.50727)",
 		UserAgent{
 			Browser{BrowserIE, Version{5, 0, 1}}, OS{PlatformWindows, OSWindows, Version{5, 0, 0}}, DeviceComputer}},

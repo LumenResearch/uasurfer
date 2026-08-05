@@ -380,61 +380,45 @@ func (o *OS) parseiOSVersion(agentPlatform string) {
 // a 32 bit platform.
 const maxVersionPart = 1 << 24
 
-// strToVer accepts a string and returns a Version,
-// with {0, 0, 0} being default.
+// parse reads major, minor and patch off the front of str and stores them on v,
+// overwriting all three. It reports whether str began with a digit at all, which
+// is how the callers tell a marker worth following from one that led nowhere.
+//
+// A component is the run of digits at the current position, and whatever single
+// byte ended that run is the separator: agents write a version as "126.0.6478",
+// as Apple's underscored "10_15_7", and with the run simply ending where the
+// next field begins - "4.0 mobile safari" is {4, 0, 0}. A component that starts
+// on a non-digit is zero, so a short version fills the rest with zeroes.
+//
+// The one rule that does not fall out of that is zero padding, and it is load
+// bearing: a component written "08" is read as 0 followed by 8 in the next
+// place, so "4.08" is {4, 0, 8}. That keeps the padded releases of the era that
+// wrote them distinct from the bare ones - Netscape 4.08 from 4.8, Opera 9.01
+// from 9.1 - which a single numeric reading of "08" would collapse.
 func (v *Version) parse(str string) bool {
-	if len(str) == 0 || str[0] < '0' || str[0] > '9' {
+	if len(str) == 0 || !isDigit(str[0]) {
 		return false
 	}
-	for i := range 3 {
-		empty := true
-		val := 0
-		l := len(str) - 1
-
-		for k, c := range str {
-			if c >= '0' && c <= '9' {
-				if empty {
-					val = int(c) - 48
-					empty = false
-					if k == l {
-						str = str[:0]
-					}
-					continue
-				}
-
-				if val == 0 {
-					if c == '0' {
-						if k == l {
-							str = str[:0]
-						}
-						continue
-					}
-					str = str[k:]
-					break
-				}
-
-				if val <= maxVersionPart {
-					val = 10*val + int(c) - 48
-				}
-				if k == l {
-					str = str[:0]
-				}
-				continue
+	var parts [3]int
+	for i := range parts {
+		padded := len(str) > 0 && str[0] == '0'
+		n := 0
+		for n < len(str) && isDigit(str[n]) {
+			if padded && str[n] != '0' {
+				break // the non-zero digit belongs to the next component
 			}
-			str = str[k+1:]
-			break
+			// Capped rather than wrapped; see maxVersionPart.
+			if parts[i] <= maxVersionPart {
+				parts[i] = 10*parts[i] + int(str[n]-'0')
+			}
+			n++
 		}
-
-		switch i {
-		case 0:
-			v.Major = val
-
-		case 1:
-			v.Minor = val
-
-		case 2:
-			v.Patch = val
+		if n < len(str) && padded && isDigit(str[n]) {
+			str = str[n:] // no separator to step over, the digit starts it
+		} else {
+			str = str[min(n+1, len(str)):]
 		}
 	}
+	v.Major, v.Minor, v.Patch = parts[0], parts[1], parts[2]
 	return true
 }

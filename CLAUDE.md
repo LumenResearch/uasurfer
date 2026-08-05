@@ -150,6 +150,43 @@ Fixture sets of real agents live in `testdata/` and are documented in
   Raise it when detection improves; lowering it to make a change pass is how a
   detector rots.
 
+### Checking against other parsers
+
+Accuracy has been measured against the open-source parsers whose licences allow
+it - [yauaa](https://github.com/nielsbasjes/yauaa) (Apache-2.0),
+[bowser](https://github.com/bowser-js/bowser) and
+[isbot](https://github.com/omrilotan/isbot) (MIT) - over the top million agents
+of real traffic: **99.998% agreement on bots, 99.83% on OS, 99.07% on device
+type**, and 100/100/99.8 on the five thousand most frequent.
+
+Worth knowing before reading anything into a future run:
+
+- **Prefer a permissively licensed reference, and avoid copyleft where there is a
+  reasonable alternative.** The parsers named above were picked on merit as much
+  as licence, which is the happy case. A copyleft project (AGPL, LGPL, GPL) is not
+  ruled out: if one is genuinely the better benchmark for a field, it is worth
+  considering, and worth saying in the report why it was chosen.
+- **Whichever way that goes, avoiding a licence conflict is the first priority,
+  ahead of the measurement itself.** With a copyleft reference that means: run it,
+  read its **output**, and nothing else. Not its source, not its regexes, pattern
+  files, fixture labels or test data, and nothing paraphrased from them. None of it
+  is committed here in any form, and it is not named as a source of anything we
+  ship. A change its output prompts is derived from the agent strings and from what
+  the vendor calls its own product, never from how that project chose to match
+  them. If a step is even arguably a violation, do not take it: no number is worth
+  a licensing question.
+- Nothing of any reference is committed, permissive ones included. Their agent
+  strings may be, with the credit in `testdata/NOTICE.md`; their labels may not,
+  because a label is that project's judgement in that project's categories.
+- **Disagreement is not error.** The large clusters where we differ are Fire TV
+  sticks, operator set-top boxes and Apple TV, where the others are wrong and we
+  are not. The cluster where we are wrong is opaque Android tablet model codes
+  (`23073RPBFG`), which needs the thousand-model table this library declines to
+  ship. Before "fixing" a disagreement, work out which side is right - the same
+  rule as for a fixture row.
+- Deliberate differences, not gaps: `okhttp` is an app HTTP stack rather than a
+  crawler, and Fire devices report `OSKindle` because Fire OS is what they run.
+
 ### Enum terminators
 
 Each `iota` block ends in an unexported terminator (`_deviceTypeFinal` and

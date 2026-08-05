@@ -159,6 +159,90 @@ func TestVersionParseOverflow(t *testing.T) {
 	}
 }
 
+func TestVersionParse(t *testing.T) {
+	tests := []struct {
+		in   string
+		want Version
+		ok   bool
+	}{
+		// the separator is whatever byte ends the digit run
+		{"126.0.6478.126", Version{126, 0, 6478}, true},
+		{"10_15_7", Version{10, 15, 7}, true},
+		{"6.1", Version{6, 1, 0}, true},
+		{"11", Version{11, 0, 0}, true},
+		// the run ends where the next field begins
+		{"4.0 mobile safari/537.36", Version{4, 0, 0}, true},
+		{"12.5 (12.5.5.4405-46)", Version{12, 5, 0}, true},
+		// a component that starts on a non-digit is zero, and does not reach
+		// forward for the next number in the string
+		{"1..2", Version{1, 0, 2}, true},
+		{"9", Version{9, 0, 0}, true},
+		// no leading digit at all is a miss, which is how parseAfter tells a
+		// marker worth following from one that led nowhere
+		{"", Version{}, false},
+		{"abc", Version{}, false},
+		{".1", Version{}, false},
+		{" 1", Version{}, false},
+	}
+	for _, tt := range tests {
+		var v Version
+		if ok := v.parse(tt.in); ok != tt.ok || v != tt.want {
+			t.Errorf("parse(%q) = %v, %v; want %v, %v", tt.in, v, ok, tt.want, tt.ok)
+		}
+	}
+}
+
+// A zero-padded component is read as the zero, with what follows moving into the
+// next place: "4.08" is {4, 0, 8}. This looks odd until you line the padded
+// releases up against the bare ones - the browsers that wrote a version this way
+// shipped both, and reading "08" as the single number 8 would collapse them:
+//
+//	Netscape 4.08 {4 0 8} against 4.8 {4 8 0}
+//	Opera    9.01 {9 0 1} against 9.1 {9 1 0} and 9.10 {9 10 0}
+//	IE       5.01 {5 0 1} against 5.5 {5 5 0}
+//
+// The corpus carries all three families, so this is not hypothetical; see the
+// MSIE 5.01 row in uasurfer_test.go.
+func TestVersionParseZeroPadded(t *testing.T) {
+	tests := []struct {
+		in   string
+		want Version
+	}{
+		{"4.08", Version{4, 0, 8}},
+		{"4.8", Version{4, 8, 0}},
+		{"9.01", Version{9, 0, 1}},
+		{"9.1", Version{9, 1, 0}},
+		{"9.10", Version{9, 10, 0}},
+		{"5.01", Version{5, 0, 1}},
+		{"5.5", Version{5, 5, 0}},
+		// padding in the major reads the same way
+		{"04.1", Version{0, 4, 1}},
+		{"0001", Version{0, 1, 0}},
+		// a component of nothing but zeroes is just zero, which is most of what
+		// actually ships: these mean what they look like
+		{"5.00", Version{5, 0, 0}},
+		{"126.0.0.0", Version{126, 0, 0}},
+		{"0", Version{}},
+		{"0.0.0", Version{}},
+	}
+	for _, tt := range tests {
+		var v Version
+		if !v.parse(tt.in) || v != tt.want {
+			t.Errorf("parse(%q) = %v, want %v", tt.in, v, tt.want)
+		}
+	}
+}
+
+// parse overwrites all three components, so a Version reused across calls - as
+// parseAfter does when an earlier marker matched and a later one is tried - does
+// not keep a digit from the previous one.
+func TestVersionParseOverwrites(t *testing.T) {
+	v := Version{9, 9, 9}
+	if !v.parse("1") || v != (Version{1, 0, 0}) {
+		t.Errorf("parse over a used Version = %v, want {1 0 0}", v)
+	}
+}
+
 // The version of a connected TV comes from a different field on each platform,
 // which is worth pinning through the public API.
 func TestTVOSVersions(t *testing.T) {
