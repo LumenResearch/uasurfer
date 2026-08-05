@@ -102,7 +102,25 @@ const (
 	BrowserCommonCrawlBot
 	BrowserAhrefsBot
 	BrowserSemrushBot
-	BrowserPetalBot // Bot list ends here
+	BrowserPetalBot
+
+	// In-app webviews. A tap on a link inside one of these apps renders in a
+	// frame the app controls, with no address bar and its own idea of a viewport,
+	// which is a different surface to measure than the browser it is built on.
+	BrowserFacebook
+	BrowserInstagram
+	BrowserWeChat
+	BrowserTikTok
+	BrowserSnapchat
+	BrowserLine
+
+	// Chromium with another name on it. The engine is Chrome's; the vendor,
+	// release cadence and default settings are not.
+	BrowserVivaldi
+	BrowserWhale
+	BrowserMIUI
+	BrowserHuawei
+	BrowserDuckDuckGo
 
 	// _browserNameFinal terminates the list so tests can enumerate it; keep it last.
 	_browserNameFinal
@@ -194,6 +212,28 @@ func (b BrowserName) String() string {
 		return "BrowserSemrushBot"
 	case BrowserPetalBot:
 		return "BrowserPetalBot"
+	case BrowserFacebook:
+		return "BrowserFacebook"
+	case BrowserInstagram:
+		return "BrowserInstagram"
+	case BrowserWeChat:
+		return "BrowserWeChat"
+	case BrowserTikTok:
+		return "BrowserTikTok"
+	case BrowserSnapchat:
+		return "BrowserSnapchat"
+	case BrowserLine:
+		return "BrowserLine"
+	case BrowserVivaldi:
+		return "BrowserVivaldi"
+	case BrowserWhale:
+		return "BrowserWhale"
+	case BrowserMIUI:
+		return "BrowserMIUI"
+	case BrowserHuawei:
+		return "BrowserHuawei"
+	case BrowserDuckDuckGo:
+		return "BrowserDuckDuckGo"
 	default:
 		// anything out of range, including a value cast from a newer
 		// release, reads as unknown rather than a numeric placeholder
@@ -391,10 +431,6 @@ type OS struct {
 	Version  Version
 }
 
-type Hints struct {
-	ScreenSize *ScreenSize
-}
-
 // Reset resets the UserAgent to it's zero value
 func (u *UserAgent) Reset() {
 	u.Browser = Browser{}
@@ -402,21 +438,29 @@ func (u *UserAgent) Reset() {
 	u.DeviceType = DeviceUnknown
 }
 
+// botNames marks the BrowserName values that identify a bot, by the one thing
+// every such constant has in common: its name ends in "Bot".
+//
+// A set rather than the range this used to be. The range required the bot
+// constants to be contiguous and last, which meant a new browser could only be
+// added by inserting it ahead of them and shifting their values - and callers
+// persist those values as ints. Now either list grows by appending, and a
+// constant named "…Bot" is a bot with nothing else to remember;
+// TestIsBot asserts exactly that correspondence.
+var botNames = func() (set [_browserNameFinal]bool) {
+	for b := range _browserNameFinal {
+		set[b] = strings.HasSuffix(b.String(), "Bot")
+	}
+	return
+}()
+
 // IsBot returns true if the UserAgent represent a bot
 func (u *UserAgent) IsBot() bool {
-	// The bot constants are a contiguous block that ends the BrowserName list,
-	// so the upper bound is the terminator rather than the last bot by name;
-	// TestBrowserNameStrings pins the block to the end of the list.
-	if u.Browser.Name >= BrowserBot && u.Browser.Name < _browserNameFinal {
-		return true
-	}
-	if u.OS.Name == OSBot {
-		return true
-	}
-	if u.OS.Platform == PlatformBot {
-		return true
-	}
-	return false
+	// A name cast from a newer release can be out of range, and reads as no bot
+	// rather than panicking.
+	return (u.Browser.Name >= 0 && u.Browser.Name < _browserNameFinal && botNames[u.Browser.Name]) ||
+		u.OS.Name == OSBot ||
+		u.OS.Platform == PlatformBot
 }
 
 // Parse accepts a raw user agent (string) and returns the UserAgent.
@@ -447,20 +491,16 @@ func ParseUserAgentWithHints(ua string, hints *Hints, dest *UserAgent) {
 
 func parse(ua string, hints *Hints, dest *UserAgent) {
 	ua = normalise(ua)
-	switch {
-	case len(ua) == 0:
-		dest.OS.Platform = PlatformUnknown
-		dest.OS.Name = OSUnknown
-		dest.Browser.Name = BrowserUnknown
-		dest.DeviceType = DeviceUnknown
-
-	// stop on on first case returning true
-	case dest.parseOS(ua, hints):
-	case dest.parseBrowserName(ua):
-	default:
-		dest.parseBrowserVersion(ua)
-		dest.parseDevice(ua)
+	if len(ua) == 0 {
+		return // dest keeps its zero (Unknown) values
 	}
+	// each parse* reports a bot, which needs nothing further parsed
+	if dest.parseOS(ua, hints) || dest.parseBrowserName(ua) {
+		return
+	}
+	dest.parseBrowserVersion(ua)
+	dest.parseDevice(ua)
+	hints.apply(dest)
 }
 
 // normalise normalises the user supplied agent string so that

@@ -16,3 +16,22 @@ jobs:
           go-version-file: go.mod
       - uses: golangci/golangci-lint-action@v9
       - run: go test -v ./...
+
+  bench:
+    # Only on a pull request: the gate is a comparison, and a push to master has
+    # nothing to compare against.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # The base commit is measured too, so its history has to be here.
+          fetch-depth: 0
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      # Both revisions are measured on this runner, one after the other, so the
+      # comparison holds however slow the machine is. A regression has to be worse
+      # by both a percentage and a number of nanoseconds before it fails - see
+      # scripts/benchguard.awk for why either alone gets it wrong.
+      - run: make benchguard BASE=${{ github.event.pull_request.base.sha }}

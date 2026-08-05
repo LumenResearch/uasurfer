@@ -108,22 +108,85 @@ func TestIsFireTV(t *testing.T) {
 	}
 }
 
-func TestPlatformGroup(t *testing.T) {
-	tests := []struct{ ua, want string }{
-		{"mozilla/5.0 (macintosh; intel mac os x 10_15_7) applewebkit/605", "macintosh; intel mac os x 10_15_7"},
-		{"roku/dvp-12.5 (12.5.5.4405-46)", "12.5.5.4405-46"},
-		// no parens, so the group is the whole agent
-		{"curl/8.6.0", "curl/8.6.0"},
-		// unterminated, and reversed: both run to the end rather than panicking
-		{"mozilla/5.0 (macintosh", "macintosh"},
-		// the parens are in the wrong order, so the group starts after the "("
-		// and runs to the end, which here is nothing at all
-		{"mozilla/5.0 ) macintosh (", ""},
-		{"", ""},
+// The Android phone-versus-tablet rule, which is the "Mobile" token plus two
+// facts about the platform's history.
+func TestAndroidDeviceType(t *testing.T) {
+	tests := []struct {
+		agent string
+		want  DeviceType
+	}{
+		// the token, stated and omitted, on the reduced agent Chrome sends today
+		{"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) " +
+			"Chrome/126.0.0.0 Mobile Safari/537.36", DevicePhone},
+		{"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) " +
+			"Chrome/126.0.0.0 Safari/537.36", DeviceTablet},
+
+		// and on agents that still name the model
+		{"Mozilla/5.0 (Linux; Android 13; SM-S911B) AppleWebKit/537.36 (KHTML, like Gecko) " +
+			"Chrome/126.0.0.0 Mobile Safari/537.36", DevicePhone},
+		{"Mozilla/5.0 (Linux; Android 13; SM-X710) AppleWebKit/537.36 (KHTML, like Gecko) " +
+			"Chrome/126.0.0.0 Safari/537.36", DeviceTablet},
+		// a tablet that states "mobile" anyway, which is what the model list is for
+		{"Mozilla/5.0 (Linux; Android 4.4.2; SM-T230 Build/KOT49H) AppleWebKit/537.36 " +
+			"(KHTML, like Gecko) Chrome/33.0.0.0 Mobile Safari/537.36", DeviceTablet},
+
+		// Honeycomb shipped on tablets and nothing else, token or no token
+		{"Mozilla/5.0 (Linux; U; Android 3.2.1; de-de; HTC Flyer Build/HTK75C) " +
+			"AppleWebKit/537.31 (KHTML, like Gecko) Version/4.0 Safari/537.31", DeviceTablet},
+		// before it the token was not yet a convention, and the era was phones
+		{"Mozilla/5.0 (Linux; U; Android 2.3.3; en-us; Sensation_4G Build/GRI40) " +
+			"AppleWebKit/533.1 (KHTML, like Gecko) Version/5.0 Safari/533.16", DevicePhone},
+
+		// an app HTTP stack states no form factor at all, so it stays a phone
+		{"Dalvik/2.1.0 (Linux; U; Android 13; SM-S911B Build/TP1A.220624.014)", DevicePhone},
+		{"AndroidDownloadManager/4.1.2 (Linux; U; Android 4.1.2; MediaPad 7 Lite II " +
+			"Build/HuaweiMediaPad)", DevicePhone},
+		// nor does a vendor agent that merely mentions an engine
+		{"Android 4.0.4;AppleWebKit/534.30;Build/HuaweiU8836D;U8836D Build/HuaweiU8836D",
+			DevicePhone},
+
+		// a watch names itself in the model field and says "mobile" like a phone
+		{"Mozilla/5.0 (Linux; Android 13; Pixel Watch) AppleWebKit/537.36 (KHTML, like Gecko) " +
+			"Chrome/126.0.0.0 Mobile Safari/537.36", DeviceWearable},
+		{"Mozilla/5.0 (Linux; Android 11; SM-R910 Build/RP1A.201005.001) AppleWebKit/537.36 " +
+			"(KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.106 Mobile Safari/537.36", DeviceWearable},
+		// but a Galaxy Tab is "sm-t" and a phone "sm-g", neither of which is "sm-r"
+		{"Mozilla/5.0 (Linux; Android 13; SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) " +
+			"Chrome/126.0.0.0 Mobile Safari/537.36", DevicePhone},
+
+		// a TV is still a TV: that check runs before any of this
+		{"Mozilla/5.0 (Linux; Android 9; AFTKM) AppleWebKit/537.36 (KHTML, like Gecko) " +
+			"Silk/122.4.2 like Chrome/122.0.6261.119 Safari/537.36", DeviceTV},
 	}
+
 	for _, tt := range tests {
-		if got := platformGroup(tt.ua); got != tt.want {
-			t.Errorf("platformGroup(%q) = %q, want %q", tt.ua, got, tt.want)
+		if got := Parse(tt.agent).DeviceType; got != tt.want {
+			t.Errorf("device = %v, want %v: %.90s", got, tt.want, tt.agent)
+		}
+	}
+}
+
+// isAndroidTablet decides for the tablets that state "mobile" like a phone, so
+// the case worth pinning is the marker that needs its dash to stay honest.
+func TestIsAndroidTablet(t *testing.T) {
+	for _, ua := range []string{
+		"mozilla/5.0 (linux; android 13; sm-t970) applewebkit/537.36",
+		"mozilla/5.0 (linux; android 4.4.2; nexus 7 build/x) applewebkit/537.36 mobile",
+		"mozilla/5.0 (linux; android 4.4; lenovo tab 2 a7) applewebkit/537.36",
+		"mozilla/5.0 (linux; android 4.4.3; t1-a21l build/x) applewebkit/537.36",
+	} {
+		if !isAndroidTablet(ua) {
+			t.Errorf("isAndroidTablet(%.60q) = false, want true", ua)
+		}
+	}
+	for _, ua := range []string{
+		"",
+		"mozilla/5.0 (linux; android 13; sm-g991b) applewebkit/537.36 mobile",
+		// "t100" is a handset: "; t1" without the dash would claim it
+		"mozilla/5.0 (linux; u; android 2.2.1; en-us; t100 build/frg83) applewebkit/533.1",
+	} {
+		if isAndroidTablet(ua) {
+			t.Errorf("isAndroidTablet(%.60q) = true, want false", ua)
 		}
 	}
 }
