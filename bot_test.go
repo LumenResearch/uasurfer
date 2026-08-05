@@ -176,8 +176,7 @@ func TestBotMarkersAreIndexed(t *testing.T) {
 			t.Errorf("marker %q is shorter than the digram gate, so it is never tried", m.s)
 			continue
 		}
-		k := uint16(m.s[0])<<8 | uint16(m.s[1])
-		if botDigrams[k>>6]&(1<<(k&63)) == 0 {
+		if w, bit := digramIndex(m.s[0], m.s[1]); botDigrams[w]&bit == 0 {
 			t.Errorf("marker %q: opening pair missing from botDigrams, so it is never tried", m.s)
 		}
 		c := m.s[0]

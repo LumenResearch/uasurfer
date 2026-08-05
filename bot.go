@@ -204,18 +204,16 @@ var botMarkers = []botMarker{
 // botBuckets indexes botMarkers by first byte, longest marker first, so that a
 // named crawler wins over the generic token inside it.
 //
-// botDigrams is the gate in front of that: a bitmap of the 65536 possible byte
-// pairs, with a bit set for each pair that starts a marker. One pair test per
-// position rejects almost every byte of a real agent outright, which is what
-// makes a single pass over the agent affordable on every parse - indexing by
-// first byte alone was not, because the first bytes of a hundred markers cover
-// most of the alphabet and every other byte then walked a bucket.
+// botDigrams gates the walk: it has a bit set for the first two bytes of each
+// marker, so one lookup per position of the agent skips every byte pair no
+// marker starts with - which is almost all of them. First bytes alone were
+// too common to gate on. See digramIndex for the bit layout.
 var botBuckets, botDigrams = func() (buckets [256][]botMarker, digrams [1024]uint64) {
 	for _, m := range botMarkers {
 		buckets[m.s[0]] = append(buckets[m.s[0]], m)
 		if len(m.s) >= 2 {
-			k := uint16(m.s[0])<<8 | uint16(m.s[1])
-			digrams[k>>6] |= 1 << (k & 63)
+			w, bit := digramIndex(m.s[0], m.s[1])
+			digrams[w] |= bit
 		}
 	}
 	for c := range buckets {
@@ -223,6 +221,22 @@ var botBuckets, botDigrams = func() (buckets [256][]botMarker, digrams [1024]uin
 	}
 	return
 }()
+
+// digramIndex says where the byte pair a,b lives in botDigrams. Conceptually
+// botDigrams is one flat string of 65536 bits - one bit for every possible
+// 16-bit value - packed into 1024 uint64s, and the pair itself is the bit's
+// address. For 'c','r', the start of "crawl":
+//
+//	k    = 'c'<<8 | 'r' = 25458
+//	word = k / 64       = 397    which uint64
+//	bit  = k % 64       = 50     which bit of it
+//
+// k is unsigned, so the compiler emits the shift and mask itself; writing
+// k>>6 and k&63 by hand buys nothing.
+func digramIndex(a, b byte) (word int, bit uint64) {
+	k := uint16(a)<<8 | uint16(b)
+	return int(k / 64), 1 << (k % 64)
+}
 
 // isBotWord reports whether ua[start:end] is a name in its own right rather than
 // letters inside a longer word. It exists for the "bot" marker, where the
@@ -323,8 +337,7 @@ func botName(ua string) (BrowserName, bool) {
 	// the generic case reads the whole agent, and only bots get that far.
 	generic := false
 	for i := 0; i+1 < len(ua); i++ {
-		k := uint16(ua[i])<<8 | uint16(ua[i+1])
-		if botDigrams[k>>6]&(1<<(k&63)) == 0 {
+		if w, bit := digramIndex(ua[i], ua[i+1]); botDigrams[w]&bit == 0 {
 			continue
 		}
 		for _, m := range botBuckets[ua[i]] {
