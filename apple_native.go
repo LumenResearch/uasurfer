@@ -1,27 +1,16 @@
 package uasurfer
 
-var darwinToIOSMajor = map[int]int{
-	16: 10,
-	17: 11,
-	18: 12,
-	19: 13,
-	20: 14,
-	21: 15,
-	22: 16,
-	23: 17,
-	24: 18,
-	25: 26,
-}
-
+// darwinToIOS maps a Darwin kernel version onto the iOS release it shipped
+// with: Darwin ran iOS + 6 from Darwin 16 (iOS 10) through Darwin 24 (iOS 18),
+// then Apple unified its version numbers on the year and Darwin 25 shipped
+// iOS 26, one ahead, which is where the numbering now stays.
 func darwinToIOS(darwinMajor, darwinMinor int) Version {
-	if major, ok := darwinToIOSMajor[darwinMajor]; ok {
-		return Version{Major: major, Minor: darwinMinor}
-	}
-
-	if darwinMajor > 25 {
+	switch {
+	case darwinMajor >= 25:
 		return Version{Major: darwinMajor + 1, Minor: darwinMinor}
+	case darwinMajor >= 16:
+		return Version{Major: darwinMajor - 6, Minor: darwinMinor}
 	}
-
 	return Version{}
 }
 

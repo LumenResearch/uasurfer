@@ -23,16 +23,20 @@ Layout engine, browser language, device brand and device model are not parsed.
 Mainstream desktop and mobile are effectively solved. Two caveats are worth
 knowing before relying on a field:
 
-* **Android phone versus tablet** is not always decidable, because vendors ship
-  tablets that announce `Mobile`. An Android agent with no tablet indicator
-  defaults to a phone.
+* **Android phone versus tablet** rests on the `Mobile` token, which every
+  browser since Android 4 states on a phone and omits on a tablet. Tablets that
+  state it anyway are caught by model, and handsets from before the convention
+  are read by version. Where the agent is a native app rather than a browser it
+  states no form factor at all and reads as a phone; the
+  `Sec-CH-UA-Form-Factors` hint settles it outright.
 * **Bot detection** trades the long tail for a name table nobody has to
   maintain: it catches 83% of a 1,975 agent crawler fixture set with no false
   positive across 2,906 real device agents. See [doc/bots.md](doc/bots.md).
 * **Chrome's user agent reduction** hollowed out several fields at the source.
   Chromium browsers report a frozen `10.15.7` for macOS, NT 10.0 for both
   Windows 10 and 11, `Android 10` on every Android device, and `0` for every
-  version component below the major. No parser can recover these from the agent.
+  version component below the major. None of that is recoverable from the agent;
+  the client hints carry it instead.
 
 ## Usage
 
@@ -49,8 +53,11 @@ ua := uasurfer.Parse(myUA)
 
 For a request loop, `ParseUserAgent(ua string, dest *UserAgent)` fills a
 `UserAgent` the caller owns; call `Reset()` before reusing one. `ParseWithHints`
-takes a `Hints` struct carrying what the agent cannot say for itself - today the
-screen size, which is how an iPad in desktop mode is told apart from a Mac.
+takes a `Hints` struct carrying what the agent cannot say for itself: the screen
+size, which is how an iPad in desktop mode is told apart from a Mac, and the
+`Sec-CH-UA-*` client hints, which are where Chromium now puts the device type
+and OS version it has stopped stating in the agent. See
+[doc/hints.md](doc/hints.md).
 
 where example UserAgent is:
 ```
@@ -95,7 +102,8 @@ Grouping worth knowing about:
 * `BrowserSafari` covers the Google Search app on iOS, which is Safari in
   disguise.
 * Crawlers have their own constants and their own document: see
-  [doc/bots.md](doc/bots.md).
+  [doc/bots.md](doc/bots.md); in-app webviews and the Chromium browsers that are
+  not Chrome have [doc/inapp.md](doc/inapp.md).
 
 #### Browser Version
 
@@ -145,10 +153,8 @@ see [doc/tv.md](doc/tv.md).
 ## Deliberately not supported
 
 Device brand and model, layout engine, CPU architecture and browser language.
-Naming every Chromium skin (Vivaldi, Whale, MIUI, Huawei) and every in-app
-webview (Facebook, Instagram, WeChat) is not done either: those report as the
-engine they are. Client hints beyond the screen size are not read yet, which is
-what the frozen version fields above would need.
+Brave and Arc are not named either, because they ship an agent identical to
+Chrome's on purpose.
 
 ## Adding new user agents
 
@@ -159,7 +165,20 @@ what the frozen version fields above would need.
 
 For example, to identify a Google TV user agent as device type TV, we identify that all user agents contain "googletv" string and we add `strings.Contains(ua, "googletv")` to the `device.go` switch condition for identifying TVs.
 
-Before opening a PR: `gofmt -l .`, `go vet ./...`, `golangci-lint run ./...`,
-`go test ./...`, and for anything on the parse path, before-and-after medians
-from `go test -run=XXX -bench=Parse -benchmem -count=6`. `CLAUDE.md` has the
+There is a Makefile for all of it:
+
+```sh
+make all         # go fix, goimports, lint, test: everything CI enforces
+make benchstat   # compare the parse path against master
+make benchguard  # the same comparison, as CI grades it
+```
+
+Anything touching the parse path wants a `make benchstat` in the PR description.
+It measures master and your tree and compares them through
+[benchstat](https://pkg.go.dev/golang.org/x/perf/cmd/benchstat), which knows the
+difference between a real change and a busy laptop. A percentage on its own is
+not a blocker - a parse is a few hundred nanoseconds, and spending some of that
+budget on accuracy is a fair trade - but an unexplained one is. CI fails only
+when a benchmark is slower by both a third and a few hundred nanoseconds, or when
+a parse allocates more than the single copy it is allowed. `CLAUDE.md` has the
 conventions in full.

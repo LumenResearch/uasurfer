@@ -21,7 +21,14 @@ func (u *UserAgent) parseBrowserName(ua string) bool {
 	}
 
 	if strings.Contains(ua, "applewebkit") {
+		inApp := webkitApp(ua)
 		switch {
+		// An app rendering the page in a frame it controls. First, because every
+		// check below would claim one: on Android these carry Chrome's token and
+		// on iOS Safari's, and the app is the more specific answer.
+		case inApp != BrowserUnknown:
+			u.Browser.Name = inApp
+
 		case strings.Contains(ua, "qq/") || strings.Contains(ua, "qqbrowser/"):
 			u.Browser.Name = BrowserQQ
 
@@ -51,7 +58,9 @@ func (u *UserAgent) parseBrowserName(ua string) bool {
 
 		// Edge, Silk and other chrome-identifying browsers must evaluate before chrome, unless we want to add more overhead
 		case strings.Contains(ua, "chrome/") || strings.Contains(ua, "crios/") || strings.Contains(ua, "chromium/") || strings.Contains(ua, "crmo/"):
-			u.Browser.Name = BrowserChrome
+			// Chrome, or one of the browsers and webviews built on it, which
+			// name themselves in the tail of the agent.
+			u.Browser.Name = chromiumBrowser(ua)
 
 		case strings.Contains(ua, "android") && !strings.Contains(ua, "chrome/") && strings.Contains(ua, "version/") && !strings.Contains(ua, "like android"):
 			// Android WebView on Android >= 4.4 is purposefully being identified as Chrome above -- https://developer.chrome.com/multidevice/webview/overview
@@ -131,9 +140,19 @@ notwebkit:
 // 2nd: look for browser-specific instructions (e.g. chrome/34)
 // 3rd: infer from OS (iOS only)
 func (u *UserAgent) parseBrowserVersion(ua string) {
-	// if there is a 'version/#' attribute with numeric version, use it -- except for Chrome since Android vendors sometimes hijack version/#
-	if u.Browser.Name != BrowserChrome && u.Browser.Version.parseAfter(ua, "version/") {
-		return
+	switch u.Browser.Name {
+	// These state their own version, and the "version/" token in their agents
+	// belongs to something else: to the engine an app embeds, or to whatever an
+	// Android vendor decided to put there.
+	case BrowserChrome, BrowserFacebook, BrowserInstagram, BrowserWeChat, BrowserTikTok,
+		BrowserSnapchat, BrowserLine, BrowserVivaldi, BrowserWhale, BrowserMIUI,
+		BrowserHuawei, BrowserDuckDuckGo:
+
+	default:
+		// if there is a 'version/#' attribute with numeric version, use it
+		if u.Browser.Version.parseAfter(ua, "version/") {
+			return
+		}
 	}
 
 	switch u.Browser.Name {
@@ -181,5 +200,32 @@ func (u *UserAgent) parseBrowserVersion(ua string) {
 
 	case BrowserCocCoc:
 		_ = u.Browser.Version.parseAfter(ua, "coc_coc_browser/")
+
+	// The in-app webviews. Facebook states the app version as FBAV and Instagram
+	// states it after its name with a space, both of which are the app's own
+	// numbering rather than a browser release.
+	case BrowserFacebook:
+		_ = u.Browser.Version.parseAfter(ua, "fbav/")
+	case BrowserInstagram:
+		_ = u.Browser.Version.parseAfter(ua, "instagram ")
+	case BrowserWeChat:
+		_ = u.Browser.Version.parseAfter(ua, "micromessenger/")
+	case BrowserTikTok:
+		_ = u.Browser.Version.parseAfter(ua, "musical_ly_", "trill_")
+	case BrowserSnapchat:
+		_ = u.Browser.Version.parseAfter(ua, "snapchat/")
+	case BrowserLine:
+		_ = u.Browser.Version.parseAfter(ua, "line/")
+
+	case BrowserVivaldi:
+		_ = u.Browser.Version.parseAfter(ua, "vivaldi/")
+	case BrowserWhale:
+		_ = u.Browser.Version.parseAfter(ua, "whale/")
+	case BrowserMIUI:
+		_ = u.Browser.Version.parseAfter(ua, "miuibrowser/")
+	case BrowserHuawei:
+		_ = u.Browser.Version.parseAfter(ua, "huaweibrowser/")
+	case BrowserDuckDuckGo:
+		_ = u.Browser.Version.parseAfter(ua, "duckduckgo/")
 	}
 }

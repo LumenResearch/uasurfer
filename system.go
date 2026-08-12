@@ -74,93 +74,99 @@ func (u *UserAgent) parseOS(ua string, hints *Hints) bool {
 	// Cut returns the whole string when there is no ";", which is what we want.
 	specs, _, _ := strings.Cut(agentPlatform, ";")
 
-	//strict OS & version identification
+	// strict OS & version identification first, by exact specs match; the
+	// broader whole-agent scans below only run when none of them hit.
 	switch {
-	case specs == "android":
+	case specs == "android" || specs == "x11" || specs == "linux":
 		u.parseLinux(ua, agentPlatform)
 
 	case specs == "bb10" || specs == "playbook":
 		u.OS.Platform = PlatformBlackberry
 		u.OS.Name = OSBlackberry
 
-	case specs == "x11" || specs == "linux":
-		u.parseLinux(ua, agentPlatform)
-
-	case strings.HasPrefix(specs, "ipad") || strings.HasPrefix(specs, "iphone") || strings.HasPrefix(specs, "ipod touch") || strings.HasPrefix(specs, "ipod"):
+	case strings.HasPrefix(specs, "ipad") || strings.HasPrefix(specs, "iphone") || strings.HasPrefix(specs, "ipod"):
 		u.parseiOS(specs, agentPlatform)
 
 	case specs == "macintosh":
 		u.parseMacintosh(ua, hints)
 
+	// Blackberry
+	case strings.Contains(ua, "blackberry") || strings.Contains(ua, "playbook"):
+		u.OS.Platform = PlatformBlackberry
+		u.OS.Name = OSBlackberry
+
+	// Windows Phone
+	case strings.Contains(agentPlatform, "windows phone "):
+		u.parseWindowsPhone(agentPlatform)
+
+	// Windows, Xbox
+	case strings.Contains(ua, "windows ") || strings.Contains(ua, "microsoft-cryptoapi"):
+		u.parseWindows(ua)
+
+	// Kindle
+	case strings.Contains(ua, "kindle/") || isAmazonFire(agentPlatform):
+		u.OS.Platform = PlatformLinux
+		u.OS.Name = OSKindle
+
+	// Linux (broader attempt)
+	case strings.Contains(ua, "linux"):
+		u.parseLinux(ua, agentPlatform)
+
+	// WebOS (non-linux flagged)
+	case isWebOS(ua):
+		u.OS.Platform = PlatformLinux
+		u.OS.Name = OSWebOS
+
+	// Nintendo
+	case strings.Contains(ua, "nintendo"):
+		u.OS.Platform = PlatformNintendo
+		u.OS.Name = OSNintendo
+
+	// Playstation
+	// "vita" is deliberately absent: every real Vita agent says
+	// "PlayStation Vita", and unanchored it reads "VitaMahjong", an iOS
+	// game, as a console.
+	case strings.Contains(ua, "playstation") || strings.Contains(ua, "psp"):
+		u.OS.Platform = PlatformPlaystation
+		u.OS.Name = OSPlaystation
+
+	// Android
+	case strings.Contains(ua, "android"):
+		u.parseLinux(ua, agentPlatform)
+
+	// Apple TV, ahead of the CFNetwork case below: its native apps carry the
+	// same Darwin signature as an iPhone's, and the model is what separates
+	// them. The version follows the model generation ("AppleTV6,2/11.1") or,
+	// for the media player agents, sits in the iOS style "CPU OS" field.
+	case strings.Contains(ua, "appletv") || strings.Contains(ua, "apple tv"):
+		u.OS.Platform = PlatformAppleTV
+		u.OS.Name = OSTvOS
+		u.parseTvOSVersion(ua)
+
+	// Apps that name iOS rather than the device they run on:
+	// "Hulu/9.34.0 (iOS 26.5.1; en_US; iPhone18,2; 23F81)",
+	// "TuneIn Radio/27.1.0 (iPadOS/16.6)". Ahead of CFNetwork, which some of
+	// them also carry, because the version here is the real one.
+	case strings.Contains(agentPlatform, "ipados") || strings.Contains(agentPlatform, "ios ") ||
+		strings.Contains(agentPlatform, "ios/"):
+		u.parseiOSNative(agentPlatform)
+
+	// Apple CFNetwork
+	case strings.Contains(ua, "cfnetwork") && strings.Contains(ua, "darwin"):
+		u.parseAppleNative(ua, hints)
+
+	// Roku, after CFNetwork: the players state their OS version after the
+	// model ("Roku/DVP-12.5", "Roku4640X/DVP-7.70") and never carry Darwin,
+	// while "Roku" on its own is also the remote control app, which runs on
+	// a phone and is caught above.
+	case strings.Contains(ua, "roku"):
+		u.OS.Platform = PlatformLinux
+		u.OS.Name = OSRoku
+		u.OS.Version.parseAfter(ua, "/dvp-", "roku/")
+
 	default:
-		switch {
-		// Blackberry
-		case strings.Contains(ua, "blackberry") || strings.Contains(ua, "playbook"):
-			u.OS.Platform = PlatformBlackberry
-			u.OS.Name = OSBlackberry
-
-		// Windows Phone
-		case strings.Contains(agentPlatform, "windows phone "):
-			u.parseWindowsPhone(agentPlatform)
-
-		// Windows, Xbox
-		case strings.Contains(ua, "windows ") || strings.Contains(ua, "microsoft-cryptoapi"):
-			u.parseWindows(ua)
-
-		// Kindle
-		case strings.Contains(ua, "kindle/") || isAmazonFire(agentPlatform):
-			u.OS.Platform = PlatformLinux
-			u.OS.Name = OSKindle
-
-		// Linux (broader attempt)
-		case strings.Contains(ua, "linux"):
-			u.parseLinux(ua, agentPlatform)
-
-		// WebOS (non-linux flagged)
-		case isWebOS(ua):
-			u.OS.Platform = PlatformLinux
-			u.OS.Name = OSWebOS
-
-		// Nintendo
-		case strings.Contains(ua, "nintendo"):
-			u.OS.Platform = PlatformNintendo
-			u.OS.Name = OSNintendo
-
-		// Playstation
-		case strings.Contains(ua, "playstation") || strings.Contains(ua, "vita") || strings.Contains(ua, "psp"):
-			u.OS.Platform = PlatformPlaystation
-			u.OS.Name = OSPlaystation
-
-		// Android
-		case strings.Contains(ua, "android"):
-			u.parseLinux(ua, agentPlatform)
-
-		// Apple TV, ahead of the CFNetwork case below: its native apps carry the
-		// same Darwin signature as an iPhone's, and the model is what separates
-		// them. The version follows the model generation ("AppleTV6,2/11.1") or,
-		// for the media player agents, sits in the iOS style "CPU OS" field.
-		case strings.Contains(ua, "appletv") || strings.Contains(ua, "apple tv"):
-			u.OS.Platform = PlatformAppleTV
-			u.OS.Name = OSTvOS
-			u.parseTvOSVersion(ua)
-
-		// Apple CFNetwork
-		case strings.Contains(ua, "cfnetwork") && strings.Contains(ua, "darwin"):
-			u.parseAppleNative(ua, hints)
-
-		// Roku, after CFNetwork: the players state their OS version after the
-		// model ("Roku/DVP-12.5", "Roku4640X/DVP-7.70") and never carry Darwin,
-		// while "Roku" on its own is also the remote control app, which runs on
-		// a phone and is caught above.
-		case strings.Contains(ua, "roku"):
-			u.OS.Platform = PlatformLinux
-			u.OS.Name = OSRoku
-			u.OS.Version.parseAfter(ua, "/dvp-", "roku/")
-
-		default:
-			u.OS.Platform = PlatformUnknown
-			u.OS.Name = OSUnknown
-		}
+		u.OS.Platform = PlatformUnknown
+		u.OS.Name = OSUnknown
 	}
 
 	return u.applyBotDefaults()
@@ -195,7 +201,8 @@ func (u *UserAgent) parseLinux(ua, agentPlatform string) {
 		// Android
 		u.OS.Platform = PlatformLinux
 		u.OS.Name = OSAndroid
-		u.OS.Version.parseAfter(agentPlatform, "android ")
+		// A few old agents wrote it "Android-4.0.3".
+		u.OS.Version.parseAfter(agentPlatform, "android ", "android-")
 
 	// ChromeOS
 	case strings.Contains(ua, "cros"):
@@ -215,10 +222,6 @@ func (u *UserAgent) parseLinux(ua, agentPlatform string) {
 		u.OS.Name = OSWebOS
 
 	// Linux, "Linux-like"
-	case strings.Contains(ua, "x11") || strings.Contains(ua, "bsd") || strings.Contains(ua, "suse") || strings.Contains(ua, "debian") || strings.Contains(ua, "ubuntu"):
-		u.OS.Platform = PlatformLinux
-		u.OS.Name = OSLinux
-
 	default:
 		u.OS.Platform = PlatformLinux
 		u.OS.Name = OSLinux
@@ -226,32 +229,37 @@ func (u *UserAgent) parseLinux(ua, agentPlatform string) {
 }
 
 // parseiOS returns the `Platform`, `OSName` and Version of UAs with
-// 'ipad' or 'iphone' listed as their platform.
+// 'ipad', 'iphone' or 'ipod' listed as their platform. The caller's prefix
+// check guarantees specs starts with one of the three.
 func (u *UserAgent) parseiOS(specs, agentPlatform string) {
-
 	switch {
-	// iPhone
 	case strings.HasPrefix(specs, "iphone"):
 		u.OS.Platform = PlatformiPhone
 		u.OS.Name = OSiOS
-		u.OS.parseiOSVersion(agentPlatform)
 
-	// iPad
 	case strings.HasPrefix(specs, "ipad"):
 		u.OS.Platform = PlatformiPad
 		u.OS.Name = OSiPadOS
-		u.OS.parseiOSVersion(agentPlatform)
 
-	// iPod
-	case strings.HasPrefix(specs, "ipod touch") || strings.HasPrefix(specs, "ipod"):
+	default: // ipod, "ipod touch" included
 		u.OS.Platform = PlatformiPod
 		u.OS.Name = OSiOS
-		u.OS.parseiOSVersion(agentPlatform)
-
-	default:
-		u.OS.Platform = PlatformiPad
-		u.OS.Name = OSUnknown
 	}
+	u.OS.parseiOSVersion(agentPlatform)
+}
+
+// parseiOSNative reads the OS out of an app agent that states iOS as a field of
+// its own. The model follows in the same group - "iPhone18,2", "iPad11,3" - and
+// is the only thing separating an iPhone from an iPad here.
+func (u *UserAgent) parseiOSNative(agentPlatform string) {
+	if strings.Contains(agentPlatform, "ipad") {
+		u.OS.Platform = PlatformiPad
+		u.OS.Name = OSiPadOS
+	} else {
+		u.OS.Platform = PlatformiPhone
+		u.OS.Name = OSiOS
+	}
+	u.OS.Version.parseAfter(agentPlatform, "ipados/", "ipados ", "ios ", "ios/")
 }
 
 // isWebOS covers the three spellings in the wild: Palm and HP's original
@@ -286,34 +294,27 @@ func (u *UserAgent) parseWindowsPhone(agentPlatform string) {
 }
 
 func (u *UserAgent) parseWindows(ua string) {
-
-	switch {
-	//Xbox -- it reads just like Windows
-	case strings.Contains(ua, "xbox"):
+	// Xbox -- it reads just like Windows
+	if strings.Contains(ua, "xbox") {
 		u.OS.Platform = PlatformXbox
 		u.OS.Name = OSXbox
 		if !u.OS.Version.parseAfter(ua, "windows nt ") {
 			u.OS.Version = Version{Major: 6}
 		}
+		return
+	}
 
-	// No windows version
-	case !strings.Contains(ua, "windows "):
-		u.OS.Platform = PlatformWindows
-		u.OS.Name = OSUnknown
-
+	u.OS.Platform = PlatformWindows
+	switch {
 	case u.OS.Version.parseAfter(ua, "windows nt "):
-		u.OS.Platform = PlatformWindows
 		u.OS.Name = OSWindows
 
 	case strings.Contains(ua, "windows xp"):
-		u.OS.Platform = PlatformWindows
 		u.OS.Name = OSWindows
 		u.OS.Version = Version{Major: 5, Minor: 1}
 
-	default:
-		u.OS.Platform = PlatformWindows
+	default: // no windows version at all, microsoft-cryptoapi included
 		u.OS.Name = OSUnknown
-
 	}
 }
 
@@ -321,7 +322,10 @@ func (u *UserAgent) parseWindows(ua string) {
 // "os x " marker and the CFNetwork path that also calls this both need it.
 func (u *UserAgent) parseMacintosh(ua string, hints *Hints) {
 	u.OS.Platform = PlatformMac
-	if _, after, ok := strings.Cut(ua, "os x "); ok {
+	// "os x " for the long-standing spelling, "macos " for the one Apple has
+	// started sending: "(Macintosh; Apple macOS 15_7_3)".
+	after, ok := cutAfter(ua, "os x ", "macos ")
+	if ok {
 		u.OS.Name = OSMacOSX
 		u.OS.Version.parse(after)
 
@@ -333,6 +337,16 @@ func (u *UserAgent) parseMacintosh(ua string, hints *Hints) {
 		return
 	}
 	u.OS.Name = OSUnknown
+}
+
+// cutAfter returns the text following the first of markers that appears in s.
+func cutAfter(s string, markers ...string) (string, bool) {
+	for _, m := range markers {
+		if _, after, ok := strings.Cut(s, m); ok {
+			return after, true
+		}
+	}
+	return "", false
 }
 
 // parseAfter parses the version following the first of markers that appears in
@@ -350,7 +364,9 @@ func (v *Version) parseAfter(s string, markers ...string) bool {
 // parseiOSVersion reads the iOS version out of the platform group and stores
 // it on o.
 func (o *OS) parseiOSVersion(agentPlatform string) {
-	if !o.Version.parseAfter(agentPlatform, "cpu iphone os ", "cpu os ") {
+	// "ipados/16.6" reaches here through the strict ipad prefix above, and its
+	// version sits where no "cpu os" field does.
+	if !o.Version.parseAfter(agentPlatform, "cpu iphone os ", "cpu os ", "ipados/", "ipados ") {
 		o.Version.parse(agentPlatform)
 	}
 }
@@ -364,61 +380,45 @@ func (o *OS) parseiOSVersion(agentPlatform string) {
 // a 32 bit platform.
 const maxVersionPart = 1 << 24
 
-// strToVer accepts a string and returns a Version,
-// with {0, 0, 0} being default.
+// parse reads major, minor and patch off the front of str and stores them on v,
+// overwriting all three. It reports whether str began with a digit at all, which
+// is how the callers tell a marker worth following from one that led nowhere.
+//
+// A component is the run of digits at the current position, and whatever single
+// byte ended that run is the separator: agents write a version as "126.0.6478",
+// as Apple's underscored "10_15_7", and with the run simply ending where the
+// next field begins - "4.0 mobile safari" is {4, 0, 0}. A component that starts
+// on a non-digit is zero, so a short version fills the rest with zeroes.
+//
+// The one rule that does not fall out of that is zero padding, and it is load
+// bearing: a component written "08" is read as 0 followed by 8 in the next
+// place, so "4.08" is {4, 0, 8}. That keeps the padded releases of the era that
+// wrote them distinct from the bare ones - Netscape 4.08 from 4.8, Opera 9.01
+// from 9.1 - which a single numeric reading of "08" would collapse.
 func (v *Version) parse(str string) bool {
-	if len(str) == 0 || str[0] < '0' || str[0] > '9' {
+	if len(str) == 0 || !isDigit(str[0]) {
 		return false
 	}
-	for i := range 3 {
-		empty := true
-		val := 0
-		l := len(str) - 1
-
-		for k, c := range str {
-			if c >= '0' && c <= '9' {
-				if empty {
-					val = int(c) - 48
-					empty = false
-					if k == l {
-						str = str[:0]
-					}
-					continue
-				}
-
-				if val == 0 {
-					if c == '0' {
-						if k == l {
-							str = str[:0]
-						}
-						continue
-					}
-					str = str[k:]
-					break
-				}
-
-				if val <= maxVersionPart {
-					val = 10*val + int(c) - 48
-				}
-				if k == l {
-					str = str[:0]
-				}
-				continue
+	var parts [3]int
+	for i := range parts {
+		padded := len(str) > 0 && str[0] == '0'
+		n := 0
+		for n < len(str) && isDigit(str[n]) {
+			if padded && str[n] != '0' {
+				break // the non-zero digit belongs to the next component
 			}
-			str = str[k+1:]
-			break
+			// Capped rather than wrapped; see maxVersionPart.
+			if parts[i] <= maxVersionPart {
+				parts[i] = 10*parts[i] + int(str[n]-'0')
+			}
+			n++
 		}
-
-		switch i {
-		case 0:
-			v.Major = val
-
-		case 1:
-			v.Minor = val
-
-		case 2:
-			v.Patch = val
+		if n < len(str) && padded && isDigit(str[n]) {
+			str = str[n:] // no separator to step over, the digit starts it
+		} else {
+			str = str[min(n+1, len(str)):]
 		}
 	}
+	v.Major, v.Minor, v.Patch = parts[0], parts[1], parts[2]
 	return true
 }
