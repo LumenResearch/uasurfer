@@ -81,14 +81,19 @@ func isAppEdge(c byte) bool {
 // webkitApp returns the app rendering the page on an Apple engine, for the
 // agents that carry no Chrome token for chromiumBrowser to work from.
 //
-// The gate is the "Version/<n>" that every real Safari states and no embedded
-// WebKit does, paired with the "Mobile/<build>" token that marks the agent as
-// iOS at all. A desktop agent has neither and pays for one comparison.
+// The gate is the "Mobile/<build>" token that marks the agent as iOS at all; a
+// desktop agent pays for one comparison. Only the tail after it is searched,
+// as in chromiumBrowser: an app writes its name at the end of the agent, and
+// plain Safari has some twenty bytes of tail. "Version/<n>" is deliberately no
+// gate: real Safari states it and most embedded WebKits do not, but the apps
+// that build their agent by appending their name to Safari's, as Line does,
+// state it too.
 func webkitApp(ua string) BrowserName {
-	if !strings.Contains(ua, "mobile/") || strings.Contains(ua, "version/") {
+	_, tail, ok := strings.Cut(ua, "mobile/")
+	if !ok {
 		return BrowserUnknown
 	}
-	return appBrowser(ua)
+	return appBrowser(tail)
 }
 
 // chromiumBrowser returns the browser behind a Chromium agent: Chrome unless
