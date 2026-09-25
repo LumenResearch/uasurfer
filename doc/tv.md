@@ -12,6 +12,7 @@ states an OS of its own, that is reported too.
 | Amazon Fire TV | `OSAndroid` | `PlatformLinux` | the Android version |
 | Android TV, Google TV, Chromecast | `OSAndroid` | `PlatformLinux` | the Android version |
 | Vizio, Hisense VIDAA, HbbTV boxes, RDK, NetCast, Viera, Bravia | `OSLinux` or `OSUnknown` | `PlatformLinux` | not stated by the device |
+| GStreamer, the media framework TV players fetch video with | `OSUnknown` | `PlatformUnknown` | not stated by the device |
 
 The last row is not an omission: those platforms are Linux and state no version
 of their own, so a constant per brand would buy a name and nothing else. Use

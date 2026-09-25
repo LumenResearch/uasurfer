@@ -18,6 +18,10 @@ var tvMarkers = []string{
 	"tpm191e", "tpm171e", "nokia streaming box", "stableavb_telly", "lxbox51",
 	" x96", "canal plus box", "vectra 4k box",
 	"diw377", "diw380", "dv8555", "dctiw362", "gd1 4k", "ai pont", "b-stream",
+	// The media framework of Hisense VIDAA, LG and Samsung players, fetching on
+	// their behalf. Desktop Linux ships it too, but a desktop's ads fire from
+	// a browser, not from its media framework.
+	"gstreamer",
 }
 
 // tvMarkersByFirstByte buckets tvMarkers so isTV can scan the agent once

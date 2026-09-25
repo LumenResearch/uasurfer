@@ -24,6 +24,7 @@ and an empty one changes nothing.
 | `Sec-CH-UA-Mobile`           | phone against tablet, the one thing an Android agent is worst at                      |
 | `Sec-CH-UA-Platform-Version` | the OS version on macOS, Android and ChromeOS, where the agent reports a frozen value |
 | `ScreenSize`                 | an iPad in desktop mode, which no header distinguishes from a Mac                     |
+| `AppBundle`                  | the device type outright for an app that only runs on a TV, such as `tv.vidaa.ui.plus` |
 
 Chromium sends `Sec-CH-UA-Mobile` and `Sec-CH-UA-Platform` by default. The rest
 arrive only if the site asks for them:
@@ -48,3 +49,12 @@ has to read the header itself.
 
 Sends none of this. The screen size hint is the only thing that helps there, and
 it is what tells an iPad in desktop mode from a Mac.
+
+## App bundle
+
+Not a header: the ID of the app an ad request came from, as the request states
+it. A TV app's requests often carry the video player's agent
+(`GStreamer curlhttpsrc libcurl/7.78.0`) or a desktop one, so for a bundle that
+only exists on televisions the bundle wins over the agent and over any form
+factor. The list is short on purpose: add a bundle only when it cannot run on
+anything but a TV.
