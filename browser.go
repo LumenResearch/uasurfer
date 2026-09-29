@@ -7,7 +7,7 @@ func (u *UserAgent) parseBrowserName(ua string) bool {
 	// Bots go first: a crawler copies a whole browser agent and appends itself,
 	// so every check below would match one before we got to it. Only agents
 	// carrying a hint of one pay for the full pass.
-	if botSuspect(ua) {
+	if botSuspect(ua) && !isGStreamer(ua) {
 		if name, ok := botName(ua); ok {
 			u.Browser.Name = name
 			return u.applyBotDefaults()
@@ -113,6 +113,11 @@ notwebkit:
 	// not, and is handled by token in botMarkers instead.
 	case strings.Contains(ua, "yandex"):
 		u.Browser.Name = BrowserYandexBot
+
+	// A TV's video player, not a script: GStreamer names the HTTP library it
+	// fetches with - "curlhttpsrc libcurl/7.78.0" - and curl/ is a bot marker.
+	case isGStreamer(ua):
+		u.Browser.Name = BrowserUnknown
 
 	default:
 		// No browser token at all: the shape of a script, an HTTP library or a
@@ -228,4 +233,12 @@ func (u *UserAgent) parseBrowserVersion(ua string) {
 	case BrowserDuckDuckGo:
 		_ = u.Browser.Version.parseAfter(ua, "duckduckgo/")
 	}
+}
+
+// isGStreamer reports whether ua is GStreamer, the media framework the video
+// players of TVs and set top boxes are built on. It fetches the ad's video and
+// tracking pixels itself and names its HTTP source and library, never the TV:
+// "GStreamer souphttpsrc 1.20.6 libsoup/2.72.0".
+func isGStreamer(ua string) bool {
+	return strings.HasPrefix(ua, "gstreamer ")
 }

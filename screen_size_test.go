@@ -97,6 +97,14 @@ func TestParseWithClientHints(t *testing.T) {
 			Hints{Platform: `"Android"`, PlatformVersion: `"14.0.0"`}, DeviceComputer, Version{10, 15, 7}},
 		{"Windows is left to the NT version the agent states", mac,
 			Hints{Platform: `"Windows"`, PlatformVersion: `"13.0.0"`}, DeviceComputer, Version{10, 15, 7}},
+
+		// A desktop agent inside a TV app is the app's player, not a desktop.
+		{"a TV app settles the device", mac,
+			Hints{AppBundle: "tv.vidaa.ui.plus"}, DeviceTV, Version{10, 15, 7}},
+		{"ahead of any form factor", androidPhone,
+			Hints{AppBundle: "TV.VIDAA.UI.PLUS", FormFactors: `"Mobile"`}, DeviceTV, Version{10, 0, 0}},
+		{"but any other app changes nothing", androidPhone,
+			Hints{AppBundle: "tv.vidaaplus.fake"}, DevicePhone, Version{10, 0, 0}},
 	}
 
 	for _, tt := range tests {

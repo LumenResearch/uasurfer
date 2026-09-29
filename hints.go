@@ -46,6 +46,28 @@ type Hints struct {
 	// answer to a question the agent has never answered well, and the only one
 	// that settles an Android tablet outright.
 	FormFactors string
+
+	// AppBundle is the ID of the app the request came from, as an ad request
+	// states it: "tv.vidaa.ui.plus", "com.roku.xyz". A bundle that only exists
+	// on televisions settles the device outright, which matters because a TV
+	// app's requests often carry no agent worth reading - the video player's
+	// own "GStreamer curlhttpsrc libcurl/7.78.0", or a desktop agent.
+	AppBundle string
+}
+
+// ctvAppPrefixes are the app bundles that only run on a television.
+var ctvAppPrefixes = []string{
+	"tv.vidaa.", // Hisense VIDAA
+}
+
+// isCTVApp reports whether bundle is an app that only runs on a television.
+func isCTVApp(bundle string) bool {
+	for _, p := range ctvAppPrefixes {
+		if len(bundle) >= len(p) && strings.EqualFold(bundle[:len(p)], p) {
+			return true
+		}
+	}
+	return false
 }
 
 // formFactors maps the header's values onto the device types we report.
@@ -68,6 +90,12 @@ func (h *Hints) apply(u *UserAgent) {
 	}
 
 	h.applyPlatformVersion(u)
+
+	// A TV app is on a TV, whatever the agent looked like.
+	if isCTVApp(h.AppBundle) {
+		u.DeviceType = DeviceTV
+		return
+	}
 
 	// Form factors are stated rather than inferred, so they win outright - but
 	// not over a television, which no form factor value describes and which the

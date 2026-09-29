@@ -10,6 +10,9 @@
 # redistributed under their licences. The expectations beside them are this
 # project's own: a row is a claim about what the agent means, not a snapshot of
 # whatever the parser said the day it was written.
+#
+# The GStreamer rows were seen in Lumen's own ad traffic, fetched by the video
+# players of Hisense VIDAA, LG NetCast and Samsung TVs.
 
 TV	TvOS	AppleCoreMedia/1.0.0.12F69 (Apple TV; U; CPU OS 8_3 like Mac OS X; en_us)
 TV	TvOS	AppleTV/1.1
@@ -1089,3 +1092,8 @@ TV	Linux	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (;;;;;); CE-HTML; TechniSat Digit
 TV	Roku	Roku/DVP-5.0 (025.00E08043A)
 TV	Roku	Roku/DVP-5.1 (025.01E01195A)
 TV	Roku	Roku/DVP-6.2 (096.02E06005A)
+TV	Unknown	GStreamer curlhttpsrc libcurl/7.78.0
+TV	Unknown	GStreamer curlhttpsrc libcurl/8.4.0
+TV	Unknown	GStreamer souphttpsrc 1.20.6 libsoup/2.72.0
+TV	Unknown	GStreamer souphttpsrc 1.24.11 libsoup/2.72.0
+TV	Unknown	GStreamer souphttpsrc (compatible; LG NetCast.TV-2013) libsoup/2.74.3
